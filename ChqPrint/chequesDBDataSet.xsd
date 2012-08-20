@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="chequesDBDataSet" targetNamespace="http://tempuri.org/chequesDBDataSet.xsd" xmlns:mstns="http://tempuri.org/chequesDBDataSet.xsd" xmlns="http://tempuri.org/chequesDBDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="chequesDBConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="chequesDBConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.ChqPrint.Properties.Settings.GlobalReference.Default.chequesDBConnectionString" Provider="Microsoft.SqlServerCe.Client.3.5" />
+        </Connections>
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="chequesDBDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="chequesDBDataSet" msprop:Generator_UserDSName="chequesDBDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Dimensiones_cheques" msprop:Generator_TableClassName="Dimensiones_chequesDataTable" msprop:Generator_TableVarName="tableDimensiones_cheques" msprop:Generator_TablePropName="Dimensiones_cheques" msprop:Generator_RowDeletingName="Dimensiones_chequesRowDeleting" msprop:Generator_UserTableName="Dimensiones_cheques" msprop:Generator_RowChangingName="Dimensiones_chequesRowChanging" msprop:Generator_RowEvHandlerName="Dimensiones_chequesRowChangeEventHandler" msprop:Generator_RowDeletedName="Dimensiones_chequesRowDeleted" msprop:Generator_RowEvArgName="Dimensiones_chequesRowChangeEvent" msprop:Generator_RowChangedName="Dimensiones_chequesRowChanged" msprop:Generator_RowClassName="Dimensiones_chequesRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="campo1_largo" msprop:Generator_ColumnVarNameInTable="columncampo1_largo" msprop:Generator_ColumnPropNameInRow="campo1_largo" msprop:Generator_ColumnPropNameInTable="campo1_largoColumn" msprop:Generator_UserColumnName="campo1_largo" type="xs:int" minOccurs="0" />
+              <xs:element name="campo2_largo" msprop:Generator_ColumnVarNameInTable="columncampo2_largo" msprop:Generator_ColumnPropNameInRow="campo2_largo" msprop:Generator_ColumnPropNameInTable="campo2_largoColumn" msprop:Generator_UserColumnName="campo2_largo" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
