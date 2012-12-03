@@ -2,18 +2,17 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:s="clr-namespace:ChqPrint"
-        Title="Impresion de Cheques" Height="350" Width="701" Background="#FFBECBEB">
-    <Grid Height="242" Name="grid1" Width="653">
+        Title="Impresion de Cheques" Height="320" Width="640" Background="PaleGoldenrod" Closed="Window_Closed">
+    <Grid Name="grid1">
         <Grid.RowDefinitions>
             <RowDefinition Height="73*" />
             <RowDefinition Height="111*" />
             <RowDefinition Height="58*" />
         </Grid.RowDefinitions>
-        <ToolBar Height="73" HorizontalAlignment="Left" Name="toolBar1" VerticalAlignment="Top" Width="500" Background="#5A1B1B1D">
-            <Button Content="Diseñar" HorizontalAlignment="Left" Name="design" VerticalAlignment="Top" Width="200" FontStretch="Normal" FontWeight="Bold" FontSize="16" Height="70" Click="design_Click" />
+        <ToolBar Height="64" Name="toolBar1" Background="#5A1B1B1D" Margin="12,12,12,0" VerticalAlignment="Top" HorizontalContentAlignment="Stretch">
+            <Button Content="Diseñar" Name="buttonDesign" FontStretch="Normal" FontWeight="Bold" FontSize="16" Click="design_Click" HorizontalAlignment="Stretch" Width="128" />
             <Separator></Separator>
-            <Button Content="Imprimir" HorizontalAlignment="Left" Name="print" VerticalAlignment="Top" Width="200" FontStretch="Normal" FontWeight="Bold" FontSize="16" Height="70" />
-            <Separator></Separator>
+            <Button Content="Imprimir" Name="buttonPrint" FontStretch="Normal" FontWeight="Bold" FontSize="16" HorizontalAlignment="Stretch" Width="128" Click="buttonPrint_Click" />
         </ToolBar>
        
     </Grid>

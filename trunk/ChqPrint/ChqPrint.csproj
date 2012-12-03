@@ -97,6 +97,7 @@
       <DependentUpon>Designer.xaml</DependentUpon>
     </Compile>
     <Compile Include="DrawingCanvas.cs" />
+    <Compile Include="Impresion.cs" />
     <Compile Include="VentanaPrincipal.xaml.cs">
       <DependentUpon>VentanaPrincipal.xaml</DependentUpon>
       <SubType>Code</SubType>
