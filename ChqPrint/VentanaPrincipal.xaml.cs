@@ -25,23 +25,32 @@ namespace ChqPrint
         public VentanaPrincipal()
         {
             InitializeComponent();
-            
         }
 
         private void design_Click(object sender, RoutedEventArgs e)
         {
-             if (Designer.IsOpen)// Se controla que una instancia de esta ventana no este abierta. 
+            if (Designer.IsOpen) // Se controla que una instancia de esta Ventana no este abierta. 
             {
-                this.ventanaDesigner.Activate();// Si esta abierta entonces activar, mandar al frente
+                this.ventanaDesigner.Activate(); // Si está abierta entonces activar y mandar al frente.
                 return;
             }
-            else // NO ESTA ABIERTA. Abrir una instancia de la ventana.
+            else // No está abierta. Abrir una instancia de la Ventana.
             {
                 Type type = this.GetType();
                 Assembly assembly = type.Assembly;
                 this.ventanaDesigner = (Window)assembly.CreateInstance("ChqPrint.Designer");
                 this.ventanaDesigner.Show();
             }
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Application.Current.Shutdown(); // Cerrar la Aplicación Entera.
+        }
+
+        private void buttonPrint_Click(object sender, RoutedEventArgs e)
+        {
+            Impresion.ImprimirCheque();
         }
 
     }
