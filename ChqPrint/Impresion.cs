@@ -18,6 +18,7 @@ namespace ChqPrint
     {
         public static bool ImprimirCheque()
         {
+            System.Console.WriteLine(VentanaPrincipal.layoutFilename);
             // Creamos la clase pariente 'FixedDocument'.
             FixedDocument fixedDoc = new FixedDocument();
 
@@ -48,7 +49,7 @@ namespace ChqPrint
                 fixedDoc.DocumentPaginator.PageSize = new Size(pDialog.PrintableAreaWidth, pDialog.PrintableAreaHeight);
                 try
                 {
-                    pDialog.PrintDocument(aDocPage, "Table Printing Test");
+                    pDialog.PrintDocument(aDocPage, "ChqPrint - Cheque");
                     return true;
                 }
                 catch
