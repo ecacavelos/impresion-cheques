@@ -76,6 +76,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="VentanaElegirCheque.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="VentanaPrincipal.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -93,11 +97,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>chequesDBDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Configuration.cs" />
     <Compile Include="Designer.xaml.cs">
       <DependentUpon>Designer.xaml</DependentUpon>
     </Compile>
     <Compile Include="DrawingCanvas.cs" />
     <Compile Include="Impresion.cs" />
+    <Compile Include="VentanaElegirCheque.xaml.cs">
+      <DependentUpon>VentanaElegirCheque.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VentanaPrincipal.xaml.cs">
       <DependentUpon>VentanaPrincipal.xaml</DependentUpon>
       <SubType>Code</SubType>
