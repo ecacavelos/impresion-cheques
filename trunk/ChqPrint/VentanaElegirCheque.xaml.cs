@@ -21,6 +21,8 @@ namespace ChqPrint
         private Configuration c0;
         public static bool IsOpen { get; private set; }
 
+        #region "Funciones relativas a la Inicializacion, Carga y Descarga de la Ventana"
+
         public VentanaElegirCheque()
         {
             InitializeComponent();
@@ -35,6 +37,8 @@ namespace ChqPrint
         {
             IsOpen = false;
         }
+
+        #endregion
 
         private void buttonAbrir_Click(object sender, RoutedEventArgs e)
         {
@@ -60,6 +64,8 @@ namespace ChqPrint
             }
         }
 
+        #region "Funciones relativas a los botones Aceptar, Cancelar, etc."
+
         private void buttonAceptar_Click(object sender, RoutedEventArgs e)
         {
             // Si se seleccionó previamente un archivo válido, se guarda su ubicación.
@@ -71,5 +77,8 @@ namespace ChqPrint
         {
             this.Close();   // Se sale sin hacer nada.
         }
+
+        #endregion
+
     }
 }
