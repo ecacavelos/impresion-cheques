@@ -22,10 +22,12 @@ namespace ChqPrint
     {
         public static string layoutFilename;
         private Configuration c2;
-        private bool xmlinvalido = false;
+        //private bool xmlinvalido = false;
 
         private Window ventanaDesigner = new Window();
         private Window ventanaOpenFile = new Window();
+        private Window ventanaVistaCheques = new Window();
+        private Window ventanaImprimirCheques = new Window();
 
         #region "Funciones relativas a la Inicializacion, Carga y Descarga de la Ventana"
 
@@ -50,7 +52,7 @@ namespace ChqPrint
             {
                 System.Console.WriteLine(ex.Message);
                 System.Windows.MessageBox.Show("Existe un error con el archivo de configuración.\nPor favor ingrese a la ventana de Configuración para recuperar las opciones.", "Archivo de Configuración");
-                xmlinvalido = true;
+                //xmlinvalido = true;
             }
         }
 
@@ -87,7 +89,18 @@ namespace ChqPrint
 
         private void buttonReport_Click(object sender, RoutedEventArgs e)
         {
-
+            if (VentanaVistaCheques.IsOpen) // Se controla que una instancia de esta Ventana no este abierta. 
+            {
+                this.ventanaVistaCheques.Activate(); // Si está abierta entonces activar y mandar al frente.
+                return;
+            }
+            else // No está abierta. Abrir una instancia de la Ventana.
+            {
+                Type type = this.GetType();
+                Assembly assembly = type.Assembly;
+                this.ventanaVistaCheques = (Window)assembly.CreateInstance("ChqPrint.VentanaVistaCheques");
+                this.ventanaVistaCheques.Show();
+            }
         }
 
         private void buttonPreview_Click(object sender, RoutedEventArgs e)
@@ -97,7 +110,19 @@ namespace ChqPrint
 
         private void buttonPrint_Click(object sender, RoutedEventArgs e)
         {
-            Impresion.ImprimirCheque();
+            if (VentanaImprimirCheque.IsOpen) // Se controla que una instancia de esta Ventana no este abierta. 
+            {
+                this.ventanaVistaCheques.Activate(); // Si está abierta entonces activar y mandar al frente.
+                return;
+            }
+            else // No está abierta. Abrir una instancia de la Ventana.
+            {
+                Type type = this.GetType();
+                Assembly assembly = type.Assembly;
+                this.ventanaImprimirCheques = (Window)assembly.CreateInstance("ChqPrint.VentanaImprimirCheque");
+                this.ventanaImprimirCheques.Show();
+            }
+            //Impresion.ImprimirCheque();
         }
 
         #endregion
