@@ -122,7 +122,6 @@ namespace ChqPrint
                 this.ventanaImprimirCheques = (Window)assembly.CreateInstance("ChqPrint.VentanaImprimirCheque");
                 this.ventanaImprimirCheques.Show();
             }
-            //Impresion.ImprimirCheque();
         }
 
         #endregion

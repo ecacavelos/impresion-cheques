@@ -80,6 +80,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Numalet.cs" />
     <Compile Include="VentanaImprimirCheque.xaml.cs">
       <DependentUpon>VentanaImprimirCheque.xaml</DependentUpon>
     </Compile>
