@@ -39,5 +39,13 @@ namespace ChqPrint
 
         #endregion
 
+        private void buttonImprimir_Click(object sender, RoutedEventArgs e)
+        {
+            if (Impresion.ImprimirCheque(DateTime.Now))
+            {
+                System.Windows.MessageBox.Show("Se imprimió el Cheque.", "Impresión");
+            }
+        }
+
     }
 }

@@ -13,6 +13,9 @@ namespace ChqPrint
         {
             public int yFecha;
             public int xFechaDia, xFechaMes, xFechaAño;
+            public int xMonto, yMonto;
+            public int xPagueseOrdenDe, yPagueseOrdenDe;
+            public int xMontoEnLetras, yMontoEnLetras;
         }
 
         int _Version;
@@ -25,6 +28,8 @@ namespace ChqPrint
             _ChequeID = "Cheque Estándar";
             InicializarCoordenadas();
         }
+
+        #region "Funciones Relativas a la Lectura y Escritura del Archivo de Configuración"
 
         public static void Serialize(string file, Configuration c)
         {
@@ -45,6 +50,8 @@ namespace ChqPrint
             reader.Close();
             return c;
         }
+
+        #endregion
 
         public int Version
         {
@@ -67,10 +74,20 @@ namespace ChqPrint
         {
             // Creamos e inicializamos la Estructura con las Coordenadas para la Impresión.
             _ImpresionCoords = new ImpresionCoords();
+            // Fecha.
             _ImpresionCoords.yFecha = 15;
             _ImpresionCoords.xFechaDia = 120;
             _ImpresionCoords.xFechaMes = 160;
             _ImpresionCoords.xFechaAño = 230;
+            // Monto en Números.
+            _ImpresionCoords.xMonto = 120;
+            _ImpresionCoords.yMonto = 30;
+            // Páguese a la Orden De.
+            _ImpresionCoords.xPagueseOrdenDe = 120;
+            _ImpresionCoords.yPagueseOrdenDe = 45;
+            // Monto en Letras.
+            _ImpresionCoords.xMontoEnLetras = 120;
+            _ImpresionCoords.yMontoEnLetras = 60;
         }
     }
 }
