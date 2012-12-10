@@ -80,6 +80,22 @@ namespace ChqPrint
             }
         }
         private ObjectSet<Cheques> _Cheques;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Formatos> Formatos
+        {
+            get
+            {
+                if ((_Formatos == null))
+                {
+                    _Formatos = base.CreateObjectSet<Formatos>("Formatos");
+                }
+                return _Formatos;
+            }
+        }
+        private ObjectSet<Formatos> _Formatos;
 
         #endregion
         #region AddTo Methods
@@ -90,6 +106,14 @@ namespace ChqPrint
         public void AddToCheques(Cheques cheques)
         {
             base.AddObject("Cheques", cheques);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Formatos EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToFormatos(Formatos formatos)
+        {
+            base.AddObject("Formatos", formatos);
         }
 
         #endregion
@@ -272,6 +296,133 @@ namespace ChqPrint
         private global::System.String _MontoEnLetras;
         partial void OnMontoEnLetrasChanging(global::System.String value);
         partial void OnMontoEnLetrasChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> Anulado
+        {
+            get
+            {
+                return _Anulado;
+            }
+            set
+            {
+                OnAnuladoChanging(value);
+                ReportPropertyChanging("Anulado");
+                _Anulado = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Anulado");
+                OnAnuladoChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _Anulado;
+        partial void OnAnuladoChanging(Nullable<global::System.Boolean> value);
+        partial void OnAnuladoChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="ChqDatabase1Model", Name="Formatos")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Formatos : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Formatos object.
+        /// </summary>
+        /// <param name="idFormato">Initial value of the idFormato property.</param>
+        public static Formatos CreateFormatos(global::System.Int32 idFormato)
+        {
+            Formatos formatos = new Formatos();
+            formatos.idFormato = idFormato;
+            return formatos;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 idFormato
+        {
+            get
+            {
+                return _idFormato;
+            }
+            set
+            {
+                if (_idFormato != value)
+                {
+                    OnidFormatoChanging(value);
+                    ReportPropertyChanging("idFormato");
+                    _idFormato = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("idFormato");
+                    OnidFormatoChanged();
+                }
+            }
+        }
+        private global::System.Int32 _idFormato;
+        partial void OnidFormatoChanging(global::System.Int32 value);
+        partial void OnidFormatoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Path
+        {
+            get
+            {
+                return _Path;
+            }
+            set
+            {
+                OnPathChanging(value);
+                ReportPropertyChanging("Path");
+                _Path = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Path");
+                OnPathChanged();
+            }
+        }
+        private global::System.String _Path;
+        partial void OnPathChanging(global::System.String value);
+        partial void OnPathChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Descripcion
+        {
+            get
+            {
+                return _Descripcion;
+            }
+            set
+            {
+                OnDescripcionChanging(value);
+                ReportPropertyChanging("Descripcion");
+                _Descripcion = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Descripcion");
+                OnDescripcionChanged();
+            }
+        }
+        private global::System.String _Descripcion;
+        partial void OnDescripcionChanging(global::System.String value);
+        partial void OnDescripcionChanged();
 
         #endregion
     

@@ -7,6 +7,7 @@
     <Schema Namespace="ChqDatabase1Model.Store" Alias="Self" Provider="System.Data.SqlServerCe.3.5" ProviderManifestToken="3.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="ChqDatabase1ModelStoreContainer">
           <EntitySet Name="Cheques" EntityType="ChqDatabase1Model.Store.Cheques" store:Type="Tables" />
+          <EntitySet Name="Formatos" EntityType="ChqDatabase1Model.Store.Formatos" store:Type="Tables" />
         </EntityContainer>
         <EntityType Name="Cheques">
           <Key>
@@ -18,6 +19,15 @@
           <Property Name="Monto" Type="int" />
           <Property Name="PagueseOrdenDe" Type="nvarchar" MaxLength="100" />
           <Property Name="MontoEnLetras" Type="nvarchar" MaxLength="100" />
+          <Property Name="Anulado" Type="bit" />
+        </EntityType>
+        <EntityType Name="Formatos">
+          <Key>
+            <PropertyRef Name="idFormato" />
+          </Key>
+          <Property Name="idFormato" Type="int" Nullable="false" />
+          <Property Name="Path" Type="nvarchar" MaxLength="100" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="100" />
         </EntityType>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -25,6 +35,7 @@
       <Schema Namespace="ChqDatabase1Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="ChqDatabase1Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Cheques" EntityType="ChqDatabase1Model.Cheques" />
+          <EntitySet Name="Formatos" EntityType="ChqDatabase1Model.Formatos" />
         </EntityContainer>
         <EntityType Name="Cheques">
           <Key>
@@ -36,6 +47,15 @@
           <Property Type="Int32" Name="Monto" />
           <Property Type="String" Name="PagueseOrdenDe" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="MontoEnLetras" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="Anulado" />
+        </EntityType>
+        <EntityType Name="Formatos">
+          <Key>
+            <PropertyRef Name="idFormato" />
+          </Key>
+          <Property Type="Int32" Name="idFormato" Nullable="false" />
+          <Property Type="String" Name="Path" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Descripcion" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -44,13 +64,23 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ChqDatabase1ModelStoreContainer" CdmEntityContainer="ChqDatabase1Entities">
           <EntitySetMapping Name="Cheques"><EntityTypeMapping TypeName="ChqDatabase1Model.Cheques"><MappingFragment StoreEntitySet="Cheques">
-            <ScalarProperty Name="MontoEnLetras" ColumnName="MontoEnLetras" />
+            <ScalarProperty Name="Anulado" ColumnName="Anulado" />
+                <ScalarProperty Name="MontoEnLetras" ColumnName="MontoEnLetras" />
                 <ScalarProperty Name="PagueseOrdenDe" ColumnName="PagueseOrdenDe" />
                 <ScalarProperty Name="Monto" ColumnName="Monto" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
                 <ScalarProperty Name="idCheque" ColumnName="idCheque" />
             <ScalarProperty Name="nroCheque" ColumnName="nroCheque" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Formatos">
+            <EntityTypeMapping TypeName="ChqDatabase1Model.Formatos">
+              <MappingFragment StoreEntitySet="Formatos">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="idFormato" ColumnName="idFormato" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -73,6 +103,7 @@
     <Diagrams>
       <Diagram Name="Model1">
         <EntityTypeShape EntityType="ChqDatabase1Model.Cheques" Width="1.5" PointX="0.75" PointY="0.75" Height="1.4033821614583331" IsExpanded="true" />
+        <EntityTypeShape EntityType="ChqDatabase1Model.Formatos" Width="1.5" PointX="3.375" PointY="0.75" Height="1.59568359375" />
       </Diagram>
     </Diagrams>
   </Designer>

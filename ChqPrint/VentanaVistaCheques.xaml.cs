@@ -59,5 +59,13 @@ namespace ChqPrint
             return chequesQuery;
         }
 
+        private void dataGrid1_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
+        {
+            if (((Cheques)e.Row.Item).Anulado == null)
+            {
+                ((Cheques)e.Row.Item).Anulado = false;
+            }
+        }
+
     }
 }

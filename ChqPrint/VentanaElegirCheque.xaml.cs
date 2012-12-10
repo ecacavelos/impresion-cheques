@@ -21,6 +21,8 @@ namespace ChqPrint
         private Configuration c0;
         public static bool IsOpen { get; private set; }
 
+        ChqPrint.ChqDatabase1Entities database1Entities = new ChqPrint.ChqDatabase1Entities();
+
         #region "Funciones relativas a la Inicializacion, Carga y Descarga de la Ventana"
 
         public VentanaElegirCheque()
@@ -31,6 +33,15 @@ namespace ChqPrint
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             IsOpen = true;
+            // Cargamos los Cheques en el comboBox            
+            string esql = String.Format("SELECT value f FROM Formatos as f");
+            var formatosVar = database1Entities.CreateQuery<Formatos>(esql);
+            foreach (Formatos tempFormato in formatosVar)
+            {
+                ComboBoxItem elementoCombo = new ComboBoxItem();
+                elementoCombo.Content = tempFormato.Descripcion;
+                comboBox1.Items.Add(elementoCombo);
+            }
         }
 
         private void Window_Unloaded(object sender, RoutedEventArgs e)
@@ -53,7 +64,7 @@ namespace ChqPrint
                 /* String que contiene el path completo del archivo seleccionado, 
                  * incluyendo el nombre del archivo. */
                 string filename = dlg.FileName;
-                labelArchivo.Content = filename.ToString();
+                //labelArchivo.Content = filename.ToString();
 
                 // Se trata de leer el archivo xml seleccionado.
                 this.c0 = Configuration.Deserialize(filename);
@@ -69,7 +80,7 @@ namespace ChqPrint
         private void buttonAceptar_Click(object sender, RoutedEventArgs e)
         {
             // Si se seleccionó previamente un archivo válido, se guarda su ubicación.
-            VentanaPrincipal.layoutFilename = labelArchivo.Content.ToString();
+            //VentanaPrincipal.layoutFilename = labelArchivo.Content.ToString();
             this.Close();
         }
 

@@ -131,5 +131,10 @@ namespace ChqPrint
             Application.Current.Shutdown(); // Cerrar la Aplicación Entera.
         }
 
+        private void menuItem_AdministrarFormatos(object sender, RoutedEventArgs e)
+        {
+
+        }
+
     }
 }
