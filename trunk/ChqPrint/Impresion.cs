@@ -17,7 +17,7 @@ namespace ChqPrint
     public static class Impresion
     {
 
-        public static bool ImprimirCheque(DateTime fecha)
+        public static bool ImprimirCheque(DateTime fecha, int monto, string beneficiario)
         {
             System.Console.WriteLine(VentanaPrincipal.layoutFilename);
             Configuration c2 = Configuration.Deserialize(VentanaPrincipal.layoutFilename);
@@ -54,21 +54,21 @@ namespace ChqPrint
 
             // --- Monto ---
             TextBlock chqMonto = new TextBlock();
-            chqMonto.Text = "100000";
+            chqMonto.Text = monto.ToString();
             page1.Children.Add(chqMonto);
             FixedPage.SetLeft(chqMonto, c2.CoordenadasImpresion.xMonto);
             FixedPage.SetTop(chqMonto, c2.CoordenadasImpresion.yMonto);
 
             // --- Páguese a la Orden De ---
             TextBlock chqPagueseOrdenDe = new TextBlock();
-            chqPagueseOrdenDe.Text = "C.B. Solutions SRL";
+            chqPagueseOrdenDe.Text = beneficiario;
             page1.Children.Add(chqPagueseOrdenDe);
             FixedPage.SetLeft(chqPagueseOrdenDe, c2.CoordenadasImpresion.xPagueseOrdenDe);
             FixedPage.SetTop(chqPagueseOrdenDe, c2.CoordenadasImpresion.yPagueseOrdenDe);
 
             // --- Monto en Letras ---
             TextBlock chqMontoEnLetras = new TextBlock();
-            chqMontoEnLetras.Text = Numalet.ToCardinal((int)100000).ToUpper();
+            chqMontoEnLetras.Text = Numalet.ToCardinal((int)monto).ToUpper();
             page1.Children.Add(chqMontoEnLetras);
             FixedPage.SetLeft(chqMontoEnLetras, c2.CoordenadasImpresion.xMontoEnLetras);
             FixedPage.SetTop(chqMontoEnLetras, c2.CoordenadasImpresion.yMontoEnLetras);

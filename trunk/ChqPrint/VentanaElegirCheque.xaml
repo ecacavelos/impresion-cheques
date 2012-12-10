@@ -3,8 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="VentanaElegirCheque" Height="200" Width="640" Loaded="Window_Loaded" Unloaded="Window_Unloaded">
     <Grid>
-        <Button Content="Abrir..." Height="26" HorizontalAlignment="Right" Margin="0,12,12,0" Name="buttonAbrir" VerticalAlignment="Top" Width="75" Click="buttonAbrir_Click" />
-        <Label Content="---" HorizontalAlignment="Stretch" Margin="12,12,93,0" Name="labelArchivo" VerticalAlignment="Top" Background="LightGray" />
         <Button Content="Aceptar" Height="23" HorizontalAlignment="Right" Margin="0,0,93,12" Name="buttonAceptar" VerticalAlignment="Bottom" Width="75" Click="buttonAceptar_Click" IsEnabled="False" />
         <Button Content="Cancelar" Height="23" HorizontalAlignment="Right" Margin="0,0,12,12" Name="buttonCancelar" VerticalAlignment="Bottom" Width="75" Click="buttonCancelar_Click" />
         <GroupBox Header="Datos del Cheque" Height="67" Margin="12,44,12,0" Name="groupBox1" VerticalAlignment="Top">
@@ -13,5 +11,6 @@
                 <Label Content="---" HorizontalAlignment="Stretch" Margin="76,6,6,0" Name="labelNombre" VerticalAlignment="Top" />
             </Grid>
         </GroupBox>
+        <ComboBox Height="26" HorizontalAlignment="Stretch" Margin="12,12,12,0" Name="comboBox1" VerticalAlignment="Top" />
     </Grid>
 </Window>

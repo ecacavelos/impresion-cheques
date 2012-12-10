@@ -6,7 +6,13 @@
         <CollectionViewSource x:Key="chequesViewSource" d:DesignSource="{d:DesignInstance my:Cheques, CreateList=True}" />
     </Window.Resources>
     <Grid DataContext="{StaticResource chequesViewSource}">
-        <DataGrid AutoGenerateColumns="False" HorizontalAlignment="Stretch" Margin="12" Name="dataGrid1" VerticalAlignment="Stretch" ItemsSource="{Binding}" HorizontalGridLinesBrush="DarkGray" VerticalGridLinesBrush="DarkGray">
+        <DataGrid AutoGenerateColumns="False" HorizontalAlignment="Stretch" Margin="12" Name="dataGrid1" VerticalAlignment="Stretch" ItemsSource="{Binding}" HorizontalGridLinesBrush="DarkGray" VerticalGridLinesBrush="DarkGray" RowEditEnding="dataGrid1_RowEditEnding">
+            <DataGrid.Resources>
+                <Style x:Key="DataGridCheckBoxStyle" TargetType="CheckBox">
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                    <Setter Property="HorizontalAlignment" Value="Center" />
+                </Style>
+            </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="idColumn" Binding="{Binding Path=idCheque}" Header="ID" />
                 <DataGridTextColumn x:Name="nroColumn" Binding="{Binding Path=nroCheque}" Header="Cheque Nro" />
@@ -14,6 +20,13 @@
                 <DataGridTextColumn x:Name="montoColumn" Binding="{Binding Path=Monto}" Header="Monto" />
                 <DataGridTextColumn x:Name="pagueseColumn" Binding="{Binding Path=PagueseOrdenDe}" Header="Paguese a la Orden de" />
                 <DataGridTextColumn x:Name="montoLetrasColumn" Binding="{Binding Path=MontoEnLetras}" Header="Monto en Letras" />
+                <DataGridTemplateColumn x:Name="fotoColumn" Width="Auto" Header="Anulado" SortMemberPath="hasFoto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox Style="{StaticResource DataGridCheckBoxStyle}" IsChecked="{Binding Path=Anulado, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
