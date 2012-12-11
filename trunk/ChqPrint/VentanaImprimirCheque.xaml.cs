@@ -32,7 +32,29 @@ namespace ChqPrint
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             IsOpen = true;
+
             datePickerFecha.SelectedDate = DateTime.Now;    // La fecha del cheque.
+            // Hacemos un query a la base de datos para obtener todas los cheques.
+            string esql = "SELECT value c FROM Cheques as c";
+            var chequesVar = database1Entities.CreateQuery<Cheques>(esql);
+
+            // Si existe al menos un cheque.
+            int lastNroCheque = 0;
+            if (chequesVar.ToList().Count > 0)
+            {
+                // Pasamos el string "Nro_Factura" obtenido de la ultima entrada de la tabla Facturas a int
+                Int32.TryParse(chequesVar.ToList().ElementAt(chequesVar.ToList().Count - 1).nroCheque, out lastNroCheque);
+                // Incrementamos en 1 la ultima factura y desplegamos el valor sugerido en el textbox
+                lastNroCheque++;
+                textBoxNumeroCheque.Text = lastNroCheque.ToString("0000000");
+            }
+            else
+            {
+                textBoxNumeroCheque.Text = "0000000";
+            }
+
+            textBoxMonto.Focus();
+
         }
 
         private void Window_Unloaded(object sender, RoutedEventArgs e)
@@ -53,8 +75,8 @@ namespace ChqPrint
                 TimeSpan time = (DateTime.UtcNow - new DateTime(1970, 1, 1));
                 int timestamp = (int)time.TotalSeconds;
                 tempCheque.idCheque = timestamp;                        // Nuevo ID = timestamp.
-            }            
-            tempCheque.nroCheque = 1.ToString();
+            }
+            tempCheque.nroCheque = textBoxNumeroCheque.Text;
             tempCheque.Fecha = datePickerFecha.SelectedDate;
             tempCheque.Monto = tempMonto;
             tempCheque.PagueseOrdenDe = textBoxPaguese.Text;
@@ -64,10 +86,11 @@ namespace ChqPrint
             if (Impresion.ImprimirCheque((DateTime)(tempCheque.Fecha), (int)tempCheque.Monto, tempCheque.PagueseOrdenDe))
             {
                 System.Windows.MessageBox.Show("Se imprimió el Cheque.", "Impresión");
+                database1Entities.Cheques.AddObject(tempCheque);
+                database1Entities.SaveChanges();
+                this.Close();
             }
-            
-            database1Entities.Cheques.AddObject(tempCheque);
-            database1Entities.SaveChanges();
+
         }
 
     }

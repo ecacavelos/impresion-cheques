@@ -11,6 +11,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using System.Globalization;
+using ExportToExcelTools;
+
 namespace ChqPrint
 {
     /// <summary>
@@ -67,5 +70,42 @@ namespace ChqPrint
             }
         }
 
+        #region "Funciones relativas a los Botones Externos"
+
+        private void buttonExportar_Click(object sender, RoutedEventArgs e)
+        {
+            ExportToExcelTools.DataGridExcelTools.SetFormatForExport(dataGridCheques.Columns[1], "dd.MM.yyyy");
+            dataGridCheques.ExportToExcel();
+        }
+
+        private void buttonSalir_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        #endregion
+
     }
+
+    #region "Conversores para los data bindings de esta ventana."
+    [ValueConversion(typeof(int), typeof(string))]
+    public class IntToNumericStringConverter : IValueConverter
+    {
+        #region IValueConverter Members
+        public object Convert(object value, Type targetType, object parameter,
+            System.Globalization.CultureInfo culture)
+        {
+            //string myFormattedNumericString = value.ToString();
+            string myFormattedNumericString = ((int)value).ToString("#,##0");
+            return myFormattedNumericString;
+        }
+        public object ConvertBack(object value, Type targetType, object parameter,
+            System.Globalization.CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+        #endregion
+    }
+    #endregion
+
 }
