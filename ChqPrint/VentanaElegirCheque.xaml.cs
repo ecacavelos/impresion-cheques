@@ -40,7 +40,7 @@ namespace ChqPrint
             {
                 ComboBoxItem elementoCombo = new ComboBoxItem();
                 elementoCombo.Content = tempFormato.Descripcion;
-                comboBox1.Items.Add(elementoCombo);
+                comboBoxFormatoCheque.Items.Add(elementoCombo);
             }
         }
 
@@ -80,8 +80,18 @@ namespace ChqPrint
         private void buttonAceptar_Click(object sender, RoutedEventArgs e)
         {
             // Si se seleccionó previamente un archivo válido, se guarda su ubicación.
-            //VentanaPrincipal.layoutFilename = labelArchivo.Content.ToString();
-            this.Close();
+            string esql = String.Format("SELECT value f FROM Formatos as f WHERE f.Descripcion = '{0}'", ((ComboBoxItem)comboBoxFormatoCheque.SelectedItem).Content.ToString());
+            var formatosVar = database1Entities.CreateQuery<Formatos>(esql);
+
+            System.Console.WriteLine(esql);
+
+            if (formatosVar.Count() == 1)
+            {
+                VentanaPrincipal.layoutFilename = formatosVar.First().Path;
+                VentanaPrincipal.labelTipoChequeHomeScreen.Content = ((ComboBoxItem)comboBoxFormatoCheque.SelectedItem).Content.ToString();
+                this.Close();
+            }
+
         }
 
         private void buttonCancelar_Click(object sender, RoutedEventArgs e)
@@ -90,6 +100,11 @@ namespace ChqPrint
         }
 
         #endregion
+
+        private void comboBoxFormatoCheque_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            buttonAceptar.IsEnabled = true;
+        }
 
     }
 }

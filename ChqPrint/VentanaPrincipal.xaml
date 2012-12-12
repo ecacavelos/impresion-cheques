@@ -25,6 +25,6 @@
             <Separator></Separator>-->
             <Button Content="Imprimir" Name="buttonPrint" FontStretch="Normal" FontWeight="Bold" FontSize="16" HorizontalAlignment="Stretch" Width="134" Click="buttonPrint_Click" />
         </ToolBar>
-        <Label Content="---" Height="28" HorizontalAlignment="Right" Margin="0,0,12,12" Name="label1" VerticalAlignment="Bottom" Width="128" HorizontalContentAlignment="Right" Grid.Row="1" />
+        <Label Content="---" Height="28" HorizontalAlignment="Right" Margin="0,0,12,12" Name="label1" VerticalAlignment="Bottom" Width="128" HorizontalContentAlignment="Right" Grid.Row="1" FontSize="14" FontWeight="Bold" Foreground="Black" />
     </Grid>
 </Window>
