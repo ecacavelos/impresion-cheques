@@ -55,6 +55,28 @@ namespace ChqPrint
 
             textBoxMonto.Focus();
 
+            int defaultIndex = 0;
+            int i = 0;
+            // Cargamos los Cheques en el comboBox            
+            string esqlFormatos = String.Format("SELECT value f FROM Formatos as f");
+            var formatosVar = database1Entities.CreateQuery<Formatos>(esqlFormatos);
+            foreach (Formatos tempFormato in formatosVar)
+            {
+                ComboBoxItem elementoCombo = new ComboBoxItem();
+                elementoCombo.Content = tempFormato.Descripcion;
+                comboBoxTipoCheque.Items.Add(elementoCombo);
+                if (tempFormato.Path == VentanaPrincipal.layoutFilename)
+                {
+                    defaultIndex = i;
+                }
+                i++;
+            }
+
+            if (comboBoxTipoCheque.HasItems)
+            {
+                comboBoxTipoCheque.SelectedIndex = defaultIndex;
+            }
+
         }
 
         private void Window_Unloaded(object sender, RoutedEventArgs e)
@@ -66,29 +88,87 @@ namespace ChqPrint
 
         private void buttonImprimir_Click(object sender, RoutedEventArgs e)
         {
-            int tempMonto = 0;
-            Int32.TryParse(textBoxMonto.Text, out tempMonto);
 
-            Cheques tempCheque = new Cheques();
-            if (tempCheque.idCheque == 0)                               // Si el ID no existe.
+            int validarNroCheque = 0;
+            int validarMonto = 0;
+
+            // Validamos el campo "Numero de Cheque"
+            try
             {
-                TimeSpan time = (DateTime.UtcNow - new DateTime(1970, 1, 1));
-                int timestamp = (int)time.TotalSeconds;
-                tempCheque.idCheque = timestamp;                        // Nuevo ID = timestamp.
+                validarNroCheque = Convert.ToInt32(textBoxNumeroCheque.Text);
             }
-            tempCheque.nroCheque = textBoxNumeroCheque.Text;
-            tempCheque.Fecha = datePickerFecha.SelectedDate;
-            tempCheque.Monto = tempMonto;
-            tempCheque.PagueseOrdenDe = textBoxPaguese.Text;
-            tempCheque.MontoEnLetras = Numalet.ToCardinal((int)(tempCheque.Monto)).ToUpper();
-            tempCheque.Anulado = false;
-
-            if (Impresion.ImprimirCheque((DateTime)(tempCheque.Fecha), (int)tempCheque.Monto, tempCheque.PagueseOrdenDe))
+            catch (Exception ex)
             {
-                System.Windows.MessageBox.Show("Se imprimió el Cheque.", "Impresión");
-                database1Entities.Cheques.AddObject(tempCheque);
-                database1Entities.SaveChanges();
-                this.Close();
+                System.Console.WriteLine(ex.Message);
+                MessageBox.Show("Por favor introduzca sólo números.");
+            }
+
+            // Validamos el campo de "Monto"
+            try
+            {
+                validarMonto = Convert.ToInt32(textBoxMonto.Text);
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine(ex.Message);
+                MessageBox.Show("Por favor introduzca sólo números.");
+            }
+
+            if (validarNroCheque > 0 && validarMonto > 0)
+            {
+                // Si se seleccionó previamente un archivo válido, se obtiene su ubicación.
+                string esql0 = String.Format("SELECT value f FROM Formatos as f WHERE f.Descripcion = '{0}'", ((ComboBoxItem)comboBoxTipoCheque.SelectedItem).Content.ToString());
+                var formatosVar = database1Entities.CreateQuery<Formatos>(esql0);
+
+                if (formatosVar.Count() == 1)
+                {
+                    VentanaPrincipal.layoutFilename = formatosVar.First().Path;
+                }
+
+                // Hacemos un query a la base de datos para obtener todas las facturas.
+                string esql = String.Format("SELECT value c FROM Cheques as c WHERE c.nroCheque = '{0}'", textBoxNumeroCheque.Text);
+                var chequesVar = database1Entities.CreateQuery<Cheques>(esql);
+
+                // Si ya no existe una Cheque con ese número.
+                if (chequesVar.ToList().Count == 0)
+                {
+                    int tempMonto = 0;
+                    Int32.TryParse(textBoxMonto.Text, out tempMonto);
+
+                    Cheques tempCheque = new Cheques();
+                    if (tempCheque.idCheque == 0)                               // Si el ID no existe.
+                    {
+                        TimeSpan time = (DateTime.UtcNow - new DateTime(1970, 1, 1));
+                        int timestamp = (int)time.TotalSeconds;
+                        tempCheque.idCheque = timestamp;                        // Nuevo ID = timestamp.
+                    }
+                    tempCheque.nroCheque = textBoxNumeroCheque.Text;
+                    tempCheque.Fecha = datePickerFecha.SelectedDate;
+                    tempCheque.Monto = tempMonto;
+                    tempCheque.PagueseOrdenDe = textBoxPaguese.Text;
+                    tempCheque.MontoEnLetras = Numalet.ToCardinal((int)(tempCheque.Monto)).ToUpper();
+                    tempCheque.Anulado = false;
+
+                    if (Impresion.ImprimirCheque((DateTime)(tempCheque.Fecha), (int)tempCheque.Monto, tempCheque.PagueseOrdenDe))
+                    {
+                        System.Windows.MessageBox.Show("Se imprimió el Cheque.", "Impresión");
+                        database1Entities.Cheques.AddObject(tempCheque);
+                        database1Entities.SaveChanges();
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se imprimió el Cheque.");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Este número de Cheque ya existe.");
+                }
+            }
+            else
+            {
+
             }
 
         }

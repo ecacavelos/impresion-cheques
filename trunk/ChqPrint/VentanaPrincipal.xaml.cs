@@ -20,9 +20,11 @@ namespace ChqPrint
     /// </summary>
     public partial class VentanaPrincipal : Window
     {
+        // Elementos accesibles desde otras ventanas.
         public static string layoutFilename;
+        public static Label labelTipoChequeHomeScreen;
+
         private Configuration c2;
-        //private bool xmlinvalido = false;
 
         private Window ventanaDesigner = new Window();
         private Window ventanaOpenFile = new Window();
@@ -58,6 +60,7 @@ namespace ChqPrint
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            labelTipoChequeHomeScreen = label1;
             label1.Content = c2.ChequeID;
             layoutFilename = "standard.xml";
         }
@@ -126,6 +129,8 @@ namespace ChqPrint
 
         #endregion
 
+        #region "Funciones relativas a la Barra de Menús"
+
         private void menuItem_Salir(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown(); // Cerrar la Aplicación Entera.
@@ -134,6 +139,13 @@ namespace ChqPrint
         private void menuItem_AdministrarFormatos(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        #endregion
+
+        public void ActualizarLabelTipoCheque(string newTipoCheque)
+        {
+            label1.Content = newTipoCheque;
         }
 
     }
