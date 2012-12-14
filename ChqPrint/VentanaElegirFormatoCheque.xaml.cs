@@ -14,9 +14,9 @@ using System.Windows.Shapes;
 namespace ChqPrint
 {
     /// <summary>
-    /// Interaction logic for VentanaElegirCheque.xaml
+    /// Interaction logic for VentanaElegirFormatoCheque.xaml
     /// </summary>
-    public partial class VentanaElegirCheque : Window
+    public partial class VentanaElegirFormatoCheque : Window
     {
         private Configuration c0;
         public static bool IsOpen { get; private set; }
@@ -25,7 +25,7 @@ namespace ChqPrint
 
         #region "Funciones relativas a la Inicializacion, Carga y Descarga de la Ventana"
 
-        public VentanaElegirCheque()
+        public VentanaElegirFormatoCheque()
         {
             InitializeComponent();
         }
@@ -34,6 +34,9 @@ namespace ChqPrint
         {
             IsOpen = true;
             // Cargamos los Cheques en el comboBox            
+            int defaultIndex = 0;
+            int i = 0;
+
             string esql = String.Format("SELECT value f FROM Formatos as f");
             var formatosVar = database1Entities.CreateQuery<Formatos>(esql);
             foreach (Formatos tempFormato in formatosVar)
@@ -41,6 +44,16 @@ namespace ChqPrint
                 ComboBoxItem elementoCombo = new ComboBoxItem();
                 elementoCombo.Content = tempFormato.Descripcion;
                 comboBoxFormatoCheque.Items.Add(elementoCombo);
+                if (tempFormato.Path == VentanaPrincipal.layoutFilename)
+                {
+                    defaultIndex = i;
+                }
+                i++;
+            }
+
+            if (comboBoxFormatoCheque.HasItems)
+            {
+                comboBoxFormatoCheque.SelectedIndex = defaultIndex;
             }
         }
 
@@ -103,6 +116,24 @@ namespace ChqPrint
 
         private void comboBoxFormatoCheque_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            // Si se seleccionó previamente un archivo válido, se obtiene su ubicación.
+            string esql0 = String.Format("SELECT value f FROM Formatos as f WHERE f.Descripcion = '{0}'", ((ComboBoxItem)comboBoxFormatoCheque.SelectedItem).Content.ToString());
+            var formatosVar = database1Entities.CreateQuery<Formatos>(esql0);
+
+            if (formatosVar.Count() != 1)
+            {
+                MessageBox.Show("Existe un conflicto con el archivo xml asociado a este Formato.");
+                return;
+            }
+
+            /* String que contiene el path completo del archivo seleccionado, 
+            * incluyendo el nombre del archivo. */
+            string filename = formatosVar.First().Path;
+            // Se trata de leer el archivo xml seleccionado.
+            this.c0 = Configuration.Deserialize(filename);
+
+            // Se muestran los datos identificadores obtenidos del archivo abierto.
+            labelNombre.Content = c0.ChequeID;
             buttonAceptar.IsEnabled = true;
         }
 
