@@ -100,7 +100,7 @@ namespace ChqPrint
             catch (Exception ex)
             {
                 System.Console.WriteLine(ex.Message);
-                MessageBox.Show("Por favor introduzca sólo números.");
+                MessageBox.Show("Por favor introduzca un número de Cheque válido (Sólo números).");
             }
 
             // Validamos el campo de "Monto"
@@ -111,7 +111,7 @@ namespace ChqPrint
             catch (Exception ex)
             {
                 System.Console.WriteLine(ex.Message);
-                MessageBox.Show("Por favor introduzca sólo números.");
+                MessageBox.Show("Por favor introduzca un Monto válido (Sólo números).");
             }
 
             if (validarNroCheque > 0 && validarMonto > 0)
@@ -125,11 +125,11 @@ namespace ChqPrint
                     VentanaPrincipal.layoutFilename = formatosVar.First().Path;
                 }
 
-                // Hacemos un query a la base de datos para obtener todas las facturas.
+                // Hacemos un query a la Base de Datos para obtener todos los Cheques.
                 string esql = String.Format("SELECT value c FROM Cheques as c WHERE c.nroCheque = '{0}'", textBoxNumeroCheque.Text);
                 var chequesVar = database1Entities.CreateQuery<Cheques>(esql);
 
-                // Si ya no existe una Cheque con ese número.
+                // Si ya no existe un Cheque con ese número.
                 if (chequesVar.ToList().Count == 0)
                 {
                     int tempMonto = 0;
@@ -149,11 +149,14 @@ namespace ChqPrint
                     tempCheque.MontoEnLetras = Numalet.ToCardinal((int)(tempCheque.Monto)).ToUpper();
                     tempCheque.Anulado = false;
 
+                    // Se intenta imprimir el Cheque.
                     if (Impresion.ImprimirCheque((DateTime)(tempCheque.Fecha), (int)tempCheque.Monto, tempCheque.PagueseOrdenDe))
                     {
                         System.Windows.MessageBox.Show("Se imprimió el Cheque.", "Impresión");
+                        // Luego de imprimir el Cheque, agregamos un nuevo registro a la tabla 'Cheques'.
                         database1Entities.Cheques.AddObject(tempCheque);
                         database1Entities.SaveChanges();
+                        // Cerramos la ventana.
                         this.Close();
                     }
                     else

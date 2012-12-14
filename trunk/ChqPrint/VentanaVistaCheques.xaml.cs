@@ -49,7 +49,15 @@ namespace ChqPrint
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            database1Entities.SaveChanges();
+            try
+            {
+                database1Entities.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine(ex.InnerException.GetType());
+                System.Console.WriteLine(ex.InnerException.Message);
+            }
         }
 
         #endregion

@@ -85,6 +85,9 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="Numalet.cs" />
+    <Compile Include="VentanaAgregarFormatoCheque.xaml.cs">
+      <DependentUpon>VentanaAgregarFormatoCheque.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VentanaImprimirCheque.xaml.cs">
       <DependentUpon>VentanaImprimirCheque.xaml</DependentUpon>
     </Compile>
@@ -95,7 +98,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="VentanaElegirCheque.xaml">
+    <Page Include="VentanaAgregarFormatoCheque.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VentanaElegirFormatoCheque.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -126,8 +133,8 @@
     </Compile>
     <Compile Include="DrawingCanvas.cs" />
     <Compile Include="Impresion.cs" />
-    <Compile Include="VentanaElegirCheque.xaml.cs">
-      <DependentUpon>VentanaElegirCheque.xaml</DependentUpon>
+    <Compile Include="VentanaElegirFormatoCheque.xaml.cs">
+      <DependentUpon>VentanaElegirFormatoCheque.xaml</DependentUpon>
     </Compile>
     <Compile Include="VentanaPrincipal.xaml.cs">
       <DependentUpon>VentanaPrincipal.xaml</DependentUpon>

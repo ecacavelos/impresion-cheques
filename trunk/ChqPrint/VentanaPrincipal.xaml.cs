@@ -27,6 +27,7 @@ namespace ChqPrint
         private Configuration c2;
 
         private Window ventanaDesigner = new Window();
+        private Window ventanaAgregarFormatoCheques = new Window();
         private Window ventanaOpenFile = new Window();
         private Window ventanaVistaCheques = new Window();
         private Window ventanaImprimirCheques = new Window();
@@ -76,7 +77,7 @@ namespace ChqPrint
 
         private void buttonDesign_Click(object sender, RoutedEventArgs e)
         {
-            if (VentanaElegirCheque.IsOpen) // Se controla que una instancia de esta Ventana no este abierta. 
+            if (VentanaElegirFormatoCheque.IsOpen) // Se controla que una instancia de esta Ventana no este abierta. 
             {
                 this.ventanaOpenFile.Activate(); // Si está abierta entonces activar y mandar al frente.
                 return;
@@ -85,7 +86,7 @@ namespace ChqPrint
             {
                 Type type = this.GetType();
                 Assembly assembly = type.Assembly;
-                this.ventanaOpenFile = (Window)assembly.CreateInstance("ChqPrint.VentanaElegirCheque");
+                this.ventanaOpenFile = (Window)assembly.CreateInstance("ChqPrint.VentanaElegirFormatoCheque");
                 this.ventanaOpenFile.Show();
             }
         }
@@ -138,7 +139,18 @@ namespace ChqPrint
 
         private void menuItem_AdministrarFormatos(object sender, RoutedEventArgs e)
         {
-
+            if (VentanaAgregarFormatoCheque.IsOpen) // Se controla que una instancia de esta Ventana no este abierta. 
+            {
+                this.ventanaAgregarFormatoCheques.Activate(); // Si está abierta entonces activar y mandar al frente.
+                return;
+            }
+            else // No está abierta. Abrir una instancia de la Ventana.
+            {
+                Type type = this.GetType();
+                Assembly assembly = type.Assembly;
+                this.ventanaAgregarFormatoCheques = (Window)assembly.CreateInstance("ChqPrint.VentanaAgregarFormatoCheque");
+                this.ventanaAgregarFormatoCheques.Show();
+            }
         }
 
         #endregion
