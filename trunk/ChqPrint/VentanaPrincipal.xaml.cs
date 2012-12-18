@@ -28,6 +28,7 @@ namespace ChqPrint
 
         private Window ventanaDesigner = new Window();
         private Window ventanaAgregarFormatoCheques = new Window();
+        private Window ventanaAgregarTalonarios = new Window();
         private Window ventanaOpenFile = new Window();
         private Window ventanaVistaCheques = new Window();
         private Window ventanaImprimirCheques = new Window();
@@ -150,6 +151,22 @@ namespace ChqPrint
                 Assembly assembly = type.Assembly;
                 this.ventanaAgregarFormatoCheques = (Window)assembly.CreateInstance("ChqPrint.VentanaAgregarFormatoCheque");
                 this.ventanaAgregarFormatoCheques.Show();
+            }
+        }
+
+        private void menuItem_AdministrarTalonarios(object sender, RoutedEventArgs e)
+        {
+            if (VentanaAgregarTalonario.IsOpen) // Se controla que una instancia de esta Ventana no este abierta. 
+            {
+                this.ventanaAgregarTalonarios.Activate(); // Si está abierta entonces activar y mandar al frente.
+                return;
+            }
+            else // No está abierta. Abrir una instancia de la Ventana.
+            {
+                Type type = this.GetType();
+                Assembly assembly = type.Assembly;
+                this.ventanaAgregarTalonarios = (Window)assembly.CreateInstance("ChqPrint.VentanaAgregarTalonario");
+                this.ventanaAgregarTalonarios.Show();
             }
         }
 

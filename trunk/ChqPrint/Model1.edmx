@@ -19,7 +19,9 @@
           <Property Name="Monto" Type="int" />
           <Property Name="PagueseOrdenDe" Type="nvarchar" MaxLength="100" />
           <Property Name="MontoEnLetras" Type="nvarchar" MaxLength="100" />
-          <Property Name="Anulado" Type="bit" />
+          <Property Name="Estado" Type="nvarchar" MaxLength="100" />
+          <Property Name="Banco" Type="nvarchar" MaxLength="100" />
+          <Property Name="Talonario" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Formatos">
           <Key>
@@ -47,7 +49,9 @@
           <Property Type="Int32" Name="Monto" />
           <Property Type="String" Name="PagueseOrdenDe" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="MontoEnLetras" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="Boolean" Name="Anulado" />
+          <Property Type="String" Name="Estado" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Banco" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Talonario" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Formatos">
           <Key>
@@ -64,7 +68,9 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ChqDatabase1ModelStoreContainer" CdmEntityContainer="ChqDatabase1Entities">
           <EntitySetMapping Name="Cheques"><EntityTypeMapping TypeName="ChqDatabase1Model.Cheques"><MappingFragment StoreEntitySet="Cheques">
-            <ScalarProperty Name="Anulado" ColumnName="Anulado" />
+                <ScalarProperty Name="Talonario" ColumnName="Talonario" />
+                <ScalarProperty Name="Banco" ColumnName="Banco" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="MontoEnLetras" ColumnName="MontoEnLetras" />
                 <ScalarProperty Name="PagueseOrdenDe" ColumnName="PagueseOrdenDe" />
                 <ScalarProperty Name="Monto" ColumnName="Monto" />
@@ -102,8 +108,8 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="Model1">
-        <EntityTypeShape EntityType="ChqDatabase1Model.Cheques" Width="1.5" PointX="0.75" PointY="0.75" Height="1.4033821614583331" IsExpanded="true" />
-        <EntityTypeShape EntityType="ChqDatabase1Model.Formatos" Width="1.5" PointX="3.375" PointY="0.75" Height="1.59568359375" />
+        <EntityTypeShape EntityType="ChqDatabase1Model.Cheques" Width="1.5" PointX="0.5" PointY="0.5" Height="2.3648893229166665" IsExpanded="true" />
+        <EntityTypeShape EntityType="ChqDatabase1Model.Formatos" Width="1.5" PointX="2.25" PointY="0.5" Height="1.59568359375" />
       </Diagram>
     </Diagrams>
   </Designer>

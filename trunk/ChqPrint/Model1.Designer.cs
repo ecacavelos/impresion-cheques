@@ -302,24 +302,72 @@ namespace ChqPrint
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Boolean> Anulado
+        public global::System.String Estado
         {
             get
             {
-                return _Anulado;
+                return _Estado;
             }
             set
             {
-                OnAnuladoChanging(value);
-                ReportPropertyChanging("Anulado");
-                _Anulado = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Anulado");
-                OnAnuladoChanged();
+                OnEstadoChanging(value);
+                ReportPropertyChanging("Estado");
+                _Estado = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Estado");
+                OnEstadoChanged();
             }
         }
-        private Nullable<global::System.Boolean> _Anulado;
-        partial void OnAnuladoChanging(Nullable<global::System.Boolean> value);
-        partial void OnAnuladoChanged();
+        private global::System.String _Estado;
+        partial void OnEstadoChanging(global::System.String value);
+        partial void OnEstadoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Banco
+        {
+            get
+            {
+                return _Banco;
+            }
+            set
+            {
+                OnBancoChanging(value);
+                ReportPropertyChanging("Banco");
+                _Banco = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Banco");
+                OnBancoChanged();
+            }
+        }
+        private global::System.String _Banco;
+        partial void OnBancoChanging(global::System.String value);
+        partial void OnBancoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Talonario
+        {
+            get
+            {
+                return _Talonario;
+            }
+            set
+            {
+                OnTalonarioChanging(value);
+                ReportPropertyChanging("Talonario");
+                _Talonario = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Talonario");
+                OnTalonarioChanged();
+            }
+        }
+        private global::System.String _Talonario;
+        partial void OnTalonarioChanging(global::System.String value);
+        partial void OnTalonarioChanged();
 
         #endregion
     

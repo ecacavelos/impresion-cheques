@@ -88,6 +88,9 @@
     <Compile Include="VentanaAgregarFormatoCheque.xaml.cs">
       <DependentUpon>VentanaAgregarFormatoCheque.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VentanaAgregarTalonario.xaml.cs">
+      <DependentUpon>VentanaAgregarTalonario.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VentanaImprimirCheque.xaml.cs">
       <DependentUpon>VentanaImprimirCheque.xaml</DependentUpon>
     </Compile>
@@ -99,6 +102,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="VentanaAgregarFormatoCheque.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VentanaAgregarTalonario.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
