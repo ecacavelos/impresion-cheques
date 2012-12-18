@@ -14,6 +14,7 @@
             </MenuItem>
             <MenuItem Header="Administración">
                 <MenuItem Header="Administrar Formatos de Cheques..." Click="menuItem_AdministrarFormatos"></MenuItem>
+                <MenuItem Header="Ingresar Nuevo Talonario de Cheques..." Click="menuItem_AdministrarTalonarios"></MenuItem>
             </MenuItem>
         </Menu>
         <ToolBar Height="64" Name="toolBar1" Background="#5A282828" Margin="12,12,12,0" VerticalAlignment="Top" HorizontalContentAlignment="Stretch" Grid.Row="1">

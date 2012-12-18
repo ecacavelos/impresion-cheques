@@ -1,14 +1,33 @@
 ﻿<Window x:Class="ChqPrint.VentanaVistaCheques"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:core="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:ChqPrint"
         Title="Reporte de Cheques" Height="320" Width="800" Loaded="Window_Loaded" Unloaded="Window_Unloaded" ResizeMode="CanMinimize" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:my="clr-namespace:ChqPrint" Closing="Window_Closing" Background="DarkSeaGreen">
     <Window.Resources>
         <CollectionViewSource x:Key="chequesViewSource" d:DesignSource="{d:DesignInstance my:Cheques, CreateList=True}" />
         <local:IntToNumericStringConverter x:Key="IntToNumericStringConverter" />
+        <ObjectDataProvider x:Key="comboBoxEnum" MethodName="GetValues" ObjectType="{x:Type core:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type Type="local:enumEstadoCheque"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <!--Body Content Datagrid Cell Vertical Centering-->
+        <Style x:Key="Body_Content_DataGrid_Centering"
+        TargetType="{x:Type DataGridCell}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     <Grid DataContext="{StaticResource chequesViewSource}">
-        <DataGrid AutoGenerateColumns="False" HorizontalAlignment="Stretch" Margin="12,12,12,44" Name="dataGridCheques" VerticalAlignment="Stretch" ItemsSource="{Binding}" HorizontalGridLinesBrush="DarkGray" VerticalGridLinesBrush="DarkGray" RowEditEnding="dataGrid1_RowEditEnding" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+        <DataGrid AutoGenerateColumns="False" HorizontalAlignment="Stretch" Margin="12,12,12,44" Name="dataGridCheques" VerticalAlignment="Stretch" ItemsSource="{Binding}" HorizontalGridLinesBrush="DarkGray" VerticalGridLinesBrush="DarkGray" RowEditEnding="dataGrid1_RowEditEnding" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="False" VerticalContentAlignment="Center" AlternatingRowBackground="Honeydew" CellStyle="{StaticResource Body_Content_DataGrid_Centering}" >
             <DataGrid.Resources>
                 <Style x:Key="DataGridCheckBoxStyle" TargetType="CheckBox">
                     <Setter Property="VerticalAlignment" Value="Center" />
@@ -17,22 +36,26 @@
             </DataGrid.Resources>
             <DataGrid.Columns>
                 <!--<DataGridTextColumn x:Name="idColumn" Binding="{Binding Path=idCheque}" Header="ID" />-->
-                <DataGridTextColumn x:Name="nroColumn" Binding="{Binding Path=nroCheque}" Header="Timbrado" Width="110" MinWidth="110" />
-                <DataGridTextColumn x:Name="fechaColumn" Binding="{Binding Path=Fecha, StringFormat=\{0:dd/MM/yyyy\}}" Header="Fecha" Width="110" MinWidth="110" />
-                <DataGridTextColumn x:Name="montoColumn" Binding="{Binding Path=Monto, Converter={StaticResource IntToNumericStringConverter}}" Header="Monto" Width="110" MinWidth="110" />
+                <DataGridTextColumn x:Name="talonarioColumn" Binding="{Binding Path=Talonario}" Header="Talonario" MinWidth="110" />
+                <DataGridTextColumn x:Name="nroColumn" Binding="{Binding Path=nroCheque}" Header="Timbrado" MinWidth="110" />
+                <DataGridTextColumn x:Name="bancoColumn" Binding="{Binding Path=Banco}" Header="Banco" />
+                <DataGridTextColumn x:Name="fechaColumn" Binding="{Binding Path=Fecha, StringFormat=\{0:dd/MM/yyyy\}}" Header="Fecha" MinWidth="110" />
+                <DataGridTextColumn x:Name="montoColumn" Binding="{Binding Path=Monto}" Header="Monto" MinWidth="110" />
                 <DataGridTextColumn x:Name="pagueseColumn" Binding="{Binding Path=PagueseOrdenDe}" Header="Paguese a la Orden de" MinWidth="130" />
+                <DataGridTextColumn x:Name="hiddenEstadoColumn" Binding="{Binding Path=Estado}" Header="Estado" Visibility="Collapsed" />
                 <!--<DataGridTextColumn x:Name="montoLetrasColumn" Binding="{Binding Path=MontoEnLetras}" Header="Monto en Letras" MinWidth="110" />-->
-                <DataGridTemplateColumn x:Name="anuladoColumn" Header="Anulado">
+                <DataGridTemplateColumn x:Name="estadoColumn" Header="Estado">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox Style="{StaticResource DataGridCheckBoxStyle}" IsChecked="{Binding Path=Anulado, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" />
+                            <ComboBox x:Name="comboBoxEstadoCheque" Text="{Binding Path=Estado, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Source={StaticResource comboBoxEnum}}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Salir" Height="26" HorizontalAlignment="Right" Margin="0,0,12,12" Name="buttonSalir" VerticalAlignment="Bottom" Width="100" Click="buttonSalir_Click" />
-        <Button Content="Exportar..." Height="26" HorizontalAlignment="Right" Margin="0,0,118,12" Name="buttonExportar" VerticalAlignment="Bottom" Width="100" Click="buttonExportar_Click" />
-        <Label Content="Reporte de Cheques." Height="26" HorizontalAlignment="Stretch" Margin="12,0,224,12" Name="labelStatusBar" VerticalAlignment="Bottom" />
+        <Button Content="Salir" Height="26" HorizontalAlignment="Right" Margin="0,0,12,12" Name="buttonSalir" VerticalAlignment="Bottom" Width="120" Click="buttonSalir_Click" />
+        <Button Content="Guardar Cambios" Height="26" HorizontalAlignment="Right" Margin="0,0,138,12" Name="buttonGuardar" VerticalAlignment="Bottom" Width="120" Click="buttonGuardar_Click" IsEnabled="False" />
+        <Button Content="Exportar..." Height="26" HorizontalAlignment="Right" Margin="0,0,264,12" Name="buttonExportar" VerticalAlignment="Bottom" Width="120" Click="buttonExportar_Click" />
+        <Label Content="Reporte de Cheques." Height="26" HorizontalAlignment="Stretch" Margin="12,0,390,12" Name="labelStatusBar" VerticalAlignment="Bottom" />
     </Grid>
 </Window>

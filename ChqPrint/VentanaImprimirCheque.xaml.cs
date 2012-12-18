@@ -46,11 +46,11 @@ namespace ChqPrint
                 Int32.TryParse(chequesVar.ToList().ElementAt(chequesVar.ToList().Count - 1).nroCheque, out lastNroCheque);
                 // Incrementamos en 1 la ultima factura y desplegamos el valor sugerido en el textbox
                 lastNroCheque++;
-                textBoxNumeroCheque.Text = lastNroCheque.ToString("0000000");
+                textBlockNumeroCheque.Text = lastNroCheque.ToString("000000");
             }
             else
             {
-                textBoxNumeroCheque.Text = "0000000";
+                textBlockNumeroCheque.Text = "000000";
             }
 
             textBoxMonto.Focus();
@@ -95,7 +95,7 @@ namespace ChqPrint
             // Validamos el campo "Numero de Cheque"
             try
             {
-                validarNroCheque = Convert.ToInt32(textBoxNumeroCheque.Text);
+                validarNroCheque = Convert.ToInt32(textBlockNumeroCheque.Text);
             }
             catch (Exception ex)
             {
@@ -126,7 +126,7 @@ namespace ChqPrint
                 }
 
                 // Hacemos un query a la Base de Datos para obtener todos los Cheques.
-                string esql = String.Format("SELECT value c FROM Cheques as c WHERE c.nroCheque = '{0}'", textBoxNumeroCheque.Text);
+                string esql = String.Format("SELECT value c FROM Cheques as c WHERE c.nroCheque = '{0}'", textBlockNumeroCheque.Text);
                 var chequesVar = database1Entities.CreateQuery<Cheques>(esql);
 
                 // Si ya no existe un Cheque con ese número.
@@ -142,12 +142,13 @@ namespace ChqPrint
                         int timestamp = (int)time.TotalSeconds;
                         tempCheque.idCheque = timestamp;                        // Nuevo ID = timestamp.
                     }
-                    tempCheque.nroCheque = textBoxNumeroCheque.Text;
+                    tempCheque.nroCheque = textBlockNumeroCheque.Text;
+                    tempCheque.Banco = ((ComboBoxItem)comboBoxTipoCheque.SelectedItem).Content.ToString();
                     tempCheque.Fecha = datePickerFecha.SelectedDate;
                     tempCheque.Monto = tempMonto;
                     tempCheque.PagueseOrdenDe = textBoxPaguese.Text;
                     tempCheque.MontoEnLetras = Numalet.ToCardinal((int)(tempCheque.Monto)).ToUpper();
-                    tempCheque.Anulado = false;
+                    tempCheque.Estado = "Pendiente";
 
                     // Se intenta imprimir el Cheque.
                     if (Impresion.ImprimirCheque((DateTime)(tempCheque.Fecha), (int)tempCheque.Monto, tempCheque.PagueseOrdenDe))

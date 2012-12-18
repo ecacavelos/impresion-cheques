@@ -49,14 +49,32 @@ namespace ChqPrint
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            try
+            MessageBoxResult result;
+
+            if (buttonGuardar.IsEnabled == true)
             {
-                database1Entities.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                System.Console.WriteLine(ex.InnerException.GetType());
-                System.Console.WriteLine(ex.InnerException.Message);
+                result = MessageBox.Show("Desea guardar los cambios efectuados?", "Confirmar modificaciones", MessageBoxButton.YesNoCancel);
+                if (result == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        database1Entities.SaveChanges();
+                    }
+                    catch (System.Data.UpdateException ex)
+                    {
+                        System.Console.WriteLine(ex.InnerException.GetType());
+                        System.Console.WriteLine(ex.InnerException.Message);
+                    }
+                    //label1.Content = "Se guardaron los cambios.";                
+                }
+                else if (result == MessageBoxResult.No)
+                {
+                    //label1.Content = "NO se guardaron los cambios.";
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
             }
         }
 
@@ -72,18 +90,42 @@ namespace ChqPrint
 
         private void dataGrid1_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
         {
-            if (((Cheques)e.Row.Item).Anulado == null)
+            if (((Cheques)e.Row.Item).Estado == null)
             {
-                ((Cheques)e.Row.Item).Anulado = false;
+                ((Cheques)e.Row.Item).Estado = "Pendiente";
             }
+            buttonGuardar.IsEnabled = true;
         }
 
         #region "Funciones relativas a los Botones Externos"
 
         private void buttonExportar_Click(object sender, RoutedEventArgs e)
         {
-            ExportToExcelTools.DataGridExcelTools.SetFormatForExport(dataGridCheques.Columns[1], "dd.MM.yyyy");
+            ExportToExcelTools.DataGridExcelTools.SetFormatForExport(dataGridCheques.Columns[2], "dd.MM.yyyy");
             dataGridCheques.ExportToExcel();
+        }
+
+        private void buttonGuardar_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Desea guardar los cambios efectuados?", "Confirmar modificaciones", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    database1Entities.SaveChanges();
+                }
+                catch (System.Data.UpdateException ex)
+                {
+                    System.Console.WriteLine(ex.InnerException.GetType());
+                    System.Console.WriteLine(ex.InnerException.Message);
+                }
+                buttonGuardar.IsEnabled = false;
+                //label1.Content = "Se guardaron los cambios.";                
+            }
+            else if (result == MessageBoxResult.No)
+            {
+                //label1.Content = "NO se guardaron los cambios.";
+            }
         }
 
         private void buttonSalir_Click(object sender, RoutedEventArgs e)
@@ -95,7 +137,8 @@ namespace ChqPrint
 
     }
 
-    #region "Conversores para los data bindings de esta ventana."
+    #region "Conversores y Recursos para los data bindings de esta ventana."
+
     [ValueConversion(typeof(int), typeof(string))]
     public class IntToNumericStringConverter : IValueConverter
     {
@@ -114,6 +157,9 @@ namespace ChqPrint
         }
         #endregion
     }
+
+    public enum enumEstadoCheque { Pendiente, Cobrado, Rechazado, Anulado };
+
     #endregion
 
 }

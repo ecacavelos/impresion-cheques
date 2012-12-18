@@ -31,7 +31,7 @@ namespace ChqPrint
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            IsOpen = true;            
+            IsOpen = true;
             // Load data into Formatos. You can modify this code as needed.
             System.Windows.Data.CollectionViewSource formatosViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("formatosViewSource")));
             System.Data.Objects.ObjectQuery<ChqPrint.Formatos> formatosQuery = this.GetFormatosQuery(chqDatabase1Entities);
