@@ -20,12 +20,18 @@ namespace ChqPrint
 
         int _Version;
         string _ChequeID;
+        string _Talonario;
         ImpresionCoords _ImpresionCoords;
+        int _PrimerCheque;
+        int _UltimoCheque;
 
         public Configuration()
         {
             _Version = 1;
             _ChequeID = "Cheque Estándar";
+            _Talonario = "T01";
+            _PrimerCheque = 1;
+            _UltimoCheque = 99999;
             InicializarCoordenadas();
         }
 
@@ -62,6 +68,21 @@ namespace ChqPrint
         {
             get { return _ChequeID; }
             set { _ChequeID = value; }
+        }
+        public string Talonario
+        {
+            get { return _Talonario; }
+            set { _Talonario = value; }
+        }
+        public int PrimerCheque
+        {
+            get { return _PrimerCheque; }
+            set { _PrimerCheque = value; }
+        }
+        public int UltimoCheque
+        {
+            get { return _UltimoCheque; }
+            set { _UltimoCheque = value; }
         }
         // Interfaz para la Estructura con las Coordenadas de Impresión.
         public ImpresionCoords CoordenadasImpresion

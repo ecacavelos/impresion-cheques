@@ -120,11 +120,11 @@ namespace ChqPrint
                     System.Console.WriteLine(ex.InnerException.Message);
                 }
                 buttonGuardar.IsEnabled = false;
-                //label1.Content = "Se guardaron los cambios.";                
+                labelStatusBar.Content = "Se guardaron los cambios.";
             }
             else if (result == MessageBoxResult.No)
             {
-                //label1.Content = "NO se guardaron los cambios.";
+                labelStatusBar.Content = "NO se guardaron los cambios.";
             }
         }
 
@@ -158,7 +158,7 @@ namespace ChqPrint
         #endregion
     }
 
-    public enum enumEstadoCheque { Pendiente, Cobrado, Rechazado, Anulado };
+    public enum enumEstadoCheque { Pendiente, Emitido, Cobrado, Rechazado, Anulado };
 
     #endregion
 
