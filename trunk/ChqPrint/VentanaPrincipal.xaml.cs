@@ -26,6 +26,7 @@ namespace ChqPrint
 
         private Configuration c2;
 
+        private Window ventanaConfig = new Window();
         private Window ventanaDesigner = new Window();
         private Window ventanaAgregarFormatoCheques = new Window();
         private Window ventanaAgregarTalonarios = new Window();
@@ -132,6 +133,22 @@ namespace ChqPrint
         #endregion
 
         #region "Funciones relativas a la Barra de Menús"
+
+        private void menuItem_Configuracion(object sender, RoutedEventArgs e)
+        {
+            if (VentanaConfiguracion.IsOpen) // Se controla que una instancia de esta Ventana no este abierta. 
+            {
+                this.ventanaConfig.Activate(); // Si está abierta entonces activar y mandar al frente.
+                return;
+            }
+            else // No está abierta. Abrir una instancia de la Ventana.
+            {
+                Type type = this.GetType();
+                Assembly assembly = type.Assembly;
+                this.ventanaConfig = (Window)assembly.CreateInstance("ChqPrint.VentanaConfiguracion");
+                this.ventanaConfig.Show();
+            }
+        }
 
         private void menuItem_Salir(object sender, RoutedEventArgs e)
         {

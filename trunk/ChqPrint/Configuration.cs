@@ -24,6 +24,7 @@ namespace ChqPrint
         ImpresionCoords _ImpresionCoords;
         int _PrimerCheque;
         int _UltimoCheque;
+        bool _PermitirEscrituraManual;
 
         public Configuration()
         {
@@ -32,6 +33,7 @@ namespace ChqPrint
             _Talonario = "T01";
             _PrimerCheque = 1;
             _UltimoCheque = 99999;
+            _PermitirEscrituraManual = true;
             InicializarCoordenadas();
         }
 
@@ -83,6 +85,11 @@ namespace ChqPrint
         {
             get { return _UltimoCheque; }
             set { _UltimoCheque = value; }
+        }
+        public bool PermitirEscrituraManual
+        {
+            get { return _PermitirEscrituraManual; }
+            set { _PermitirEscrituraManual = value; }
         }
         // Interfaz para la Estructura con las Coordenadas de Impresión.
         public ImpresionCoords CoordenadasImpresion
