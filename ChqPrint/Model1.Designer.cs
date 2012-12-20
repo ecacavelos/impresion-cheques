@@ -96,6 +96,22 @@ namespace ChqPrint
             }
         }
         private ObjectSet<Formatos> _Formatos;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Clientes> Clientes
+        {
+            get
+            {
+                if ((_Clientes == null))
+                {
+                    _Clientes = base.CreateObjectSet<Clientes>("Clientes");
+                }
+                return _Clientes;
+            }
+        }
+        private ObjectSet<Clientes> _Clientes;
 
         #endregion
         #region AddTo Methods
@@ -114,6 +130,14 @@ namespace ChqPrint
         public void AddToFormatos(Formatos formatos)
         {
             base.AddObject("Formatos", formatos);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Clientes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToClientes(Clientes clientes)
+        {
+            base.AddObject("Clientes", clientes);
         }
 
         #endregion
@@ -368,6 +392,85 @@ namespace ChqPrint
         private global::System.String _Talonario;
         partial void OnTalonarioChanging(global::System.String value);
         partial void OnTalonarioChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="ChqDatabase1Model", Name="Clientes")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Clientes : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Clientes object.
+        /// </summary>
+        /// <param name="idCliente">Initial value of the idCliente property.</param>
+        public static Clientes CreateClientes(global::System.Int32 idCliente)
+        {
+            Clientes clientes = new Clientes();
+            clientes.idCliente = idCliente;
+            return clientes;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 idCliente
+        {
+            get
+            {
+                return _idCliente;
+            }
+            set
+            {
+                if (_idCliente != value)
+                {
+                    OnidClienteChanging(value);
+                    ReportPropertyChanging("idCliente");
+                    _idCliente = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("idCliente");
+                    OnidClienteChanged();
+                }
+            }
+        }
+        private global::System.Int32 _idCliente;
+        partial void OnidClienteChanging(global::System.Int32 value);
+        partial void OnidClienteChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Nombre
+        {
+            get
+            {
+                return _Nombre;
+            }
+            set
+            {
+                OnNombreChanging(value);
+                ReportPropertyChanging("Nombre");
+                _Nombre = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Nombre");
+                OnNombreChanged();
+            }
+        }
+        private global::System.String _Nombre;
+        partial void OnNombreChanging(global::System.String value);
+        partial void OnNombreChanged();
 
         #endregion
     

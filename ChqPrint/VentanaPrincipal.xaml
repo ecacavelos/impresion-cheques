@@ -10,6 +10,8 @@
         </Grid.RowDefinitions>
         <Menu Name="menu1" VerticalAlignment="Top" Background="#5A282828">
             <MenuItem Header="Archivo">
+                <MenuItem Header="Configuración..." Click="menuItem_Configuracion"></MenuItem>
+                <Separator></Separator>
                 <MenuItem Header="Salir" Click="menuItem_Salir"></MenuItem>
             </MenuItem>
             <MenuItem Header="Administración">

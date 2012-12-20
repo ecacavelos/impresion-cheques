@@ -23,6 +23,8 @@ namespace ChqPrint
 
         ChqPrint.ChqDatabase1Entities database1Entities = new ChqPrint.ChqDatabase1Entities();
 
+        private bool AutoCompleteHasFocus = false;
+
         #region "Funciones relativas a la Inicializacion, Carga y Descarga de la Ventana"
 
         public VentanaImprimirCheque()
@@ -58,7 +60,16 @@ namespace ChqPrint
 
             textBoxMonto.Focus();
 
-            int defaultIndex = 0;
+            // Agregamos la lista de sugerencia de Clientes al AutoCompleteTextBox 'Paguese a la Orden de'.
+            string esql_clientes = "SELECT value c FROM Clientes as c";
+            var clientesVar = database1Entities.CreateQuery<Clientes>(esql_clientes);
+
+            foreach (Clientes tempCliente in clientesVar.ToArray())
+            {
+                textBoxPaguese.AddItem(new WPFAutoCompleteTextbox.AutoCompleteEntry(tempCliente.Nombre, tempCliente.Nombre));
+            }
+
+            /*int defaultIndex = 0;
             int i = 0;
             // Cargamos los Cheques en el comboBox            
             string esqlFormatos = String.Format("SELECT value f FROM Formatos as f");
@@ -78,7 +89,9 @@ namespace ChqPrint
             if (comboBoxTipoCheque.HasItems)
             {
                 comboBoxTipoCheque.SelectedIndex = defaultIndex;
-            }
+            }*/
+
+            textBlockFormatoCheque.Text = c2.ChequeID;
 
         }
 
@@ -111,12 +124,36 @@ namespace ChqPrint
             //if (montoValidado > 0)
             //{
             // Si se seleccionó previamente un archivo válido, se obtiene su ubicación.
-            string esql0 = String.Format("SELECT value f FROM Formatos as f WHERE f.Descripcion = '{0}'", ((ComboBoxItem)comboBoxTipoCheque.SelectedItem).Content.ToString());
+            /*string esql0 = String.Format("SELECT value f FROM Formatos as f WHERE f.Descripcion = '{0}'", ((ComboBoxItem)comboBoxTipoCheque.SelectedItem).Content.ToString());
             var formatosVar = database1Entities.CreateQuery<Formatos>(esql0);
 
             if (formatosVar.Count() == 1)
             {
                 VentanaPrincipal.layoutFilename = formatosVar.First().Path;
+            }*/
+
+            string esql_clientes = String.Format("SELECT value c FROM Clientes as c WHERE c.Nombre == '{0}'", textBoxPaguese.Text);
+            var clientesVar = database1Entities.CreateQuery<Clientes>(esql_clientes);
+
+            if (clientesVar.ToList().Count == 0)
+            {
+                if (c2.PermitirEscrituraManual == false)
+                {
+                    MessageBox.Show("Debe elegir un cliente ya existente en la Base de Datos.");
+                    return;
+                }
+                else
+                {
+                    Clientes newCliente = new Clientes();
+                    if (newCliente.idCliente == 0)                               // Si el ID no existe.
+                    {
+                        var allClientesVar = database1Entities.CreateQuery<Clientes>("SELECT value c FROM Clientes as c");
+                        int newID = allClientesVar.ToList().Count + 1;
+                        newCliente.idCliente = newID;                        // Nuevo ID = timestamp.
+                    }
+                    newCliente.Nombre = textBoxPaguese.Text;
+                    database1Entities.Clientes.AddObject(newCliente);
+                }
             }
 
             // Hacemos un query a la Base de Datos para obtener todos los Cheques.
@@ -138,7 +175,8 @@ namespace ChqPrint
                 }
                 tempCheque.Talonario = textBlockTalonario.Text;
                 tempCheque.nroCheque = textBlockNumeroCheque.Text;
-                tempCheque.Banco = ((ComboBoxItem)comboBoxTipoCheque.SelectedItem).Content.ToString();
+                //tempCheque.Banco = ((ComboBoxItem)comboBoxTipoCheque.SelectedItem).Content.ToString();
+                tempCheque.Banco = textBlockFormatoCheque.Text;
                 tempCheque.Fecha = datePickerFecha.SelectedDate;
                 tempCheque.Monto = tempMonto;
                 tempCheque.PagueseOrdenDe = textBoxPaguese.Text;
@@ -162,7 +200,7 @@ namespace ChqPrint
                 if (Impresion.ImprimirCheque((DateTime)(tempCheque.Fecha), (int)tempCheque.Monto, tempCheque.PagueseOrdenDe))
                 {
                     System.Windows.MessageBox.Show("Se imprimió el Cheque.", "Impresión");
-                    // Luego de imprimir el Cheque, agregamos un nuevo registro a la tabla 'Cheques'.
+                    // Luego de imprimir el Cheque, agregamos un nuevo registro a la tabla 'Cheques'.                    
                     database1Entities.Cheques.AddObject(tempCheque);
                     database1Entities.SaveChanges();
                     // Cerramos la ventana.
@@ -177,11 +215,6 @@ namespace ChqPrint
             {
                 MessageBox.Show("Este número de Cheque ya existe.");
             }
-            //}
-            //else
-            //{
-
-            //}
 
         }
 

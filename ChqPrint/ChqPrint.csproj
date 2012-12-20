@@ -76,6 +76,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AutoCompleteEntry.cs" />
+    <Compile Include="AutoCompleteTextBox.xaml.cs">
+      <DependentUpon>AutoCompleteTextBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DataGridExcelTools.cs" />
     <Compile Include="DataGridExportManager.cs" />
     <Compile Include="DataGridHelper.cs" />
@@ -91,12 +95,19 @@
     <Compile Include="VentanaAgregarTalonario.xaml.cs">
       <DependentUpon>VentanaAgregarTalonario.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VentanaConfiguracion.xaml.cs">
+      <DependentUpon>VentanaConfiguracion.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VentanaImprimirCheque.xaml.cs">
       <DependentUpon>VentanaImprimirCheque.xaml</DependentUpon>
     </Compile>
     <Compile Include="VentanaVistaCheques.xaml.cs">
       <DependentUpon>VentanaVistaCheques.xaml</DependentUpon>
     </Compile>
+    <Page Include="AutoCompleteTextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Designer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -106,6 +117,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="VentanaAgregarTalonario.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VentanaConfiguracion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

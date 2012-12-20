@@ -7,6 +7,7 @@
     <Schema Namespace="ChqDatabase1Model.Store" Alias="Self" Provider="System.Data.SqlServerCe.3.5" ProviderManifestToken="3.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="ChqDatabase1ModelStoreContainer">
           <EntitySet Name="Cheques" EntityType="ChqDatabase1Model.Store.Cheques" store:Type="Tables" />
+          <EntitySet Name="Clientes" EntityType="ChqDatabase1Model.Store.Clientes" store:Type="Tables" />
           <EntitySet Name="Formatos" EntityType="ChqDatabase1Model.Store.Formatos" store:Type="Tables" />
         </EntityContainer>
         <EntityType Name="Cheques">
@@ -23,6 +24,13 @@
           <Property Name="Banco" Type="nvarchar" MaxLength="100" />
           <Property Name="Talonario" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="idCliente" />
+          </Key>
+          <Property Name="idCliente" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="Formatos">
           <Key>
             <PropertyRef Name="idFormato" />
@@ -38,6 +46,7 @@
         <EntityContainer Name="ChqDatabase1Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Cheques" EntityType="ChqDatabase1Model.Cheques" />
           <EntitySet Name="Formatos" EntityType="ChqDatabase1Model.Formatos" />
+          <EntitySet Name="Clientes" EntityType="ChqDatabase1Model.Clientes" />
         </EntityContainer>
         <EntityType Name="Cheques">
           <Key>
@@ -60,6 +69,13 @@
           <Property Type="Int32" Name="idFormato" Nullable="false" />
           <Property Type="String" Name="Path" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Descripcion" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="idCliente" />
+          </Key>
+          <Property Type="Int32" Name="idCliente" Nullable="false" />
+          <Property Type="String" Name="Nombre" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -87,6 +103,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Clientes">
+            <EntityTypeMapping TypeName="ChqDatabase1Model.Clientes">
+              <MappingFragment StoreEntitySet="Clientes">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -110,6 +134,7 @@
       <Diagram Name="Model1">
         <EntityTypeShape EntityType="ChqDatabase1Model.Cheques" Width="1.5" PointX="0.5" PointY="0.5" Height="2.3648893229166665" IsExpanded="true" />
         <EntityTypeShape EntityType="ChqDatabase1Model.Formatos" Width="1.5" PointX="2.25" PointY="0.5" Height="1.59568359375" />
+        <EntityTypeShape EntityType="ChqDatabase1Model.Clientes" Width="1.5" PointX="4" PointY="0.5" Height="1.4033821614583322" />
       </Diagram>
     </Diagrams>
   </Designer>
