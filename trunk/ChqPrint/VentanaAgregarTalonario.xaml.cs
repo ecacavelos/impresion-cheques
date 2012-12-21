@@ -18,8 +18,10 @@ namespace ChqPrint
     /// </summary>
     public partial class VentanaAgregarTalonario : Window
     {
-        private Configuration c2;
+        private ConfigurationGeneral c2;
         public static bool IsOpen { get; private set; }
+
+        ChqPrint.ChqDatabase1Entities database1Entities = new ChqPrint.ChqDatabase1Entities();
 
         #region "Funciones relativas a la Inicializacion, Carga y Descarga de la Ventana"
 
@@ -34,8 +36,31 @@ namespace ChqPrint
         {
             IsOpen = true;
             // Leemos los datos del formulario actual.
-            this.c2 = Configuration.Deserialize(VentanaPrincipal.layoutFilename);
+            this.c2 = ConfigurationGeneral.Deserialize(VentanaPrincipal.layoutFilename);
             labelTalonarioActual.Content += c2.Talonario;
+
+            // Cargamos los Cheques en el comboBox            
+            int defaultIndex = 0;
+            int i = 0;
+
+            string esql = String.Format("SELECT value f FROM Formatos as f");
+            var formatosVar = database1Entities.CreateQuery<Formatos>(esql);
+            foreach (Formatos tempFormato in formatosVar)
+            {
+                ComboBoxItem elementoCombo = new ComboBoxItem();
+                elementoCombo.Content = tempFormato.Descripcion;
+                comboBoxFormatoCheque.Items.Add(elementoCombo);
+                if (tempFormato.Path == VentanaPrincipal.layoutFilename)
+                {
+                    defaultIndex = i;
+                }
+                i++;
+            }
+
+            if (comboBoxFormatoCheque.HasItems)
+            {
+                comboBoxFormatoCheque.SelectedIndex = defaultIndex;
+            }
 
             textBoxNuevoTalonario.Focus();
         }
@@ -51,13 +76,26 @@ namespace ChqPrint
         {
             this.c2.Talonario = textBoxNuevoTalonario.Text;
 
-            int tempIntToString;                        
+            int tempIntToString;
             Int32.TryParse(textBoxPrimerCheque.Text, out tempIntToString);
             this.c2.PrimerCheque = tempIntToString;
             Int32.TryParse(textBoxUltimoCheque.Text, out tempIntToString);
             this.c2.UltimoCheque = tempIntToString;
 
-            Configuration.Serialize(VentanaPrincipal.layoutFilename, this.c2);
+            // Si se seleccionó previamente un archivo válido, se guarda su ubicación.
+            string esql = String.Format("SELECT value f FROM Formatos as f WHERE f.Descripcion = '{0}'", ((ComboBoxItem)comboBoxFormatoCheque.SelectedItem).Content.ToString());
+            var formatosVar = database1Entities.CreateQuery<Formatos>(esql);
+
+            System.Console.WriteLine(esql);
+
+            if (formatosVar.Count() == 1)
+            {
+                VentanaPrincipal.layoutFilename = formatosVar.First().Path;
+                VentanaPrincipal.labelTipoChequeHomeScreen.Content = ((ComboBoxItem)comboBoxFormatoCheque.SelectedItem).Content.ToString();
+                this.c2.FormatoChequeTalonario = formatosVar.ToArray()[0].Path;
+            }
+
+            ConfigurationGeneral.Serialize("standard.xml", this.c2);
 
             this.Close();
         }

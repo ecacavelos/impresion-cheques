@@ -20,7 +20,7 @@ namespace ChqPrint
         public static bool ImprimirCheque(DateTime fecha, int monto, string beneficiario)
         {
             System.Console.WriteLine(VentanaPrincipal.layoutFilename);
-            Configuration c2 = Configuration.Deserialize(VentanaPrincipal.layoutFilename);
+            ConfigurationLayoutCheque c2 = ConfigurationLayoutCheque.Deserialize(VentanaPrincipal.layoutFilename);
 
             System.Console.WriteLine(c2.ChequeID);
             // Creamos la clase pariente 'FixedDocument'.

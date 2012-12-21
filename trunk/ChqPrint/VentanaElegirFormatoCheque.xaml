@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Elegir Formato de Cheque" Height="200" Width="640" Loaded="Window_Loaded" Unloaded="Window_Unloaded" Background="DarkSeaGreen">
     <Grid>
-        <Button Content="Aceptar" Height="23" HorizontalAlignment="Right" Margin="0,0,93,12" Name="buttonAceptar" VerticalAlignment="Bottom" Width="75" Click="buttonAceptar_Click" IsEnabled="False" />
-        <Button Content="Cancelar" Height="23" HorizontalAlignment="Right" Margin="0,0,12,12" Name="buttonCancelar" VerticalAlignment="Bottom" Width="75" Click="buttonCancelar_Click" />
+        <Button Content="Aceptar" Height="26" HorizontalAlignment="Right" Margin="0,0,138,12" Name="buttonAceptar" VerticalAlignment="Bottom" Width="120" Click="buttonAceptar_Click" IsEnabled="False" />
+        <Button Content="Cancelar" Height="26" HorizontalAlignment="Right" Margin="0,0,12,12" Name="buttonCancelar" VerticalAlignment="Bottom" Width="120" Click="buttonCancelar_Click" />
         <GroupBox Header="Datos del Cheque" Height="67" Margin="12,44,12,0" Name="groupBox1" VerticalAlignment="Top" BorderBrush="DarkGreen">
             <Grid>
                 <Label Content="Nombre: " HorizontalAlignment="Left" Margin="6,6,0,0" Name="labelTitleNombre" VerticalAlignment="Top" Width="64" />

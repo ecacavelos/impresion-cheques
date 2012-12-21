@@ -18,7 +18,7 @@ namespace ChqPrint
     /// </summary>
     public partial class VentanaConfiguracion : Window
     {
-        private Configuration c2;
+        private ConfigurationGeneral c2;
         public static bool IsOpen { get; private set; }
 
         #region "Funciones relativas a la Inicializacion, Carga y Descarga de la Ventana"
@@ -34,7 +34,7 @@ namespace ChqPrint
             // Cargamos el archivo de configuración.
             try
             {
-                this.c2 = Configuration.Deserialize(VentanaPrincipal.layoutFilename);
+                this.c2 = ConfigurationGeneral.Deserialize(VentanaPrincipal.layoutFilename);
             }
             catch
             {
@@ -54,7 +54,7 @@ namespace ChqPrint
         private void buttonAceptar_Click(object sender, RoutedEventArgs e)
         {
             this.c2.PermitirEscrituraManual = (bool)(checkBoxPermitirEscrituraManual.IsChecked);
-            Configuration.Serialize(VentanaPrincipal.layoutFilename, this.c2);
+            ConfigurationGeneral.Serialize(VentanaPrincipal.layoutFilename, this.c2);
             this.Close();
         }
 

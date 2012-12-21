@@ -18,7 +18,7 @@ namespace ChqPrint
     /// </summary>
     public partial class VentanaElegirFormatoCheque : Window
     {
-        private Configuration c0;
+        private ConfigurationLayoutCheque c0;
         public static bool IsOpen { get; private set; }
 
         ChqPrint.ChqDatabase1Entities database1Entities = new ChqPrint.ChqDatabase1Entities();
@@ -80,7 +80,7 @@ namespace ChqPrint
                 //labelArchivo.Content = filename.ToString();
 
                 // Se trata de leer el archivo xml seleccionado.
-                this.c0 = Configuration.Deserialize(filename);
+                this.c0 = ConfigurationLayoutCheque.Deserialize(filename);
 
                 // Se muestran los datos identificadores obtenidos del archivo abierto.
                 labelNombre.Content = c0.ChequeID;
@@ -130,7 +130,7 @@ namespace ChqPrint
             * incluyendo el nombre del archivo. */
             string filename = formatosVar.First().Path;
             // Se trata de leer el archivo xml seleccionado.
-            this.c0 = Configuration.Deserialize(filename);
+            this.c0 = ConfigurationLayoutCheque.Deserialize(filename);
 
             // Se muestran los datos identificadores obtenidos del archivo abierto.
             labelNombre.Content = c0.ChequeID;

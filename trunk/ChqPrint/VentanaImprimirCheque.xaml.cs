@@ -18,7 +18,8 @@ namespace ChqPrint
     /// </summary>
     public partial class VentanaImprimirCheque : Window
     {
-        private Configuration c2;
+        private ConfigurationGeneral c0;
+        private ConfigurationLayoutCheque c2;
         public static bool IsOpen { get; private set; }
 
         ChqPrint.ChqDatabase1Entities database1Entities = new ChqPrint.ChqDatabase1Entities();
@@ -35,14 +36,15 @@ namespace ChqPrint
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             IsOpen = true;
-            this.c2 = Configuration.Deserialize(VentanaPrincipal.layoutFilename);
+            this.c0 = ConfigurationGeneral.Deserialize("standard.xml");
+            this.c2 = ConfigurationLayoutCheque.Deserialize(this.c0.FormatoChequeTalonario);
 
             datePickerFecha.SelectedDate = DateTime.Now;    // La fecha del cheque.
             // Hacemos un query a la base de datos para obtener todas los cheques.
-            string esql = String.Format("SELECT value c FROM Cheques as c WHERE c.Talonario = '{0}'", this.c2.Talonario);
+            string esql = String.Format("SELECT value c FROM Cheques as c WHERE c.Talonario = '{0}'", this.c0.Talonario);
             var chequesVar = database1Entities.CreateQuery<Cheques>(esql);
 
-            textBlockTalonario.Text = this.c2.Talonario;
+            textBlockTalonario.Text = this.c0.Talonario;
             // Si existe al menos un cheque.
             int lastNroCheque = 0;
             if (chequesVar.ToList().Count > 0)
@@ -55,7 +57,7 @@ namespace ChqPrint
             }
             else
             {
-                textBlockNumeroCheque.Text = this.c2.PrimerCheque.ToString();
+                textBlockNumeroCheque.Text = this.c0.PrimerCheque.ToString();
             }
 
             textBoxMonto.Focus();
@@ -137,7 +139,7 @@ namespace ChqPrint
 
             if (clientesVar.ToList().Count == 0)
             {
-                if (c2.PermitirEscrituraManual == false)
+                if (c0.PermitirEscrituraManual == false)
                 {
                     MessageBox.Show("Debe elegir un cliente ya existente en la Base de Datos.");
                     return;
