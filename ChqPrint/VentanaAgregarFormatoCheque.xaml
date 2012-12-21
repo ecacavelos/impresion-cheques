@@ -6,7 +6,7 @@
         <CollectionViewSource x:Key="formatosViewSource" d:DesignSource="{d:DesignInstance my:Formatos, CreateList=True}" />
     </Window.Resources>
     <Grid DataContext="{StaticResource formatosViewSource}">
-        <DataGrid AutoGenerateColumns="False" HorizontalAlignment="Stretch" Margin="12" Name="dataGridFormatos" VerticalAlignment="Stretch" ItemsSource="{Binding}" HorizontalGridLinesBrush="DarkGray" VerticalGridLinesBrush="DarkGray">
+        <DataGrid AutoGenerateColumns="False" HorizontalAlignment="Stretch" Margin="12,12,12,44" Name="dataGridFormatos" VerticalAlignment="Stretch" ItemsSource="{Binding}" HorizontalGridLinesBrush="DarkGray" VerticalGridLinesBrush="DarkGray" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="descripcionColumn" Binding="{Binding Path=Descripcion}" Header="Descripción" MinWidth="110" />
                 <DataGridTextColumn x:Name="pathColumn" Binding="{Binding Path=Path}" Header="Archivo XML" MinWidth="110" />
@@ -19,5 +19,7 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <Button Content="Salir" Height="26" HorizontalAlignment="Right" Margin="0,0,12,12" Name="buttonSalir" VerticalAlignment="Bottom" Width="120" />
+        <Button Content="Button" Height="26" HorizontalAlignment="Right" Margin="0,0,138,12" Name="button2" VerticalAlignment="Bottom" Width="120" />
     </Grid>
 </Window>

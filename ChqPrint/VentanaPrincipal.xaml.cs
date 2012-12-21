@@ -24,7 +24,8 @@ namespace ChqPrint
         public static string layoutFilename;
         public static Label labelTipoChequeHomeScreen;
 
-        private Configuration c2;
+        private ConfigurationGeneral c0;
+        private ConfigurationLayoutCheque c2;
 
         private Window ventanaConfig = new Window();
         private Window ventanaDesigner = new Window();
@@ -43,28 +44,43 @@ namespace ChqPrint
              * se arrojan y manejan las excepciones correspondientes. */
             try
             {
-                this.c2 = Configuration.Deserialize("standard.xml");
+                this.c0 = ConfigurationGeneral.Deserialize("standard.xml");
             }
             catch (System.IO.FileNotFoundException ex)
             {
                 System.Console.WriteLine(ex.Message);
-                System.Windows.MessageBox.Show("No se encontró el archivo de configuración.", "Archivo de Configuración");
-                //xmlinvalido = true;
-                this.c2 = new ChqPrint.Configuration();
-                Configuration.Serialize("standard.xml", this.c2);
+                System.Windows.MessageBox.Show("No se encontró el archivo de configuración GENERAL.", "Archivo de Configuración");
+                this.c0 = new ChqPrint.ConfigurationGeneral();
+                ConfigurationGeneral.Serialize("standard.xml", this.c0);
             }
             catch (System.InvalidOperationException ex)
             {
                 System.Console.WriteLine(ex.Message);
-                System.Windows.MessageBox.Show("Existe un error con el archivo de configuración.\nPor favor ingrese a la ventana de Configuración para recuperar las opciones.", "Archivo de Configuración");
-                //xmlinvalido = true;
+                System.Windows.MessageBox.Show("Existe un error con el archivo de configuración GENERAL.\nPor favor ingrese a la ventana de Configuración para recuperar las opciones.", "Archivo de Configuración");
+            }
+            // Archivo de configuracion para la disposicion de lo distintos formatos de Cheques.
+            try
+            {
+                this.c2 = ConfigurationLayoutCheque.Deserialize(this.c0.FormatoChequeTalonario);
+            }
+            catch (System.IO.FileNotFoundException ex)
+            {
+                System.Console.WriteLine(ex.Message);
+                System.Windows.MessageBox.Show("No se encontró el archivo de configuración de FORMATO.", "Archivo de Configuración");
+                this.c2 = new ChqPrint.ConfigurationLayoutCheque();
+                ConfigurationLayoutCheque.Serialize(this.c0.FormatoChequeTalonario, this.c2);
+            }
+            catch (System.InvalidOperationException ex)
+            {
+                System.Console.WriteLine(ex.Message);
+                System.Windows.MessageBox.Show("Existe un error con el archivo de configuración de FORMATO.\nPor favor ingrese a la ventana de Configuración para recuperar las opciones.", "Archivo de Configuración");
             }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            labelTipoChequeHomeScreen = label1;
-            label1.Content = c2.ChequeID;
+            labelTipoChequeHomeScreen = labelStatusMain;
+            labelStatusMain.Content = c2.ChequeID;
             layoutFilename = "standard.xml";
         }
 
@@ -191,7 +207,7 @@ namespace ChqPrint
 
         public void ActualizarLabelTipoCheque(string newTipoCheque)
         {
-            label1.Content = newTipoCheque;
+            labelStatusMain.Content = newTipoCheque;
         }
 
     }
