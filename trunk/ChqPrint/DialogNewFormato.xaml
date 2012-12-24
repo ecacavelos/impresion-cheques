@@ -1,0 +1,19 @@
+﻿<Window x:Class="ChqPrint.DialogNewFormato"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Agregar Nuevo Formato de Cheque" Height="200" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" Background="DarkSeaGreen" Loaded="Window_Loaded">
+    <Window.Resources>
+        <Image x:Key="Folder" Height="16" Width="16" Source="/ChqPrint;component/folder-yellow-explorer-icon.png" />
+    </Window.Resources>
+    <Grid>
+        <Label Content="Descripción: " Height="28" HorizontalAlignment="Left" Margin="12,12,0,0" Name="labelDescripcion" VerticalAlignment="Top" Width="128" />
+        <Label Content="Archivo de Formato: " Height="28" HorizontalAlignment="Left" Margin="12,46,0,0" Name="labelPath" VerticalAlignment="Top" Width="128" />
+        <TextBox Height="28" HorizontalAlignment="Right" Margin="0,12,12,0" Name="textBoxDescripcion" VerticalAlignment="Top" Width="220" />
+        <TextBox Height="28" HorizontalAlignment="Right" Margin="0,80,46,0" Name="textBoxPath" VerticalAlignment="Top" Width="320" IsReadOnly="True" />
+        <Button Height="28" HorizontalAlignment="Right" Margin="0,80,12,0" Name="buttonExplorar" VerticalAlignment="Top" Width="28" Click="buttonExplorar_Click">
+            <DynamicResource ResourceKey="Folder"/>
+        </Button>
+        <Button Content="Aceptar" Height="26" HorizontalAlignment="Left" Margin="12,0,0,12" Name="buttonAceptar" VerticalAlignment="Bottom" Width="120" IsEnabled="False" Click="buttonAceptar_Click" />
+        <Button Content="Cancelar" Height="26" HorizontalAlignment="Left" IsEnabled="True" Margin="138,0,0,12" Name="buttonCancelar" VerticalAlignment="Bottom" Width="120" Click="buttonCancelar_Click" />
+    </Grid>
+</Window>

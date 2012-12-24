@@ -67,5 +67,37 @@ namespace ChqPrint
             return formatosQuery;
         }
 
+        #region "Funciones relativas a los Botones Externos"
+
+        private void buttonAgregar_Click(object sender, RoutedEventArgs e)
+        {
+            Formatos newFormato = new Formatos();
+            Formatos lastFormato = (Formatos)(dataGridFormatos.Items[dataGridFormatos.Items.Count - 1]);
+
+            DialogNewFormato dlg = new DialogNewFormato();
+            Nullable<bool> result = dlg.ShowDialog();
+
+            if (result == true)
+            {
+                newFormato.idFormato = lastFormato.idFormato + 1;
+                newFormato.Descripcion = dlg.ResponseText_Descripcion;
+                newFormato.Path = dlg.ResponseText_Path;
+                // Agregamos el nuevo Formato a la Tabla correspondiente.
+                chqDatabase1Entities.Formatos.AddObject(newFormato);
+                chqDatabase1Entities.SaveChanges();
+                // Refrescamos el origen de los datos mostrados en el DataGrid, para mostrar el nuevo Formato.
+                System.Windows.Data.CollectionViewSource formatosViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("formatosViewSource")));
+                System.Data.Objects.ObjectQuery<ChqPrint.Formatos> formatosQuery = this.GetFormatosQuery(chqDatabase1Entities);
+                formatosViewSource.Source = formatosQuery.Execute(System.Data.Objects.MergeOption.AppendOnly);
+            }
+        }
+
+        private void buttonSalir_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        #endregion
+
     }
 }

@@ -83,6 +83,9 @@
     <Compile Include="DataGridExcelTools.cs" />
     <Compile Include="DataGridExportManager.cs" />
     <Compile Include="DataGridHelper.cs" />
+    <Compile Include="DialogNewFormato.xaml.cs">
+      <DependentUpon>DialogNewFormato.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -109,6 +112,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Designer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DialogNewFormato.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -237,6 +244,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="folder-yellow-explorer-icon.png" />
+    <Resource Include="check_icon.png" />
     <Content Include="ChqDatabase1.sdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
