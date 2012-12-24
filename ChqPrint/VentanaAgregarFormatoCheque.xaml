@@ -19,7 +19,7 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Salir" Height="26" HorizontalAlignment="Right" Margin="0,0,12,12" Name="buttonSalir" VerticalAlignment="Bottom" Width="120" />
-        <Button Content="Button" Height="26" HorizontalAlignment="Right" Margin="0,0,138,12" Name="button2" VerticalAlignment="Bottom" Width="120" />
+        <Button Content="Salir" Height="26" HorizontalAlignment="Right" Margin="0,0,12,12" Name="buttonSalir" VerticalAlignment="Bottom" Width="120" Click="buttonSalir_Click" />
+        <Button Content="Agregar Formato..." Height="26" HorizontalAlignment="Right" Margin="0,0,138,12" Name="buttonAgregar" VerticalAlignment="Bottom" Width="120" Click="buttonAgregar_Click" />
     </Grid>
 </Window>
