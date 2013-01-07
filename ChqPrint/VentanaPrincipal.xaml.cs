@@ -27,11 +27,14 @@ namespace ChqPrint
         private ConfigurationGeneral c0;
         private ConfigurationLayoutCheque c2;
 
-        private Window ventanaConfig = new Window();
         private Window ventanaDesigner = new Window();
+        private Window ventanaOpenFile = new Window();
+        // Ventanas abiertas desde el Menú.
+        private Window ventanaConfig = new Window();
         private Window ventanaAgregarFormatoCheques = new Window();
         private Window ventanaAgregarTalonarios = new Window();
-        private Window ventanaOpenFile = new Window();
+        private Window ventanaAdministrarClientes = new Window();
+        // Ventanas abiertas desde el Toolbar de Botones.
         private Window ventanaVistaCheques = new Window();
         private Window ventanaImprimirCheques = new Window();
 
@@ -92,22 +95,6 @@ namespace ChqPrint
         #endregion
 
         #region "Funciones relativas a los Botones del Toolbar"
-
-        private void buttonDesign_Click(object sender, RoutedEventArgs e)
-        {
-            if (VentanaElegirFormatoCheque.IsOpen) // Se controla que una instancia de esta Ventana no este abierta. 
-            {
-                this.ventanaOpenFile.Activate(); // Si está abierta entonces activar y mandar al frente.
-                return;
-            }
-            else // No está abierta. Abrir una instancia de la Ventana.
-            {
-                Type type = this.GetType();
-                Assembly assembly = type.Assembly;
-                this.ventanaOpenFile = (Window)assembly.CreateInstance("ChqPrint.VentanaElegirFormatoCheque");
-                this.ventanaOpenFile.Show();
-            }
-        }
 
         private void buttonReport_Click(object sender, RoutedEventArgs e)
         {
@@ -171,6 +158,33 @@ namespace ChqPrint
             Application.Current.Shutdown(); // Cerrar la Aplicación Entera.
         }
 
+        private void menuItem_AdministrarClientes(object sender, RoutedEventArgs e)
+        {
+            if (VentanaVistaClientes.IsOpen) // Se controla que una instancia de esta Ventana no este abierta. 
+            {
+                this.ventanaAdministrarClientes.Activate(); // Si está abierta entonces activar y mandar al frente.
+                return;
+            }
+            else // No está abierta. Abrir una instancia de la Ventana.
+            {
+                // Se llama a la ventana para hacer login y comprobar que el usuario es admin.
+                VentanaLogin winLogin = new VentanaLogin();
+                Nullable<bool> result = winLogin.ShowDialog();
+                // Si el login es exitoso.
+                if (result == true)
+                {
+                    Type type = this.GetType();
+                    Assembly assembly = type.Assembly;
+                    this.ventanaAdministrarClientes = (Window)assembly.CreateInstance("ChqPrint.VentanaVistaClientes");
+                    this.ventanaAdministrarClientes.Show();
+                }
+                else
+                {
+                    //System.Console.WriteLine("Se canceló el Login.");
+                }
+            }
+        }
+
         private void menuItem_AdministrarFormatos(object sender, RoutedEventArgs e)
         {
             if (VentanaAgregarFormatoCheque.IsOpen) // Se controla que una instancia de esta Ventana no este abierta. 
@@ -196,10 +210,21 @@ namespace ChqPrint
             }
             else // No está abierta. Abrir una instancia de la Ventana.
             {
-                Type type = this.GetType();
-                Assembly assembly = type.Assembly;
-                this.ventanaAgregarTalonarios = (Window)assembly.CreateInstance("ChqPrint.VentanaAgregarTalonario");
-                this.ventanaAgregarTalonarios.Show();
+                // Se llama a la ventana para hacer login y comprobar que el usuario es admin.
+                VentanaLogin winLogin = new VentanaLogin();
+                Nullable<bool> result = winLogin.ShowDialog();
+                // Si el login es exitoso.
+                if (result == true)
+                {
+                    Type type = this.GetType();
+                    Assembly assembly = type.Assembly;
+                    this.ventanaAgregarTalonarios = (Window)assembly.CreateInstance("ChqPrint.VentanaAgregarTalonario");
+                    this.ventanaAgregarTalonarios.Show();
+                }
+                else
+                {
+                    //System.Console.WriteLine("Se canceló el Login.");
+                }
             }
         }
 

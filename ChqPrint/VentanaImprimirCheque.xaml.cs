@@ -24,7 +24,7 @@ namespace ChqPrint
 
         ChqPrint.ChqDatabase1Entities database1Entities = new ChqPrint.ChqDatabase1Entities();
 
-        private bool AutoCompleteHasFocus = false;
+        //private bool AutoCompleteHasFocus = false;
 
         #region "Funciones relativas a la Inicializacion, Carga y Descarga de la Ventana"
 
@@ -70,28 +70,6 @@ namespace ChqPrint
             {
                 textBoxPaguese.AddItem(new WPFAutoCompleteTextbox.AutoCompleteEntry(tempCliente.Nombre, tempCliente.Nombre));
             }
-
-            /*int defaultIndex = 0;
-            int i = 0;
-            // Cargamos los Cheques en el comboBox            
-            string esqlFormatos = String.Format("SELECT value f FROM Formatos as f");
-            var formatosVar = database1Entities.CreateQuery<Formatos>(esqlFormatos);
-            foreach (Formatos tempFormato in formatosVar)
-            {
-                ComboBoxItem elementoCombo = new ComboBoxItem();
-                elementoCombo.Content = tempFormato.Descripcion;
-                comboBoxTipoCheque.Items.Add(elementoCombo);
-                if (tempFormato.Path == VentanaPrincipal.layoutFilename)
-                {
-                    defaultIndex = i;
-                }
-                i++;
-            }
-            // Mostramos el formato de Cheque por defecto en el ComboBox.
-            if (comboBoxTipoCheque.HasItems)
-            {
-                comboBoxTipoCheque.SelectedIndex = defaultIndex;
-            }*/
 
             textBlockFormatoCheque.Text = c2.ChequeID;
 
@@ -159,10 +137,10 @@ namespace ChqPrint
             }
 
             // Hacemos un query a la Base de Datos para obtener todos los Cheques.
-            string esql = String.Format("SELECT value c FROM Cheques as c WHERE c.nroCheque = '{0}'", textBlockNumeroCheque.Text);
+            string esql = String.Format("SELECT value c FROM Cheques as c WHERE (c.nroCheque = '{0}' AND c.Talonario = '{1}')", textBlockNumeroCheque.Text, textBlockTalonario.Text);
             var chequesVar = database1Entities.CreateQuery<Cheques>(esql);
 
-            // Si ya no existe un Cheque con ese número.
+            // Si ya no existe un Cheque con ese Talonario y Número de Cheque.
             if (chequesVar.ToList().Count == 0)
             {
                 int tempMonto = 0;

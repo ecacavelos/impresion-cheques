@@ -104,8 +104,15 @@
     <Compile Include="VentanaImprimirCheque.xaml.cs">
       <DependentUpon>VentanaImprimirCheque.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VentanaLogin.xaml.cs">
+      <DependentUpon>VentanaLogin.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="VentanaVistaCheques.xaml.cs">
       <DependentUpon>VentanaVistaCheques.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VentanaVistaClientes.xaml.cs">
+      <DependentUpon>VentanaVistaClientes.xaml</DependentUpon>
     </Compile>
     <Page Include="AutoCompleteTextBox.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -131,11 +138,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="VentanaElegirFormatoCheque.xaml">
+    <Page Include="VentanaImprimirCheque.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="VentanaImprimirCheque.xaml">
+    <Page Include="VentanaLogin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -162,14 +169,15 @@
     </Compile>
     <Compile Include="DrawingCanvas.cs" />
     <Compile Include="Impresion.cs" />
-    <Compile Include="VentanaElegirFormatoCheque.xaml.cs">
-      <DependentUpon>VentanaElegirFormatoCheque.xaml</DependentUpon>
-    </Compile>
     <Compile Include="VentanaPrincipal.xaml.cs">
       <DependentUpon>VentanaPrincipal.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="VentanaVistaCheques.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VentanaVistaClientes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
