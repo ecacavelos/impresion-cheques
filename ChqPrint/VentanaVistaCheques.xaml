@@ -27,7 +27,7 @@
         </Style>
     </Window.Resources>
     <Grid DataContext="{StaticResource chequesViewSource}">
-        <DataGrid AutoGenerateColumns="False" HorizontalAlignment="Stretch" Margin="12,12,12,44" Name="dataGridCheques" VerticalAlignment="Stretch" ItemsSource="{Binding}" HorizontalGridLinesBrush="DarkGray" VerticalGridLinesBrush="DarkGray" RowEditEnding="dataGrid1_RowEditEnding" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="False" VerticalContentAlignment="Center" AlternatingRowBackground="Honeydew" CellStyle="{StaticResource Body_Content_DataGrid_Centering}">
+        <DataGrid AutoGenerateColumns="False" HorizontalAlignment="Stretch" Margin="12,12,12,44" Name="dataGridCheques" VerticalAlignment="Stretch" ItemsSource="{Binding}" HorizontalGridLinesBrush="DarkGray" VerticalGridLinesBrush="DarkGray" RowEditEnding="dataGrid1_RowEditEnding" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="False" VerticalContentAlignment="Center" AlternatingRowBackground="Honeydew" CellStyle="{StaticResource Body_Content_DataGrid_Centering}" BeginningEdit="dataGridCheques_BeginningEdit">
             <DataGrid.Resources>
                 <Style x:Key="DataGridCheckBoxStyle" TargetType="CheckBox">
                     <Setter Property="VerticalAlignment" Value="Center" />
