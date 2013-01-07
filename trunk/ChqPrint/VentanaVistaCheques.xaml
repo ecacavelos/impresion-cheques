@@ -6,7 +6,7 @@
         Title="Reporte de Cheques" Height="320" Width="800" Loaded="Window_Loaded" Unloaded="Window_Unloaded" ResizeMode="CanMinimize" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:my="clr-namespace:ChqPrint" Closing="Window_Closing" Background="DarkSeaGreen">
     <Window.Resources>
         <CollectionViewSource x:Key="chequesViewSource" d:DesignSource="{d:DesignInstance my:Cheques, CreateList=True}" />
-        <local:IntToNumericStringConverter x:Key="IntToNumericStringConverter" />
+        <!--<local:IntToNumericStringConverter x:Key="IntToNumericStringConverter" />-->        
         <ObjectDataProvider x:Key="comboBoxEnum" MethodName="GetValues" ObjectType="{x:Type core:Enum}">
             <ObjectDataProvider.MethodParameters>
                 <x:Type Type="local:enumEstadoCheque"/>
@@ -27,7 +27,7 @@
         </Style>
     </Window.Resources>
     <Grid DataContext="{StaticResource chequesViewSource}">
-        <DataGrid AutoGenerateColumns="False" HorizontalAlignment="Stretch" Margin="12,12,12,44" Name="dataGridCheques" VerticalAlignment="Stretch" ItemsSource="{Binding}" HorizontalGridLinesBrush="DarkGray" VerticalGridLinesBrush="DarkGray" RowEditEnding="dataGrid1_RowEditEnding" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="False" VerticalContentAlignment="Center" AlternatingRowBackground="Honeydew" CellStyle="{StaticResource Body_Content_DataGrid_Centering}" >
+        <DataGrid AutoGenerateColumns="False" HorizontalAlignment="Stretch" Margin="12,12,12,44" Name="dataGridCheques" VerticalAlignment="Stretch" ItemsSource="{Binding}" HorizontalGridLinesBrush="DarkGray" VerticalGridLinesBrush="DarkGray" RowEditEnding="dataGrid1_RowEditEnding" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="False" VerticalContentAlignment="Center" AlternatingRowBackground="Honeydew" CellStyle="{StaticResource Body_Content_DataGrid_Centering}">
             <DataGrid.Resources>
                 <Style x:Key="DataGridCheckBoxStyle" TargetType="CheckBox">
                     <Setter Property="VerticalAlignment" Value="Center" />
@@ -36,10 +36,10 @@
             </DataGrid.Resources>
             <DataGrid.Columns>
                 <!--<DataGridTextColumn x:Name="idColumn" Binding="{Binding Path=idCheque}" Header="ID" />-->
-                <DataGridTextColumn x:Name="talonarioColumn" Binding="{Binding Path=Talonario}" Header="Talonario" MinWidth="110" />
-                <DataGridTextColumn x:Name="nroColumn" Binding="{Binding Path=nroCheque}" Header="Timbrado" MinWidth="110" />
-                <DataGridTextColumn x:Name="bancoColumn" Binding="{Binding Path=Banco}" Header="Banco" />
-                <DataGridTextColumn x:Name="fechaColumn" Binding="{Binding Path=Fecha, StringFormat=\{0:dd/MM/yyyy\}}" Header="Fecha" MinWidth="110" />
+                <DataGridTextColumn x:Name="talonarioColumn" Binding="{Binding Path=Talonario}" Header="Talonario" MinWidth="110" IsReadOnly="True" />
+                <DataGridTextColumn x:Name="nroColumn" Binding="{Binding Path=nroCheque}" Header="Timbrado" MinWidth="110" IsReadOnly="True" />
+                <DataGridTextColumn x:Name="bancoColumn" Binding="{Binding Path=Banco}" Header="Banco" IsReadOnly="True" />
+                <DataGridTextColumn x:Name="fechaColumn" Binding="{Binding Path=Fecha, StringFormat=\{0:dd/MM/yyyy\}}" Header="Fecha" MinWidth="110" IsReadOnly="True" />
                 <DataGridTextColumn x:Name="montoColumn" Binding="{Binding Path=Monto}" Header="Monto" MinWidth="110" />
                 <DataGridTextColumn x:Name="pagueseColumn" Binding="{Binding Path=PagueseOrdenDe}" Header="Paguese a la Orden de" MinWidth="130" />
                 <DataGridTextColumn x:Name="hiddenEstadoColumn" Binding="{Binding Path=Estado}" Header="Estado" Visibility="Collapsed" />
@@ -47,7 +47,7 @@
                 <DataGridTemplateColumn x:Name="estadoColumn" Header="Estado">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ComboBox x:Name="comboBoxEstadoCheque" Text="{Binding Path=Estado, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Source={StaticResource comboBoxEnum}}" />
+                            <ComboBox x:Name="comboBoxEstadoCheque" Text="{Binding Path=Estado, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}" IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Source={StaticResource comboBoxEnum}}" DropDownClosed="comboBoxEstadoCheque_DropDownClosed" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

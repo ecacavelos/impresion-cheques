@@ -135,6 +135,12 @@ namespace ChqPrint
 
         #endregion
 
+        // Se habilita la opción de Guardar cuando se cambia la opción en el ComboBox.
+        private void comboBoxEstadoCheque_DropDownClosed(object sender, EventArgs e)
+        {
+            buttonGuardar.IsEnabled = true;
+        }
+
     }
 
     #region "Conversores y Recursos para los data bindings de esta ventana."
