@@ -88,15 +88,6 @@ namespace ChqPrint
             return chequesQuery;
         }
 
-        private void dataGrid1_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
-        {
-            if (((Cheques)e.Row.Item).Estado == null)
-            {
-                ((Cheques)e.Row.Item).Estado = "Pendiente";
-            }
-            buttonGuardar.IsEnabled = true;
-        }
-
         #region "Funciones relativas a los Botones Externos"
 
         private void buttonExportar_Click(object sender, RoutedEventArgs e)
@@ -134,6 +125,24 @@ namespace ChqPrint
         }
 
         #endregion
+
+        private void dataGridCheques_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        {
+            // Si el Cheque está en estado 'Cobrado' o 'Anulado', no se permiten modificaciones en el mismo.
+            if ((((Cheques)e.Row.Item).Estado == "Cobrado") || (((Cheques)e.Row.Item).Estado == "Anulado"))
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private void dataGrid1_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
+        {
+            if (((Cheques)e.Row.Item).Estado == null)
+            {
+                ((Cheques)e.Row.Item).Estado = "Pendiente";
+            }
+            buttonGuardar.IsEnabled = true;
+        }
 
         // Se habilita la opción de Guardar cuando se cambia la opción en el ComboBox.
         private void comboBoxEstadoCheque_DropDownClosed(object sender, EventArgs e)

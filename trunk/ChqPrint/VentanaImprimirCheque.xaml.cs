@@ -101,16 +101,7 @@ namespace ChqPrint
                 }
             }
 
-            //if (montoValidado > 0)
-            //{
-            // Si se seleccionó previamente un archivo válido, se obtiene su ubicación.
-            /*string esql0 = String.Format("SELECT value f FROM Formatos as f WHERE f.Descripcion = '{0}'", ((ComboBoxItem)comboBoxTipoCheque.SelectedItem).Content.ToString());
-            var formatosVar = database1Entities.CreateQuery<Formatos>(esql0);
-
-            if (formatosVar.Count() == 1)
-            {
-                VentanaPrincipal.layoutFilename = formatosVar.First().Path;
-            }*/
+            // Verificamos si el cliente ingresado ya existe en la Base de Datos.
 
             string esql_clientes = String.Format("SELECT value c FROM Clientes as c WHERE c.Nombre == '{0}'", textBoxPaguese.Text);
             var clientesVar = database1Entities.CreateQuery<Clientes>(esql_clientes);
