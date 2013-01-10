@@ -16,6 +16,9 @@ namespace ChqPrint
             public int xMonto, yMonto;
             public int xPagueseOrdenDe, yPagueseOrdenDe;
             public int xMontoEnLetras, yMontoEnLetras;
+            public int xTalonFecha, yTalonFecha;
+            public int xTalonAlias, yTalonAlias;
+            public int xTalonMonto, yTalonMonto;
         }
 
         string _ChequeID;
@@ -68,19 +71,28 @@ namespace ChqPrint
             // Creamos e inicializamos la Estructura con las Coordenadas para la Impresión.
             _ImpresionCoords = new ImpresionCoords();
             // Fecha.
-            _ImpresionCoords.yFecha = 15;
-            _ImpresionCoords.xFechaDia = 120;
-            _ImpresionCoords.xFechaMes = 160;
-            _ImpresionCoords.xFechaAño = 230;
+            _ImpresionCoords.yFecha = 85;
+            _ImpresionCoords.xFechaDia = 530;
+            _ImpresionCoords.xFechaMes = 610;
+            _ImpresionCoords.xFechaAño = 730;
             // Monto en Números.
-            _ImpresionCoords.xMonto = 120;
-            _ImpresionCoords.yMonto = 30;
+            _ImpresionCoords.xMonto = 680;
+            _ImpresionCoords.yMonto = 40;
             // Páguese a la Orden De.
-            _ImpresionCoords.xPagueseOrdenDe = 120;
-            _ImpresionCoords.yPagueseOrdenDe = 45;
+            _ImpresionCoords.xPagueseOrdenDe = 280;
+            _ImpresionCoords.yPagueseOrdenDe = 110;
             // Monto en Letras.
-            _ImpresionCoords.xMontoEnLetras = 120;
-            _ImpresionCoords.yMontoEnLetras = 60;
+            _ImpresionCoords.xMontoEnLetras = 280;
+            _ImpresionCoords.yMontoEnLetras = 140;
+            // Fecha Abreviada en el Talon.
+            _ImpresionCoords.xTalonFecha = 35;
+            _ImpresionCoords.yTalonFecha = 60;
+            // Concepto Abreviado en el Talon.
+            _ImpresionCoords.xTalonAlias = 35;
+            _ImpresionCoords.yTalonAlias = 80;
+            // Monto 'Este Cheque' en el Talon.
+            _ImpresionCoords.xTalonMonto = 35;
+            _ImpresionCoords.yTalonMonto = 220;
         }
     }
 

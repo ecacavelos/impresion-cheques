@@ -20,6 +20,8 @@ namespace ChqPrint
     {
         public static bool IsOpen { get; private set; }
 
+        ChqPrint.ChqDatabase1Entities chqDatabase1Entities = new ChqPrint.ChqDatabase1Entities();
+
         #region "Funciones relativas a la Inicializacion, Carga y Descarga de la Ventana"
 
         public VentanaVistaClientes()
@@ -30,7 +32,6 @@ namespace ChqPrint
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             IsOpen = true;
-            ChqPrint.ChqDatabase1Entities chqDatabase1Entities = new ChqPrint.ChqDatabase1Entities();
             // Load data into Clientes. You can modify this code as needed.
             System.Windows.Data.CollectionViewSource clientesViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("clientesViewSource")));
             System.Data.Objects.ObjectQuery<ChqPrint.Clientes> clientesQuery = this.GetClientesQuery(chqDatabase1Entities);
@@ -56,10 +57,68 @@ namespace ChqPrint
         private System.Data.Objects.ObjectQuery<Clientes> GetClientesQuery(ChqDatabase1Entities chqDatabase1Entities)
         {
             // Auto generated code
-
             System.Data.Objects.ObjectQuery<ChqPrint.Clientes> clientesQuery = chqDatabase1Entities.Clientes;
             // Returns an ObjectQuery.
             return clientesQuery;
+        }
+
+        private void buttonGuardar_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Desea guardar los cambios efectuados?", "Confirmar modificaciones", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    chqDatabase1Entities.SaveChanges();
+                }
+                catch (System.Data.UpdateException ex)
+                {
+                    System.Console.WriteLine(ex.InnerException.GetType());
+                    System.Console.WriteLine(ex.InnerException.Message);
+                }
+                buttonGuardar.IsEnabled = false;
+                labelStatusBar.Content = "Se guardaron los cambios.";
+            }
+            else if (result == MessageBoxResult.No)
+            {
+                labelStatusBar.Content = "NO se guardaron los cambios.";
+            }
+        }
+
+        private void dataGridClientes_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
+        {
+            buttonGuardar.IsEnabled = true;
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            MessageBoxResult result;
+
+            if (buttonGuardar.IsEnabled == true)
+            {
+                result = MessageBox.Show("Desea guardar los cambios efectuados?", "Confirmar modificaciones", MessageBoxButton.YesNoCancel);
+                if (result == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        chqDatabase1Entities.SaveChanges();
+                    }
+                    catch (System.Data.UpdateException ex)
+                    {
+                        System.Console.WriteLine(ex.InnerException.GetType());
+                        System.Console.WriteLine(ex.InnerException.Message);
+                    }
+                    //label1.Content = "Se guardaron los cambios.";                
+                }
+                else if (result == MessageBoxResult.No)
+                {
+                    //label1.Content = "NO se guardaron los cambios.";
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
+            }
         }
 
     }

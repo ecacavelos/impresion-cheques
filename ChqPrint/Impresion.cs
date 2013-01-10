@@ -20,7 +20,8 @@ namespace ChqPrint
         public static bool ImprimirCheque(DateTime fecha, int monto, string beneficiario)
         {
             System.Console.WriteLine(VentanaPrincipal.layoutFilename);
-            ConfigurationLayoutCheque c2 = ConfigurationLayoutCheque.Deserialize(VentanaPrincipal.layoutFilename);
+            ConfigurationGeneral c0 = ConfigurationGeneral.Deserialize(VentanaPrincipal.layoutFilename);
+            ConfigurationLayoutCheque c2 = ConfigurationLayoutCheque.Deserialize(c0.FormatoChequeTalonario);
 
             System.Console.WriteLine(c2.ChequeID);
             // Creamos la clase pariente 'FixedDocument'.
@@ -30,6 +31,7 @@ namespace ChqPrint
             FixedPage page1 = new FixedPage();
             page1.Width = fixedDoc.DocumentPaginator.PageSize.Width;
             page1.Height = fixedDoc.DocumentPaginator.PageSize.Height;
+            //page1.Height = 300;
 
             // Agregamos los elementos del Cheque.
 
@@ -54,7 +56,7 @@ namespace ChqPrint
 
             // --- Monto ---
             TextBlock chqMonto = new TextBlock();
-            chqMonto.Text = monto.ToString();
+            chqMonto.Text = monto.ToString("#,##0");
             page1.Children.Add(chqMonto);
             FixedPage.SetLeft(chqMonto, c2.CoordenadasImpresion.xMonto);
             FixedPage.SetTop(chqMonto, c2.CoordenadasImpresion.yMonto);
@@ -72,6 +74,27 @@ namespace ChqPrint
             page1.Children.Add(chqMontoEnLetras);
             FixedPage.SetLeft(chqMontoEnLetras, c2.CoordenadasImpresion.xMontoEnLetras);
             FixedPage.SetTop(chqMontoEnLetras, c2.CoordenadasImpresion.yMontoEnLetras);
+
+            // --- Fecha Abreviada en el Talon ---
+            TextBlock chqTalonFecha = new TextBlock();
+            chqTalonFecha.Text = string.Format("{0}/{1}/{2}", fecha.Day.ToString(), fecha.Month.ToString(), fecha.Year.ToString());
+            page1.Children.Add(chqTalonFecha);
+            FixedPage.SetLeft(chqTalonFecha, c2.CoordenadasImpresion.xTalonFecha);
+            FixedPage.SetTop(chqTalonFecha, c2.CoordenadasImpresion.yTalonFecha);
+
+            // --- Orden Abreviada en el Talon ---
+            TextBlock chqTalonAlias = new TextBlock();
+            chqTalonAlias.Text = "TEST";
+            page1.Children.Add(chqTalonAlias);
+            FixedPage.SetLeft(chqTalonAlias, c2.CoordenadasImpresion.xTalonAlias);
+            FixedPage.SetTop(chqTalonAlias, c2.CoordenadasImpresion.yTalonAlias);
+
+            // --- Concepto Abreviada en el Talon ---
+            TextBlock chqTalonMonto = new TextBlock();
+            chqTalonMonto.Text = monto.ToString("#,##0");
+            page1.Children.Add(chqTalonMonto);
+            FixedPage.SetLeft(chqTalonMonto, c2.CoordenadasImpresion.xTalonMonto);
+            FixedPage.SetTop(chqTalonMonto, c2.CoordenadasImpresion.yTalonMonto);
 
             // Agregamos la Pagina al Documento.
             PageContent page1Content = new PageContent();
