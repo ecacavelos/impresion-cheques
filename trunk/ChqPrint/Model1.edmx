@@ -39,6 +39,7 @@
           </Key>
           <Property Name="idCliente" Type="int" Nullable="false" />
           <Property Name="Nombre" Type="nvarchar" MaxLength="100" />
+          <Property Name="Alias" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Formatos">
           <Key>
@@ -86,6 +87,7 @@
           </Key>
           <Property Type="Int32" Name="idCliente" Nullable="false" />
           <Property Type="String" Name="Nombre" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Alias" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Admins">
           <Key>
@@ -124,6 +126,7 @@
           <EntitySetMapping Name="Clientes">
             <EntityTypeMapping TypeName="ChqDatabase1Model.Clientes">
               <MappingFragment StoreEntitySet="Clientes">
+                <ScalarProperty Name="Alias" ColumnName="Alias" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="idCliente" ColumnName="idCliente" />
               </MappingFragment>

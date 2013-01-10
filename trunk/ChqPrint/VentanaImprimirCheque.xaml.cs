@@ -189,5 +189,18 @@ namespace ChqPrint
 
         }
 
+        private void textBoxMonto_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            int tempMonto = 0;
+
+
+            bool result = Int32.TryParse(((string)textBoxMonto.Text), System.Globalization.NumberStyles.Number, new System.Globalization.CultureInfo("es-ES"), out tempMonto);
+            if (result)
+            {
+                textBoxMonto.Text = tempMonto.ToString("#,##0");
+                textBoxMonto.CaretIndex = textBoxMonto.Text.Length;
+            }
+        }
+
     }
 }

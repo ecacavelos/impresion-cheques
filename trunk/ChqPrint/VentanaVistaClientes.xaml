@@ -11,6 +11,7 @@
         <DataGrid AutoGenerateColumns="False" Height="225" HorizontalAlignment="Stretch" Margin="12,12,12,0" Name="dataGridClientes" VerticalAlignment="Top" ItemsSource="{Binding}" IsReadOnly="False" HorizontalGridLinesBrush="DarkGray" VerticalGridLinesBrush="DarkGray" CanUserAddRows="True" CanUserDeleteRows="True" RowEditEnding="dataGridClientes_RowEditEnding">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="nombreColumn" Binding="{Binding Path=Nombre}" Header="Nombre" MinWidth="110" />
+                <DataGridTextColumn x:Name="aliasColumn" Binding="{Binding Path=Alias}" Header="Alias" MinWidth="110" />
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="Guardar Cambios" Height="26" HorizontalAlignment="Right" IsEnabled="False" Margin="0,0,138,12" Name="buttonGuardar" VerticalAlignment="Bottom" Width="120" Click="buttonGuardar_Click" />
