@@ -82,6 +82,9 @@ namespace ChqPrint
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("es-ES");
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("es-ES");
+
             labelTipoChequeHomeScreen = labelStatusMain;
             labelStatusMain.Content = c2.ChequeID;
             layoutFilename = "standard.xml";
