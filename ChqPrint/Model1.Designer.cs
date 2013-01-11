@@ -519,6 +519,30 @@ namespace ChqPrint
         private global::System.String _Talonario;
         partial void OnTalonarioChanging(global::System.String value);
         partial void OnTalonarioChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String concepto
+        {
+            get
+            {
+                return _concepto;
+            }
+            set
+            {
+                OnconceptoChanging(value);
+                ReportPropertyChanging("concepto");
+                _concepto = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("concepto");
+                OnconceptoChanged();
+            }
+        }
+        private global::System.String _concepto;
+        partial void OnconceptoChanging(global::System.String value);
+        partial void OnconceptoChanged();
 
         #endregion
     

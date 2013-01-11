@@ -189,6 +189,7 @@ namespace ChqPrint
 
         }
 
+        // Esta funcion es la que pone los puntos en los miles, millones, etc.  
         private void textBoxMonto_TextChanged(object sender, TextChangedEventArgs e)
         {
             int tempMonto = 0;

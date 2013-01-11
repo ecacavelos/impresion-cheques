@@ -32,6 +32,7 @@
           <Property Name="Estado" Type="nvarchar" MaxLength="100" />
           <Property Name="Banco" Type="nvarchar" MaxLength="100" />
           <Property Name="Talonario" Type="nvarchar" MaxLength="100" />
+          <Property Name="concepto" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Clientes">
           <Key>
@@ -72,6 +73,7 @@
           <Property Type="String" Name="Estado" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Banco" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Talonario" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="concepto" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Formatos">
           <Key>
@@ -104,6 +106,7 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ChqDatabase1ModelStoreContainer" CdmEntityContainer="ChqDatabase1Entities">
           <EntitySetMapping Name="Cheques"><EntityTypeMapping TypeName="ChqDatabase1Model.Cheques"><MappingFragment StoreEntitySet="Cheques">
+                <ScalarProperty Name="concepto" ColumnName="concepto" />
                 <ScalarProperty Name="Talonario" ColumnName="Talonario" />
                 <ScalarProperty Name="Banco" ColumnName="Banco" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
