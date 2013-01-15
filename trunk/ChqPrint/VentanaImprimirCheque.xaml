@@ -15,7 +15,7 @@
         <TextBlock Height="27" HorizontalAlignment="Right" Margin="0,80,12,0" Name="textBlockNumeroCheque" VerticalAlignment="Top" Width="118" Padding="1" Background="White" FontSize="18" TextAlignment="Right" />
         <TextBox Height="28" HorizontalAlignment="Right" Margin="0,114,12,0" Name="textBoxMonto" VerticalAlignment="Top" Width="118" TextAlignment="Right" FontSize="14" MaxLength="14" TextChanged="textBoxMonto_TextChanged" />
         <!--<TextBox Height="28" HorizontalAlignment="Stretch" Margin="12,182,12,0" Name="textBoxPaguese" VerticalAlignment="Top" />                -->
-        <my:AutoCompleteTextBox Height="28" HorizontalAlignment="Stretch" Margin="12,182,12,0" x:Name="textBoxPaguese" VerticalAlignment="Top" Threshold="2" />
+        <my:AutoCompleteTextBox Height="28" HorizontalAlignment="Stretch" Margin="12,182,12,0" x:Name="textBoxPaguese" VerticalAlignment="Top" Threshold="2" PreviewKeyDown="textBoxPaguese_PreviewKeyDown" />
         <!--<ComboBox Height="28" HorizontalAlignment="Stretch" Margin="12,250,12,0" Name="comboBoxTipoCheque" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="Blue" />-->
         <Label Content="Talonario: " Height="28" HorizontalAlignment="Left" Margin="12,46,0,0" Name="label1" VerticalAlignment="Top" Width="159" />
         <TextBlock Height="27" HorizontalAlignment="Stretch" Margin="12,302,12,0" Name="textBlockFormatoCheque" Text="Formato" VerticalAlignment="Top" Background="White" FontSize="14" TextAlignment="Center" Foreground="Blue" Padding="2" />

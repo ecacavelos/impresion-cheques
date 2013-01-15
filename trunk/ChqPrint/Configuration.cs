@@ -18,6 +18,7 @@ namespace ChqPrint
             public int xMontoEnLetras, yMontoEnLetras;
             public int xTalonFecha, yTalonFecha;
             public int xTalonAlias, yTalonAlias;
+            public int xTalonConcepto, yTalonConcepto;
             public int xTalonMonto, yTalonMonto;
         }
 
@@ -87,9 +88,12 @@ namespace ChqPrint
             // Fecha Abreviada en el Talon.
             _ImpresionCoords.xTalonFecha = 35;
             _ImpresionCoords.yTalonFecha = 60;
-            // Concepto Abreviado en el Talon.
+            // Alias Abreviado en el Talon.
             _ImpresionCoords.xTalonAlias = 35;
             _ImpresionCoords.yTalonAlias = 80;
+            // Concepto Abreviado en el Talon.
+            _ImpresionCoords.xTalonConcepto = 35;
+            _ImpresionCoords.yTalonConcepto = 100;
             // Monto 'Este Cheque' en el Talon.
             _ImpresionCoords.xTalonMonto = 35;
             _ImpresionCoords.yTalonMonto = 220;
