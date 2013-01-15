@@ -156,6 +156,7 @@ namespace ChqPrint
                 tempCheque.Fecha = datePickerFecha.SelectedDate;
                 tempCheque.Monto = montoValidado;
                 tempCheque.PagueseOrdenDe = textBoxPaguese.Text;
+                tempCheque.concepto = autoCompleteTextBoxConcepto.Text;
                 tempCheque.MontoEnLetras = Numalet.ToCardinal((int)(tempCheque.Monto)).ToUpper();
                 // Emitimos el cheque en un estado distinto de acuerdo a los datos completados.
                 if (textBoxMonto.Text.Length == 0 || textBoxPaguese.Text.Length == 0)
@@ -173,7 +174,7 @@ namespace ChqPrint
                 }
 
                 // Se intenta imprimir el Cheque.
-                if (Impresion.ImprimirCheque((DateTime)(tempCheque.Fecha), (int)tempCheque.Monto, tempCliente))
+                if (Impresion.ImprimirCheque((DateTime)(tempCheque.Fecha), (int)tempCheque.Monto, tempCliente, tempCheque.concepto))
                 {
                     System.Windows.MessageBox.Show("Se imprimió el Cheque.", "Impresión");
                     // Luego de imprimir el Cheque, agregamos un nuevo registro a la tabla 'Cheques'.                    

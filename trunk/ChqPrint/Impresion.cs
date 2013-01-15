@@ -17,7 +17,7 @@ namespace ChqPrint
     public static class Impresion
     {
 
-        public static bool ImprimirCheque(DateTime fecha, int monto, ChqPrint.Clientes beneficiario)
+        public static bool ImprimirCheque(DateTime fecha, int monto, ChqPrint.Clientes beneficiario, string tempConcepto)
         {
             System.Console.WriteLine(VentanaPrincipal.layoutFilename);
             ConfigurationGeneral c0 = ConfigurationGeneral.Deserialize(VentanaPrincipal.layoutFilename);
@@ -91,7 +91,7 @@ namespace ChqPrint
 
             // --- Concepto Abreviado en el Talon ---
             TextBlock chqTalonConcepto = new TextBlock();
-            chqTalonConcepto.Text = "TEST";
+            chqTalonConcepto.Text = tempConcepto;
             page1.Children.Add(chqTalonConcepto);
             FixedPage.SetLeft(chqTalonConcepto, c2.CoordenadasImpresion.xTalonConcepto);
             FixedPage.SetTop(chqTalonConcepto, c2.CoordenadasImpresion.yTalonConcepto);
