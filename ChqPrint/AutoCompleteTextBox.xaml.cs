@@ -173,18 +173,29 @@ namespace WPFAutoCompleteTextbox
 
         #region "David Methods"
 
-        public void FocusTextBox()
+        // Enfoca el Cuadro de Texto y selecciona todo el texto.
+        public void FocusTextBoxSelectAll()
         {
             this.comboBox.IsDropDownOpen = false;
             this.textBox.Focus();
             this.textBox.SelectAll();
         }
 
+        // Enfoca el Cuadro de Texto.
+        public void FocusTextBox()
+        {
+            this.comboBox.IsDropDownOpen = false;
+            this.textBox.Focus();
+            this.textBox.Select(this.textBox.Text.Length, 0);            
+        }
+
+        // Verifica si está Activa la Lista de Sugerencias.
         public bool SuggestionListActive()
         {
             return comboBox.IsDropDownOpen;
         }
 
+        //  Estos Metodos desplazan el Elemento Seleccionado actualmente en el ListBox.
         public void ChangeComboBoxIndexUp()
         {
             if (comboBox.SelectedIndex == -1)
@@ -200,7 +211,6 @@ namespace WPFAutoCompleteTextbox
                 comboBox.Items.MoveCurrentToPrevious();
             }
         }
-
         public void ChangeComboBoxIndexDown()
         {
             if (comboBox.SelectedIndex == -1)
@@ -215,6 +225,10 @@ namespace WPFAutoCompleteTextbox
             {
                 comboBox.Items.MoveCurrentToNext();
             }
+        }
+        public void StartComboBoxIndex()
+        {
+            comboBox.Items.MoveCurrentToFirst();
         }
 
         #endregion

@@ -92,7 +92,10 @@ namespace ChqPrint
             {
                 try
                 {
-                    montoValidado = Convert.ToInt32(textBoxMonto.Text);
+                    //System.Console.WriteLine(textBoxMonto.Text);
+                    //System.Console.WriteLine(textBoxMonto.Text.Replace(".", ""));
+                    montoValidado = Convert.ToInt32(textBoxMonto.Text.Replace(".", ""));
+
                 }
                 catch (Exception ex)
                 {
@@ -127,15 +130,17 @@ namespace ChqPrint
                 }
             }
 
-            // Hacemos un query a la Base de Datos para obtener todos los Cheques.
+            // Hacemos Queries a la Base de Datos para obtener todos los Cheques y el Cliente correspondiente.
             string esql = String.Format("SELECT value c FROM Cheques as c WHERE (c.nroCheque = '{0}' AND c.Talonario = '{1}')", textBlockNumeroCheque.Text, textBlockTalonario.Text);
             var chequesVar = database1Entities.CreateQuery<Cheques>(esql);
 
             // Si ya no existe un Cheque con ese Talonario y Número de Cheque.
-            if (chequesVar.ToList().Count == 0)
+            if (chequesVar.ToList().Count == 0 && clientesVar.ToList().Count == 1)
             {
-                int tempMonto = 0;
-                Int32.TryParse(textBoxMonto.Text, out tempMonto);
+                Clientes tempCliente = clientesVar.ToArray()[0];
+
+                //int tempMonto = 0;
+                //Int32.TryParse(textBoxMonto.Text, out tempMonto);
 
                 Cheques tempCheque = new Cheques();
                 if (tempCheque.idCheque == 0)                               // Si el ID no existe.
@@ -149,7 +154,7 @@ namespace ChqPrint
                 //tempCheque.Banco = ((ComboBoxItem)comboBoxTipoCheque.SelectedItem).Content.ToString();
                 tempCheque.Banco = textBlockFormatoCheque.Text;
                 tempCheque.Fecha = datePickerFecha.SelectedDate;
-                tempCheque.Monto = tempMonto;
+                tempCheque.Monto = montoValidado;
                 tempCheque.PagueseOrdenDe = textBoxPaguese.Text;
                 tempCheque.MontoEnLetras = Numalet.ToCardinal((int)(tempCheque.Monto)).ToUpper();
                 // Emitimos el cheque en un estado distinto de acuerdo a los datos completados.
@@ -168,7 +173,7 @@ namespace ChqPrint
                 }
 
                 // Se intenta imprimir el Cheque.
-                if (Impresion.ImprimirCheque((DateTime)(tempCheque.Fecha), (int)tempCheque.Monto, tempCheque.PagueseOrdenDe))
+                if (Impresion.ImprimirCheque((DateTime)(tempCheque.Fecha), (int)tempCheque.Monto, tempCliente))
                 {
                     System.Windows.MessageBox.Show("Se imprimió el Cheque.", "Impresión");
                     // Luego de imprimir el Cheque, agregamos un nuevo registro a la tabla 'Cheques'.                    
@@ -200,6 +205,29 @@ namespace ChqPrint
             {
                 textBoxMonto.Text = tempMonto.ToString("#,##0");
                 textBoxMonto.CaretIndex = textBoxMonto.Text.Length;
+            }
+        }
+
+        private void textBoxPaguese_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            //System.Console.WriteLine(e.Key.ToString());
+            if (e.Key.ToString() == "Down")
+            {
+                e.Handled = true;
+                textBoxPaguese.ChangeComboBoxIndexDown();
+            }
+            else if (e.Key.ToString() == "Up")
+            {
+                e.Handled = true;
+                textBoxPaguese.ChangeComboBoxIndexUp();
+            }
+            else if (e.Key.ToString() == "Back")
+            {
+                textBoxPaguese.FocusTextBox();
+            }
+            if (e.Key.ToString() == "Return")
+            {
+                autoCompleteTextBoxConcepto.FocusTextBox();
             }
         }
 

@@ -17,7 +17,7 @@ namespace ChqPrint
     public static class Impresion
     {
 
-        public static bool ImprimirCheque(DateTime fecha, int monto, string beneficiario)
+        public static bool ImprimirCheque(DateTime fecha, int monto, ChqPrint.Clientes beneficiario)
         {
             System.Console.WriteLine(VentanaPrincipal.layoutFilename);
             ConfigurationGeneral c0 = ConfigurationGeneral.Deserialize(VentanaPrincipal.layoutFilename);
@@ -63,7 +63,7 @@ namespace ChqPrint
 
             // --- Páguese a la Orden De ---
             TextBlock chqPagueseOrdenDe = new TextBlock();
-            chqPagueseOrdenDe.Text = beneficiario;
+            chqPagueseOrdenDe.Text = beneficiario.Nombre;
             page1.Children.Add(chqPagueseOrdenDe);
             FixedPage.SetLeft(chqPagueseOrdenDe, c2.CoordenadasImpresion.xPagueseOrdenDe);
             FixedPage.SetTop(chqPagueseOrdenDe, c2.CoordenadasImpresion.yPagueseOrdenDe);
@@ -84,12 +84,19 @@ namespace ChqPrint
 
             // --- Orden Abreviada en el Talon ---
             TextBlock chqTalonAlias = new TextBlock();
-            chqTalonAlias.Text = "TEST";
+            chqTalonAlias.Text = beneficiario.Alias;
             page1.Children.Add(chqTalonAlias);
             FixedPage.SetLeft(chqTalonAlias, c2.CoordenadasImpresion.xTalonAlias);
             FixedPage.SetTop(chqTalonAlias, c2.CoordenadasImpresion.yTalonAlias);
 
-            // --- Concepto Abreviada en el Talon ---
+            // --- Concepto Abreviado en el Talon ---
+            TextBlock chqTalonConcepto = new TextBlock();
+            chqTalonConcepto.Text = "TEST";
+            page1.Children.Add(chqTalonConcepto);
+            FixedPage.SetLeft(chqTalonConcepto, c2.CoordenadasImpresion.xTalonConcepto);
+            FixedPage.SetTop(chqTalonConcepto, c2.CoordenadasImpresion.yTalonConcepto);
+
+            // --- Monto Abreviado en el Talon ---
             TextBlock chqTalonMonto = new TextBlock();
             chqTalonMonto.Text = monto.ToString("#,##0");
             page1.Children.Add(chqTalonMonto);
