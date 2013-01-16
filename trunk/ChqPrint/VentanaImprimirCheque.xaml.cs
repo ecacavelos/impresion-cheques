@@ -70,6 +70,12 @@ namespace ChqPrint
                 textBoxPaguese.AddItem(new WPFAutoCompleteTextbox.AutoCompleteEntry(tempCliente.Nombre, tempCliente.Nombre));
             }
 
+            // Habilitamos el textBox de Alias, si corresponde.
+            if (c0.PermitirEscrituraManual == true)
+            {
+                textBoxAlias.IsEnabled = true;
+            }
+
             textBoxConcepto.SetTextBoxMaxLength(12);
             // Agregamos la lista de sugerencias de Conceptos al AutoCompleteTextBox 'Concepto'.
             string esql_conceptos = "SELECT value c FROM Conceptos as c";
@@ -134,6 +140,7 @@ namespace ChqPrint
                         newCliente.idCliente = newID;
                     }
                     newCliente.Nombre = textBoxPaguese.Text;
+                    newCliente.Alias = textBoxAlias.Text;
                     database1Entities.Clientes.AddObject(newCliente);
                 }
             }
@@ -154,6 +161,9 @@ namespace ChqPrint
                 newConcepto.Descripcion = textBoxConcepto.Text;
                 database1Entities.Conceptos.AddObject(newConcepto);
             }
+
+            // Grabamos el nuevo Cliente y el nuevo Concepto si hiciese falta.
+            database1Entities.SaveChanges();
 
             // Hacemos Queries a la Base de Datos para obtener todos los Cheques y el Cliente correspondiente.
             string esql = String.Format("SELECT value c FROM Cheques as c WHERE (c.nroCheque = '{0}' AND c.Talonario = '{1}')", textBlockNumeroCheque.Text, textBlockTalonario.Text);
@@ -258,7 +268,25 @@ namespace ChqPrint
             }
             else if (e.Key.ToString() == "Return")
             {
-                textBoxConcepto.FocusTextBox();
+                string esql_clientes = String.Format("SELECT value c FROM Clientes as c WHERE c.Nombre == '{0}'", textBoxPaguese.Text);
+                var clientesVar = database1Entities.CreateQuery<Clientes>(esql_clientes);
+
+                if (textBoxAlias.IsEnabled == true)
+                {
+                    if (clientesVar.ToList().Count == 0)
+                    {
+                        textBoxAlias.Focus();
+                    }
+                    if (clientesVar.ToList().Count == 1)
+                    {
+                        textBoxAlias.Text = clientesVar.ToArray()[0].Alias;
+                        textBoxConcepto.FocusTextBox();
+                    }
+                }
+                else
+                {
+                    textBoxConcepto.FocusTextBox();
+                }
             }
         }
 
