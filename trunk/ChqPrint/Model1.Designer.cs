@@ -128,6 +128,22 @@ namespace ChqPrint
             }
         }
         private ObjectSet<Admins> _Admins;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Conceptos> Conceptos
+        {
+            get
+            {
+                if ((_Conceptos == null))
+                {
+                    _Conceptos = base.CreateObjectSet<Conceptos>("Conceptos");
+                }
+                return _Conceptos;
+            }
+        }
+        private ObjectSet<Conceptos> _Conceptos;
 
         #endregion
         #region AddTo Methods
@@ -162,6 +178,14 @@ namespace ChqPrint
         public void AddToAdmins(Admins admins)
         {
             base.AddObject("Admins", admins);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Conceptos EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToConceptos(Conceptos conceptos)
+        {
+            base.AddObject("Conceptos", conceptos);
         }
 
         #endregion
@@ -646,6 +670,85 @@ namespace ChqPrint
         private global::System.String _Alias;
         partial void OnAliasChanging(global::System.String value);
         partial void OnAliasChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="ChqDatabase1Model", Name="Conceptos")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Conceptos : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Conceptos object.
+        /// </summary>
+        /// <param name="idConcepto">Initial value of the idConcepto property.</param>
+        public static Conceptos CreateConceptos(global::System.Int32 idConcepto)
+        {
+            Conceptos conceptos = new Conceptos();
+            conceptos.idConcepto = idConcepto;
+            return conceptos;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 idConcepto
+        {
+            get
+            {
+                return _idConcepto;
+            }
+            set
+            {
+                if (_idConcepto != value)
+                {
+                    OnidConceptoChanging(value);
+                    ReportPropertyChanging("idConcepto");
+                    _idConcepto = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("idConcepto");
+                    OnidConceptoChanged();
+                }
+            }
+        }
+        private global::System.Int32 _idConcepto;
+        partial void OnidConceptoChanging(global::System.Int32 value);
+        partial void OnidConceptoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Descripcion
+        {
+            get
+            {
+                return _Descripcion;
+            }
+            set
+            {
+                OnDescripcionChanging(value);
+                ReportPropertyChanging("Descripcion");
+                _Descripcion = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Descripcion");
+                OnDescripcionChanged();
+            }
+        }
+        private global::System.String _Descripcion;
+        partial void OnDescripcionChanging(global::System.String value);
+        partial void OnDescripcionChanged();
 
         #endregion
     

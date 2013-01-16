@@ -186,7 +186,7 @@ namespace WPFAutoCompleteTextbox
         {
             this.comboBox.IsDropDownOpen = false;
             this.textBox.Focus();
-            this.textBox.Select(this.textBox.Text.Length, 0);            
+            this.textBox.Select(this.textBox.Text.Length, 0);
         }
 
         // Verifica si está Activa la Lista de Sugerencias.
@@ -229,6 +229,16 @@ namespace WPFAutoCompleteTextbox
         public void StartComboBoxIndex()
         {
             comboBox.Items.MoveCurrentToFirst();
+        }
+        public int FindComboBoxIndex()
+        {
+            return comboBox.SelectedIndex;
+        }
+
+        // Establece la longitud máxima en caracteres del textBox.
+        public void SetTextBoxMaxLength(int newMaxLength)
+        {
+            textBox.MaxLength = newMaxLength;
         }
 
         #endregion

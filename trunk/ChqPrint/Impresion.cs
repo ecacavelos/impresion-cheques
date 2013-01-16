@@ -85,6 +85,7 @@ namespace ChqPrint
             // --- Orden Abreviada en el Talon ---
             TextBlock chqTalonAlias = new TextBlock();
             chqTalonAlias.Text = beneficiario.Alias;
+            chqTalonAlias.Width = 90;
             page1.Children.Add(chqTalonAlias);
             FixedPage.SetLeft(chqTalonAlias, c2.CoordenadasImpresion.xTalonAlias);
             FixedPage.SetTop(chqTalonAlias, c2.CoordenadasImpresion.yTalonAlias);
@@ -92,6 +93,7 @@ namespace ChqPrint
             // --- Concepto Abreviado en el Talon ---
             TextBlock chqTalonConcepto = new TextBlock();
             chqTalonConcepto.Text = tempConcepto;
+            chqTalonConcepto.Width = 90;
             page1.Children.Add(chqTalonConcepto);
             FixedPage.SetLeft(chqTalonConcepto, c2.CoordenadasImpresion.xTalonConcepto);
             FixedPage.SetTop(chqTalonConcepto, c2.CoordenadasImpresion.yTalonConcepto);
