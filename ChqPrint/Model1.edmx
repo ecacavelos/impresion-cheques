@@ -9,6 +9,7 @@
           <EntitySet Name="Admins" EntityType="ChqDatabase1Model.Store.Admins" store:Type="Tables" />
           <EntitySet Name="Cheques" EntityType="ChqDatabase1Model.Store.Cheques" store:Type="Tables" />
           <EntitySet Name="Clientes" EntityType="ChqDatabase1Model.Store.Clientes" store:Type="Tables" />
+          <EntitySet Name="Conceptos" EntityType="ChqDatabase1Model.Store.Conceptos" store:Type="Tables" />
           <EntitySet Name="Formatos" EntityType="ChqDatabase1Model.Store.Formatos" store:Type="Tables" />
         </EntityContainer>
         <EntityType Name="Admins">
@@ -42,6 +43,13 @@
           <Property Name="Nombre" Type="nvarchar" MaxLength="100" />
           <Property Name="Alias" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="Conceptos">
+          <Key>
+            <PropertyRef Name="idConcepto" />
+          </Key>
+          <Property Name="idConcepto" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="Formatos">
           <Key>
             <PropertyRef Name="idFormato" />
@@ -59,6 +67,7 @@
           <EntitySet Name="Formatos" EntityType="ChqDatabase1Model.Formatos" />
           <EntitySet Name="Clientes" EntityType="ChqDatabase1Model.Clientes" />
           <EntitySet Name="Admins" EntityType="ChqDatabase1Model.Admins" />
+          <EntitySet Name="Conceptos" EntityType="ChqDatabase1Model.Conceptos" />
         </EntityContainer>
         <EntityType Name="Cheques">
           <Key>
@@ -98,6 +107,13 @@
           <Property Type="Int32" Name="idAdmin" Nullable="false" />
           <Property Type="String" Name="Nombre" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Password" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Conceptos">
+          <Key>
+            <PropertyRef Name="idConcepto" />
+          </Key>
+          <Property Type="Int32" Name="idConcepto" Nullable="false" />
+          <Property Type="String" Name="Descripcion" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -144,6 +160,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Conceptos">
+            <EntityTypeMapping TypeName="ChqDatabase1Model.Conceptos">
+              <MappingFragment StoreEntitySet="Conceptos">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="idConcepto" ColumnName="idConcepto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -169,6 +193,7 @@
         <EntityTypeShape EntityType="ChqDatabase1Model.Formatos" Width="1.5" PointX="2.25" PointY="0.5" Height="1.59568359375" />
         <EntityTypeShape EntityType="ChqDatabase1Model.Clientes" Width="1.5" PointX="4" PointY="0.5" Height="1.4033821614583322" />
         <EntityTypeShape EntityType="ChqDatabase1Model.Admins" Width="1.5" PointX="5.75" PointY="0.5" Height="1.5956835937499996" />
+        <EntityTypeShape EntityType="ChqDatabase1Model.Conceptos" Width="1.5" PointX="7.5" PointY="0.5" Height="1.4033821614583317" />
       </Diagram>
     </Diagrams>
   </Designer>

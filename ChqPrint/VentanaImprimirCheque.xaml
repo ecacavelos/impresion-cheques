@@ -20,6 +20,6 @@
         <Label Content="Talonario: " Height="28" HorizontalAlignment="Left" Margin="12,46,0,0" Name="label1" VerticalAlignment="Top" Width="159" />
         <TextBlock Height="27" HorizontalAlignment="Stretch" Margin="12,302,12,0" Name="textBlockFormatoCheque" Text="Formato" VerticalAlignment="Top" Background="White" FontSize="14" TextAlignment="Center" Foreground="Blue" Padding="2" />
         <Label Content="Concepto (Talón):" Height="28" HorizontalAlignment="Left" Margin="12,216,0,0" Name="labelConcepto" VerticalAlignment="Top" Width="150" />
-        <my:AutoCompleteTextBox Height="28" HorizontalAlignment="Stretch" Margin="12,239,12,0" x:Name="autoCompleteTextBoxConcepto" Threshold="2" VerticalAlignment="Top" />
+        <my:AutoCompleteTextBox Height="28" HorizontalAlignment="Stretch" Margin="12,239,12,0" x:Name="textBoxConcepto" Threshold="2" VerticalAlignment="Top" PreviewKeyDown="textBoxConcepto_PreviewKeyDown" />
     </Grid>
 </Window>

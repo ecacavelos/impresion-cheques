@@ -62,15 +62,24 @@ namespace ChqPrint
 
             textBoxMonto.Focus();
 
-            // Agregamos la lista de sugerencia de Clientes al AutoCompleteTextBox 'Paguese a la Orden de'.
+            // Agregamos la lista de sugerencias de Clientes al AutoCompleteTextBox 'Paguese a la Orden de'.
             string esql_clientes = "SELECT value c FROM Clientes as c";
             var clientesVar = database1Entities.CreateQuery<Clientes>(esql_clientes);
-
             foreach (Clientes tempCliente in clientesVar.ToArray())
             {
                 textBoxPaguese.AddItem(new WPFAutoCompleteTextbox.AutoCompleteEntry(tempCliente.Nombre, tempCliente.Nombre));
             }
 
+            textBoxConcepto.SetTextBoxMaxLength(12);
+            // Agregamos la lista de sugerencias de Conceptos al AutoCompleteTextBox 'Concepto'.
+            string esql_conceptos = "SELECT value c FROM Conceptos as c";
+            var conceptosVar = database1Entities.CreateQuery<Conceptos>(esql_conceptos);
+            foreach (Conceptos tempConcepto in conceptosVar.ToArray())
+            {
+                textBoxConcepto.AddItem(new WPFAutoCompleteTextbox.AutoCompleteEntry(tempConcepto.Descripcion, tempConcepto.Descripcion));
+            }
+
+            // Indicamos el Formato de Cheque Actual en el Label correspondiente.
             textBlockFormatoCheque.Text = c2.ChequeID;
 
         }
@@ -104,8 +113,7 @@ namespace ChqPrint
                 }
             }
 
-            // Verificamos si el cliente ingresado ya existe en la Base de Datos.
-
+            // Verificamos si el Cliente ingresado ya existe en la Base de Datos.
             string esql_clientes = String.Format("SELECT value c FROM Clientes as c WHERE c.Nombre == '{0}'", textBoxPaguese.Text);
             var clientesVar = database1Entities.CreateQuery<Clientes>(esql_clientes);
 
@@ -123,11 +131,28 @@ namespace ChqPrint
                     {
                         var allClientesVar = database1Entities.CreateQuery<Clientes>("SELECT value c FROM Clientes as c");
                         int newID = allClientesVar.ToList().Count + 1;
-                        newCliente.idCliente = newID;                        // Nuevo ID = timestamp.
+                        newCliente.idCliente = newID;
                     }
                     newCliente.Nombre = textBoxPaguese.Text;
                     database1Entities.Clientes.AddObject(newCliente);
                 }
+            }
+
+            // Verificamos si el Concepto ingresado ya existe en la Base de Datos.
+            string esql_conceptos = String.Format("SELECT value c FROM Conceptos as c WHERE c.Descripcion == '{0}'", textBoxConcepto.Text);
+            var conceptosVar = database1Entities.CreateQuery<Conceptos>(esql_conceptos);
+
+            if (conceptosVar.ToList().Count == 0)
+            {
+                Conceptos newConcepto = new Conceptos();
+                if (newConcepto.idConcepto == 0)
+                {
+                    var allConceptosVar = database1Entities.CreateQuery<Conceptos>("SELECT value c FROM Conceptos as c");
+                    int newID = allConceptosVar.ToList().Count + 1;
+                    newConcepto.idConcepto = newID;
+                }
+                newConcepto.Descripcion = textBoxConcepto.Text;
+                database1Entities.Conceptos.AddObject(newConcepto);
             }
 
             // Hacemos Queries a la Base de Datos para obtener todos los Cheques y el Cliente correspondiente.
@@ -156,7 +181,7 @@ namespace ChqPrint
                 tempCheque.Fecha = datePickerFecha.SelectedDate;
                 tempCheque.Monto = montoValidado;
                 tempCheque.PagueseOrdenDe = textBoxPaguese.Text;
-                tempCheque.concepto = autoCompleteTextBoxConcepto.Text;
+                tempCheque.concepto = textBoxConcepto.Text;
                 tempCheque.MontoEnLetras = Numalet.ToCardinal((int)(tempCheque.Monto)).ToUpper();
                 // Emitimos el cheque en un estado distinto de acuerdo a los datos completados.
                 if (textBoxMonto.Text.Length == 0 || textBoxPaguese.Text.Length == 0)
@@ -195,6 +220,8 @@ namespace ChqPrint
 
         }
 
+        #region "Funciones relativas a los Cuadros de Texto con Sugerencias"
+
         // Esta funcion es la que pone los puntos en los miles, millones, etc.  
         private void textBoxMonto_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -224,13 +251,44 @@ namespace ChqPrint
             }
             else if (e.Key.ToString() == "Back")
             {
-                textBoxPaguese.FocusTextBox();
+                if (textBoxPaguese.SuggestionListActive() == true && textBoxPaguese.FindComboBoxIndex() != -1)
+                {
+                    textBoxPaguese.FocusTextBox();
+                }
             }
-            if (e.Key.ToString() == "Return")
+            else if (e.Key.ToString() == "Return")
             {
-                autoCompleteTextBoxConcepto.FocusTextBox();
+                textBoxConcepto.FocusTextBox();
             }
         }
+
+        private void textBoxConcepto_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            //System.Console.WriteLine(e.Key.ToString());
+            if (e.Key.ToString() == "Down")
+            {
+                e.Handled = true;
+                textBoxConcepto.ChangeComboBoxIndexDown();
+            }
+            else if (e.Key.ToString() == "Up")
+            {
+                e.Handled = true;
+                textBoxConcepto.ChangeComboBoxIndexUp();
+            }
+            else if (e.Key.ToString() == "Back")
+            {
+                if (textBoxConcepto.SuggestionListActive() == true && textBoxConcepto.FindComboBoxIndex() != -1)
+                {
+                    textBoxConcepto.FocusTextBox();
+                }
+            }
+            else if (e.Key.ToString() == "Return")
+            {
+                textBoxConcepto.FocusTextBox();
+            }
+        }
+
+        #endregion
 
     }
 }
