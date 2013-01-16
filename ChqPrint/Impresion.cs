@@ -71,6 +71,8 @@ namespace ChqPrint
             // --- Monto en Letras ---
             TextBlock chqMontoEnLetras = new TextBlock();
             chqMontoEnLetras.Text = Numalet.ToCardinal((int)monto).ToUpper();
+            chqMontoEnLetras.Width = 480;
+            chqMontoEnLetras.TextWrapping = TextWrapping.Wrap;
             page1.Children.Add(chqMontoEnLetras);
             FixedPage.SetLeft(chqMontoEnLetras, c2.CoordenadasImpresion.xMontoEnLetras);
             FixedPage.SetTop(chqMontoEnLetras, c2.CoordenadasImpresion.yMontoEnLetras);
