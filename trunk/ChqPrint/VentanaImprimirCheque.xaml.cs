@@ -312,11 +312,29 @@ namespace ChqPrint
             }
             else if (e.Key.ToString() == "Return")
             {
-                textBoxConcepto.FocusTextBox();
+                //textBoxConcepto.FocusTextBox();
+                e.Handled = true;
+                buttonImprimir.Focus();
             }
         }
 
         #endregion
+
+        private void textBoxAlias_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key.ToString() == "Return")
+            {
+                textBoxConcepto.FocusTextBox();
+            }
+        }
+
+        private void textBoxMonto_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key.ToString() == "Return")
+            {
+                textBoxPaguese.FocusTextBox();
+            }
+        }
 
     }
 }

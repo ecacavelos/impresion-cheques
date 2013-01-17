@@ -70,11 +70,18 @@ namespace ChqPrint
 
             // --- Monto en Letras ---
             TextBlock chqMontoEnLetras = new TextBlock();
-            chqMontoEnLetras.Text = Numalet.ToCardinal((int)monto).ToUpper();
-            chqMontoEnLetras.Width = 480;
+            string firstLineIndentation = "";
+            for (int i = 0; i < 36; i++)
+            {
+                firstLineIndentation += " ";
+            }
+            chqMontoEnLetras.Text = firstLineIndentation + Numalet.ToCardinal((int)monto).ToUpper();
+            chqMontoEnLetras.Width = 580;
             chqMontoEnLetras.TextWrapping = TextWrapping.Wrap;
+            chqMontoEnLetras.LineHeight = 30;
+
             page1.Children.Add(chqMontoEnLetras);
-            FixedPage.SetLeft(chqMontoEnLetras, c2.CoordenadasImpresion.xMontoEnLetras);
+            FixedPage.SetLeft(chqMontoEnLetras, c2.CoordenadasImpresion.xMontoEnLetras - 118);
             FixedPage.SetTop(chqMontoEnLetras, c2.CoordenadasImpresion.yMontoEnLetras);
 
             // --- Fecha Abreviada en el Talon ---
