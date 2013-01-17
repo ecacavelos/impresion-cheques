@@ -18,7 +18,9 @@
                 <MenuItem Header="Ver Lista de Clientes..." Click="menuItem_AdministrarClientes"></MenuItem>
                 <Separator></Separator>
                 <MenuItem Header="Ingresar Nuevo Talonario de Cheques..." Click="menuItem_AdministrarTalonarios"></MenuItem>
-                <MenuItem Header="Administrar Formatos de Cheques..." Click="menuItem_AdministrarFormatos" IsEnabled="False"></MenuItem>                
+                <MenuItem Header="Administrar Formatos de Cheques..." Click="menuItem_AdministrarFormatos" IsEnabled="False"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="Cambiar Contraseña de Admin..." Click="menuItem_administrarAdmins" />
             </MenuItem>
         </Menu>
         <ToolBar Height="64" Name="toolBar1" Background="#5A282828" Margin="12,12,12,0" VerticalAlignment="Top" HorizontalContentAlignment="Stretch" Grid.Row="1">
@@ -31,6 +33,6 @@
             <Button Content="Imprimir" Name="buttonPrint" FontStretch="Normal" FontWeight="Bold" FontSize="16" HorizontalAlignment="Stretch" Width="134" Click="buttonPrint_Click" />
         </ToolBar>
         <Label Content="---" Height="28" HorizontalAlignment="Right" Margin="0,0,12,46" Name="labelStatusMain" VerticalAlignment="Bottom" HorizontalContentAlignment="Right" Grid.Row="1" FontSize="14" FontWeight="Bold" Foreground="Black" />
-        <Label Content="Versión 0.1 (r25)" Grid.Row="1" Height="28" HorizontalAlignment="Right" Margin="0,0,12,12" Name="labelStatusSecondary" VerticalAlignment="Bottom" />
+        <Label Content="Versión 0.1 (r26)" Grid.Row="1" Height="28" HorizontalAlignment="Right" Margin="0,0,12,12" Name="labelStatusSecondary" VerticalAlignment="Bottom" />
     </Grid>
 </Window>

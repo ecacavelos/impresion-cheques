@@ -35,6 +35,7 @@ namespace ChqPrint
         private Window ventanaAgregarFormatoCheques = new Window();
         private Window ventanaAgregarTalonarios = new Window();
         private Window ventanaAdministrarClientes = new Window();
+        private Window ventanaAdministrarAdmins = new Window();
         // Ventanas abiertas desde el Toolbar de Botones.
         private Window ventanaVistaCheques = new Window();
         private Window ventanaImprimirCheques = new Window();
@@ -224,6 +225,33 @@ namespace ChqPrint
                     Assembly assembly = type.Assembly;
                     this.ventanaAgregarTalonarios = (Window)assembly.CreateInstance("ChqPrint.VentanaAgregarTalonario");
                     this.ventanaAgregarTalonarios.Show();
+                }
+                else
+                {
+                    //System.Console.WriteLine("Se canceló el Login.");
+                }
+            }
+        }
+
+        private void menuItem_administrarAdmins(object sender, RoutedEventArgs e)
+        {
+            if (VentanaAdministrarAdmins.IsOpen) // Se controla que una instancia de esta Ventana no este abierta. 
+            {
+                this.ventanaAdministrarAdmins.Activate(); // Si está abierta entonces activar y mandar al frente.
+                return;
+            }
+            else // No está abierta. Abrir una instancia de la Ventana.
+            {
+                // Se llama a la ventana para hacer login y comprobar que el usuario es admin.
+                VentanaLogin winLogin = new VentanaLogin(true);
+                Nullable<bool> result = winLogin.ShowDialog();
+                // Si el login es exitoso.
+                if (result == true)
+                {
+                    Type type = this.GetType();
+                    Assembly assembly = type.Assembly;
+                    this.ventanaAdministrarAdmins = (Window)assembly.CreateInstance("ChqPrint.VentanaAdministrarAdmins");
+                    this.ventanaAdministrarAdmins.Show();
                 }
                 else
                 {

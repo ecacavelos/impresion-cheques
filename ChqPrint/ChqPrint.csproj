@@ -114,6 +114,9 @@
     <Compile Include="VentanaVistaClientes.xaml.cs">
       <DependentUpon>VentanaVistaClientes.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VentanaAdministrarAdmins.xaml.cs">
+      <DependentUpon>VentanaAdministrarAdmins.xaml</DependentUpon>
+    </Compile>
     <Page Include="AutoCompleteTextBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -180,6 +183,10 @@
     <Page Include="VentanaVistaClientes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VentanaAdministrarAdmins.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
