@@ -1,0 +1,5 @@
+C:\Users\es\Desktop\CHEQUES\SetPermissions\bin\Debug\SetPermissions.dll
+C:\Users\es\Desktop\CHEQUES\SetPermissions\bin\Debug\SetPermissions.pdb
+C:\Users\es\Desktop\CHEQUES\SetPermissions\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\es\Desktop\CHEQUES\SetPermissions\obj\Debug\SetPermissions.dll
+C:\Users\es\Desktop\CHEQUES\SetPermissions\obj\Debug\SetPermissions.pdb
