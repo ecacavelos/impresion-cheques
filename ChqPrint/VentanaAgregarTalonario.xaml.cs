@@ -90,7 +90,7 @@ namespace ChqPrint
 
             if (formatosVar.Count() == 1)
             {
-                VentanaPrincipal.layoutFilename = formatosVar.First().Path;
+                //VentanaPrincipal.layoutFilename = formatosVar.First().Path; // Esta asignacion me parece que no es correcta. no se tiene que tocar esta variable aca. Esteban cacavelos
                 VentanaPrincipal.labelTipoChequeHomeScreen.Content = ((ComboBoxItem)comboBoxFormatoCheque.SelectedItem).Content.ToString();
                 this.c2.FormatoChequeTalonario = formatosVar.ToArray()[0].Path;
             }
