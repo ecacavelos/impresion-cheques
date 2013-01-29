@@ -26,6 +26,10 @@ namespace ChqPrint
 
         ChqPrint.ChqDatabase1Entities database1Entities = new ChqPrint.ChqDatabase1Entities();
 
+        int timestampDesde;
+        int timestampHasta;
+        //string[] arrayClientesID;
+
         #region "Funciones relativas a la Inicializacion, Carga y Descarga de la Ventana"
 
         public VentanaVistaCheques()
@@ -40,6 +44,8 @@ namespace ChqPrint
             System.Windows.Data.CollectionViewSource chequesViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("chequesViewSource")));
             System.Data.Objects.ObjectQuery<ChqPrint.Cheques> chequesQuery = this.GetChequesQuery(database1Entities);
             chequesViewSource.Source = chequesQuery.Execute(System.Data.Objects.MergeOption.AppendOnly);
+
+            eliminarFiltros(true);
         }
 
         private void Window_Unloaded(object sender, RoutedEventArgs e)
@@ -92,7 +98,7 @@ namespace ChqPrint
 
         private void buttonExportar_Click(object sender, RoutedEventArgs e)
         {
-            ExportToExcelTools.DataGridExcelTools.SetFormatForExport(dataGridCheques.Columns[2], "dd.MM.yyyy");
+            ExportToExcelTools.DataGridExcelTools.SetFormatForExport(dataGridCheques.Columns[3], "dd.MM.yyyy");
             dataGridCheques.ExportToExcel();
         }
 
@@ -126,6 +132,8 @@ namespace ChqPrint
 
         #endregion
 
+        #region "Funciones varias relativas a la edición y guardado"
+
         private void dataGridCheques_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
         {
             // Si el Cheque está en estado 'Cobrado' o 'Anulado', no se permiten modificaciones en el mismo.
@@ -148,6 +156,255 @@ namespace ChqPrint
         private void comboBoxEstadoCheque_DropDownClosed(object sender, EventArgs e)
         {
             buttonGuardar.IsEnabled = true;
+        }
+
+        #endregion
+
+        #region "Funciones relativas al filtrado y la busqueda"
+
+        private void buttonBuscar_Click(object sender, RoutedEventArgs e)
+        {
+            aplicarFiltros();
+        }
+
+        private void aplicarFiltros()
+        {
+            string esql = "SELECT value c FROM Cheques as c";
+
+            if (autoCompleteTextBoxOrdenDe.IsEnabled == true)
+            {
+                esql += " WHERE ";
+                esql += String.Format("(c.PagueseOrdenDe LIKE '%{0}%')", autoCompleteTextBoxOrdenDe.Text);
+            }
+
+            if (datePickerDesde.IsEnabled == true)
+            {
+                if (datePickerDesde.SelectedDate != null)
+                {
+                    if (esql.Contains("WHERE"))
+                    {
+                        esql += " AND ";
+                    }
+                    else
+                    {
+                        esql += " WHERE ";
+                    }
+                    esql += String.Format("(c.idCheque >= {0})", timestampDesde);
+                }
+            }
+
+            if (datePickerHasta.IsEnabled == true)
+            {
+                if (datePickerHasta.SelectedDate != null)
+                {
+                    if (esql.Contains("WHERE"))
+                    {
+                        esql += " AND ";
+                    }
+                    else
+                    {
+                        esql += " WHERE ";
+                    }
+                    esql += String.Format("(c.idCheque <= {0})", timestampHasta);
+                }
+            }
+
+            System.Console.WriteLine(esql);
+
+            var chequesVar = database1Entities.CreateQuery<Cheques>(esql);
+            dataGridCheques.ItemsSource = chequesVar;
+            if (chequesVar.ToList().Count > 0)
+            {
+                labelStatusBar.Content = "Búsqueda Completa.";
+            }
+            else
+            {
+                labelStatusBar.Content = "La búsqueda no arrojó resultados.";
+            }
+
+            buttonEliminarFiltros.IsEnabled = true;
+
+        }
+
+        private void eliminarFiltros(bool firstTime)
+        {
+            string esql = "SELECT value c FROM Cheques as c";
+            var pagosVar = database1Entities.CreateQuery<Cheques>(esql);
+            dataGridCheques.ItemsSource = pagosVar;
+
+            buttonEliminarFiltros.IsEnabled = false;
+
+            if (firstTime)
+            {
+                string esql_clientes = "SELECT value c FROM Clientes as c";
+                var clientesVar = database1Entities.CreateQuery<Clientes>(esql_clientes);
+
+                //System.Console.WriteLine(clientesVar.ToList().Count.ToString() + " clientes.");
+
+                int i = 0;
+                foreach (ChqPrint.Clientes tempCliente in clientesVar.ToArray())
+                {
+                    autoCompleteTextBoxOrdenDe.AddItem(new WPFAutoCompleteTextbox.AutoCompleteEntry(tempCliente.Nombre, tempCliente.Nombre));
+                    i++;
+                }
+            }
+        }
+
+        private void checkBoxDesde_Checked(object sender, RoutedEventArgs e)
+        {
+            datePickerDesde.IsEnabled = true;
+            buttonBuscar.IsEnabled = true;
+        }
+
+        private void checkBoxDesde_Unchecked(object sender, RoutedEventArgs e)
+        {
+            datePickerDesde.IsEnabled = false;
+            if (checkBoxHasta.IsChecked == false && checkBoxOrdenDe.IsChecked == false)
+            {
+                buttonBuscar.IsEnabled = false;
+                eliminarFiltros(false);
+            }
+            else
+            {
+                aplicarFiltros();
+            }
+        }
+
+        private void checkBoxHasta_Checked(object sender, RoutedEventArgs e)
+        {
+            datePickerHasta.IsEnabled = true;
+            buttonBuscar.IsEnabled = true;
+        }
+
+        private void checkBoxHasta_Unchecked(object sender, RoutedEventArgs e)
+        {
+            datePickerHasta.IsEnabled = false;
+            if (checkBoxDesde.IsChecked == false && checkBoxOrdenDe.IsChecked == false)
+            {
+                buttonBuscar.IsEnabled = false;
+                eliminarFiltros(false);
+            }
+            else
+            {
+                aplicarFiltros();
+            }
+        }
+
+        private void checkBoxOrdenDe_Checked(object sender, RoutedEventArgs e)
+        {
+            autoCompleteTextBoxOrdenDe.IsEnabled = true;
+            buttonBuscar.IsEnabled = true;
+            autoCompleteTextBoxOrdenDe.FocusTextBox();
+        }
+
+        private void checkBoxOrdenDe_Unchecked(object sender, RoutedEventArgs e)
+        {
+            autoCompleteTextBoxOrdenDe.IsEnabled = false;
+            autoCompleteTextBoxOrdenDe.Text = "";
+            if (checkBoxDesde.IsChecked == false && checkBoxHasta.IsChecked == false)
+            {
+                buttonBuscar.IsEnabled = false;
+                eliminarFiltros(false);
+            }
+            else
+            {
+                aplicarFiltros();
+            }
+        }
+
+        private void datePickerDesde_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TimeSpan epochTime = ((DateTime)datePickerDesde.SelectedDate - new DateTime(1970, 1, 1));
+            timestampDesde = (int)epochTime.TotalSeconds;
+        }
+
+        private void datePickerHasta_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TimeSpan epochTime = ((DateTime)datePickerHasta.SelectedDate + new TimeSpan(23, 0, 0) - new DateTime(1970, 1, 1));
+            timestampHasta = (int)epochTime.TotalSeconds;
+        }
+
+        private void autoCompleteTextBoxOrdenDe_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            //System.Console.WriteLine(e.Key.ToString());
+            if (e.Key.ToString() == "Down")
+            {
+                e.Handled = true;
+                autoCompleteTextBoxOrdenDe.ChangeComboBoxIndexDown();
+            }
+            else if (e.Key.ToString() == "Up")
+            {
+                e.Handled = true;
+                autoCompleteTextBoxOrdenDe.ChangeComboBoxIndexUp();
+            }
+            else if (e.Key.ToString() == "Back")
+            {
+                if (autoCompleteTextBoxOrdenDe.SuggestionListActive() == true && autoCompleteTextBoxOrdenDe.FindComboBoxIndex() != -1)
+                {
+                    autoCompleteTextBoxOrdenDe.FocusTextBox();
+                }
+            }
+            else if (e.Key.ToString() == "Return")
+            {
+                autoCompleteTextBoxOrdenDe.FocusTextBox();
+            }
+        }
+
+        #endregion
+
+        private void buttonBuscarTimbrado_Click(object sender, RoutedEventArgs e)
+        {
+            string esql = "SELECT value c FROM Cheques as c";
+            esql += " WHERE ";
+            esql += String.Format("(c.nroCheque = '{0}')", textBoxTimbrado.Text);
+
+            System.Console.WriteLine(esql);
+
+            var chequesVar = database1Entities.CreateQuery<Cheques>(esql);
+            dataGridCheques.ItemsSource = chequesVar;
+
+            if (chequesVar.ToList().Count > 0)
+            {
+                labelStatusBar.Content = "Búsqueda Completa.";
+            }
+            else
+            {
+                labelStatusBar.Content = "La búsqueda no arrojó resultados.";
+            }
+
+            buttonEliminarFiltros.IsEnabled = true;
+
+        }
+
+        private void textBoxTimbrado_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (textBoxTimbrado.Text.Length > 0)
+            {
+                buttonBuscarTimbrado.IsEnabled = true;
+            }
+            if (e.Key.ToString() == "Return")
+            {
+                e.Handled = true;
+                buttonBuscarTimbrado_Click(null, null);
+            }
+        }
+
+        private void buttonEliminarFiltros_Click(object sender, RoutedEventArgs e)
+        {
+            // Colocamos todos los controles de búsqueda en sus estados iniciales.
+            checkBoxDesde.IsChecked = false;
+            datePickerDesde.IsEnabled = false;
+            checkBoxHasta.IsChecked = false;
+            datePickerHasta.IsEnabled = false;
+            checkBoxOrdenDe.IsChecked = false;
+            autoCompleteTextBoxOrdenDe.IsEnabled = false;
+            autoCompleteTextBoxOrdenDe.Text = "";
+            buttonBuscar.IsEnabled = false;
+
+            textBoxTimbrado.Text = "";
+            buttonBuscarTimbrado.IsEnabled = false;
+
+            eliminarFiltros(false);
         }
 
     }
