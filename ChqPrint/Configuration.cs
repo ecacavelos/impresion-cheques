@@ -114,7 +114,7 @@ namespace ChqPrint
         {
             _Version = 1;
             _Talonario = "T01";
-            _FormatoChequeTalonario = "itau.xml";
+            _FormatoChequeTalonario = "continental.xml";
             _PrimerCheque = 1;
             _UltimoCheque = 99999;
             _PermitirEscrituraManual = true;

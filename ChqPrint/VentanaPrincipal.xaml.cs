@@ -54,7 +54,7 @@ namespace ChqPrint
             catch (System.IO.FileNotFoundException ex)
             {
                 System.Console.WriteLine(ex.Message);
-                System.Windows.MessageBox.Show("No se encontró el archivo de configuración GENERAL.", "Archivo de Configuración");
+                System.Windows.MessageBox.Show("No se encontró el archivo de configuración GENERAL.\nSe creó un nuevo archivo 'standard.xml'. Puede usar el programa normalmente.", "Archivo de Configuración");
                 this.c0 = new ChqPrint.ConfigurationGeneral();
                 ConfigurationGeneral.Serialize("standard.xml", this.c0);
             }
@@ -71,7 +71,7 @@ namespace ChqPrint
             catch (System.IO.FileNotFoundException ex)
             {
                 System.Console.WriteLine(ex.Message);
-                System.Windows.MessageBox.Show("No se encontró el archivo de configuración de FORMATO.", "Archivo de Configuración");
+                System.Windows.MessageBox.Show("No se encontró el archivo de configuración de FORMATO.\n Se creó un nuevo archivo 'continental.xml'. Puede usar el programa normalmente.", "Archivo de Configuración");
                 this.c2 = new ChqPrint.ConfigurationLayoutCheque();
                 ConfigurationLayoutCheque.Serialize(this.c0.FormatoChequeTalonario, this.c2);
             }
