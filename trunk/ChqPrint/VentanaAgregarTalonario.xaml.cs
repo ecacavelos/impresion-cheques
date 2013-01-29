@@ -80,13 +80,21 @@ namespace ChqPrint
             Int32.TryParse(textBoxPrimerCheque.Text, out tempIntToString);
             this.c2.PrimerCheque = tempIntToString;
             Int32.TryParse(textBoxUltimoCheque.Text, out tempIntToString);
-            this.c2.UltimoCheque = tempIntToString;
+            if (tempIntToString > c2.PrimerCheque)
+            {
+                this.c2.UltimoCheque = tempIntToString;
+            }
+            else
+            {
+                MessageBox.Show("El valor de 'Último Cheque' debe ser mayor al valor de 'Primer Cheque'.");
+                return;
+            }
 
             // Si se seleccionó previamente un archivo válido, se guarda su ubicación.
             string esql = String.Format("SELECT value f FROM Formatos as f WHERE f.Descripcion = '{0}'", ((ComboBoxItem)comboBoxFormatoCheque.SelectedItem).Content.ToString());
             var formatosVar = database1Entities.CreateQuery<Formatos>(esql);
 
-            System.Console.WriteLine(esql);
+            //System.Console.WriteLine(esql);
 
             if (formatosVar.Count() == 1)
             {
@@ -102,7 +110,7 @@ namespace ChqPrint
 
         private void buttonCancelar_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
         }
 
         #endregion

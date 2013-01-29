@@ -6,13 +6,13 @@
         <Label Content="Talonario Actual: " Height="28" HorizontalAlignment="Stretch" Margin="12,12,12,0" Name="labelTalonarioActual" VerticalAlignment="Top" />
         <Label Content="Nuevo Talonario: " Height="28" HorizontalAlignment="Left" Margin="12,46,0,0" Name="label1" VerticalAlignment="Top" Width="110" />
         <TextBox Height="28" HorizontalAlignment="Left" Margin="128,46,0,0" Name="textBoxNuevoTalonario" VerticalAlignment="Top" Width="158" />
-        <Button Content="Cancelar" Height="26" HorizontalAlignment="Right" Margin="0,0,12,12" Name="buttonCancelar" VerticalAlignment="Bottom" Width="134" Click="buttonCancelar_Click" />
-        <Button Content="Guardar" Height="26" HorizontalAlignment="Left" Margin="12,0,0,12" Name="buttonGuardar" VerticalAlignment="Bottom" Width="134" Click="buttonGuardar_Click" />
         <Label Content="Primer Cheque: " Height="28" HorizontalAlignment="Left" Margin="12,80,0,0" Name="labelPrimerCheque" VerticalAlignment="Top" Width="110" />
         <TextBox Height="28" HorizontalAlignment="Left" Margin="128,80,0,0" Name="textBoxPrimerCheque" VerticalAlignment="Top" Width="158" />
         <Label Content="Último Cheque: " Height="28" HorizontalAlignment="Left" Margin="12,114,0,0" Name="labelUltimoCheque" VerticalAlignment="Top" Width="110" />
         <TextBox Height="28" HorizontalAlignment="Left" Margin="128,114,0,0" Name="textBoxUltimoCheque" VerticalAlignment="Top" Width="158" />
-        <ComboBox Height="26" HorizontalAlignment="Stretch" Margin="12,200,12,0" Name="comboBoxFormatoCheque" VerticalAlignment="Top" />
         <Label Content="Formato de Cheque: " Height="28" HorizontalAlignment="Stretch" Margin="12,166,12,0" Name="labelFormatoCheque" VerticalAlignment="Top" />
+        <ComboBox Height="26" HorizontalAlignment="Stretch" Margin="12,200,12,0" Name="comboBoxFormatoCheque" VerticalAlignment="Top" />
+        <Button Content="Guardar" Height="26" HorizontalAlignment="Left" Margin="12,0,0,12" Name="buttonGuardar" VerticalAlignment="Bottom" Width="134" Click="buttonGuardar_Click" />
+        <Button Content="Cancelar" Height="26" HorizontalAlignment="Right" Margin="0,0,12,12" Name="buttonCancelar" VerticalAlignment="Bottom" Width="134" Click="buttonCancelar_Click" />
     </Grid>
 </Window>
