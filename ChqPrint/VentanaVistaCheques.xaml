@@ -3,10 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:core="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:ChqPrint"
-        Title="Reporte de Cheques" Height="320" Width="800" Loaded="Window_Loaded" Unloaded="Window_Unloaded" ResizeMode="CanMinimize" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:my="clr-namespace:ChqPrint" Closing="Window_Closing" Background="DarkSeaGreen">
+        Title="Reporte de Cheques" Height="500" Width="900" Loaded="Window_Loaded" Unloaded="Window_Unloaded" ResizeMode="CanResize" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:my="clr-namespace:ChqPrint" Closing="Window_Closing" Background="DarkSeaGreen" xmlns:my1="clr-namespace:WPFAutoCompleteTextbox" WindowStartupLocation="CenterScreen" WindowState="Maximized" MinWidth="900" MinHeight="500">
     <Window.Resources>
         <CollectionViewSource x:Key="chequesViewSource" d:DesignSource="{d:DesignInstance my:Cheques, CreateList=True}" />
-        <!--<local:IntToNumericStringConverter x:Key="IntToNumericStringConverter" />-->        
+        <!--<local:IntToNumericStringConverter x:Key="IntToNumericStringConverter" />-->
         <ObjectDataProvider x:Key="comboBoxEnum" MethodName="GetValues" ObjectType="{x:Type core:Enum}">
             <ObjectDataProvider.MethodParameters>
                 <x:Type Type="local:enumEstadoCheque"/>
@@ -27,7 +27,7 @@
         </Style>
     </Window.Resources>
     <Grid DataContext="{StaticResource chequesViewSource}">
-        <DataGrid AutoGenerateColumns="False" HorizontalAlignment="Stretch" Margin="12,12,12,44" Name="dataGridCheques" VerticalAlignment="Stretch" ItemsSource="{Binding}" HorizontalGridLinesBrush="DarkGray" VerticalGridLinesBrush="DarkGray" RowEditEnding="dataGrid1_RowEditEnding" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="False" VerticalContentAlignment="Center" AlternatingRowBackground="Honeydew" CellStyle="{StaticResource Body_Content_DataGrid_Centering}" BeginningEdit="dataGridCheques_BeginningEdit">
+        <DataGrid AutoGenerateColumns="False" HorizontalAlignment="Stretch" Margin="12,12,12,192" Name="dataGridCheques" VerticalAlignment="Stretch" ItemsSource="{Binding}" HorizontalGridLinesBrush="DarkGray" VerticalGridLinesBrush="DarkGray" RowEditEnding="dataGrid1_RowEditEnding" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="False" VerticalContentAlignment="Center" AlternatingRowBackground="Honeydew" CellStyle="{StaticResource Body_Content_DataGrid_Centering}" BeginningEdit="dataGridCheques_BeginningEdit">
             <DataGrid.Resources>
                 <Style x:Key="DataGridCheckBoxStyle" TargetType="CheckBox">
                     <Setter Property="VerticalAlignment" Value="Center" />
@@ -38,7 +38,7 @@
                 <!--<DataGridTextColumn x:Name="idColumn" Binding="{Binding Path=idCheque}" Header="ID" />-->
                 <DataGridTextColumn x:Name="talonarioColumn" Binding="{Binding Path=Talonario}" Header="Talonario" MinWidth="110" IsReadOnly="True" />
                 <DataGridTextColumn x:Name="nroColumn" Binding="{Binding Path=nroCheque}" Header="Timbrado" MinWidth="110" IsReadOnly="True" />
-                <DataGridTextColumn x:Name="bancoColumn" Binding="{Binding Path=Banco}" Header="Banco" IsReadOnly="True" />
+                <DataGridTextColumn x:Name="bancoColumn" Binding="{Binding Path=Banco}" Header="Banco" IsReadOnly="True" MinWidth="128" />
                 <DataGridTextColumn x:Name="fechaColumn" Binding="{Binding Path=Fecha, StringFormat=\{0:dd/MM/yyyy\}}" Header="Fecha" MinWidth="110" IsReadOnly="True" />
                 <DataGridTextColumn x:Name="montoColumn" Binding="{Binding Path=Monto}" Header="Monto" MinWidth="110" />
                 <DataGridTextColumn x:Name="pagueseColumn" Binding="{Binding Path=PagueseOrdenDe}" Header="Paguese a la Orden de" MinWidth="130" />
@@ -53,6 +53,18 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <CheckBox HorizontalAlignment="Left" Margin="13,0,0,130" Name="checkBoxHasta" VerticalAlignment="Bottom" Content="Hasta Fecha: " Checked="checkBoxHasta_Checked" Unchecked="checkBoxHasta_Unchecked" />
+        <CheckBox Content="Orden De: " HorizontalAlignment="Left" Margin="13,0,0,96" Name="checkBoxOrdenDe" VerticalAlignment="Bottom" Width="121" Checked="checkBoxOrdenDe_Checked" Unchecked="checkBoxOrdenDe_Unchecked" />
+        <Button Content="Buscar" Height="28" HorizontalAlignment="Left" Margin="12,0,0,55" Name="buttonBuscar" VerticalAlignment="Bottom" Width="328" Click="buttonBuscar_Click" IsEnabled="False" />
+        <DatePicker Height="28" HorizontalAlignment="Left" Margin="140,0,0,124" Name="datePickerHasta" VerticalAlignment="Bottom" Width="200" VerticalContentAlignment="Stretch" IsEnabled="False" SelectedDateChanged="datePickerHasta_SelectedDateChanged" />
+        <CheckBox Content="Desde Fecha: " HorizontalAlignment="Left" Margin="13,0,0,164" Name="checkBoxDesde" VerticalAlignment="Bottom" Checked="checkBoxDesde_Checked" Unchecked="checkBoxDesde_Unchecked" />
+        <DatePicker Height="28" HorizontalAlignment="Left" IsEnabled="False" Margin="140,0,0,158" Name="datePickerDesde" VerticalAlignment="Bottom" VerticalContentAlignment="Stretch" Width="200" SelectedDateChanged="datePickerDesde_SelectedDateChanged" />
+        <my1:AutoCompleteTextBox Height="28" HorizontalAlignment="Left" Margin="140,0,0,90" x:Name="autoCompleteTextBoxOrdenDe" VerticalAlignment="Bottom" Width="200" PreviewKeyDown="autoCompleteTextBoxOrdenDe_PreviewKeyDown" />
+        <Label Content="Buscar por Timbrado (Nro. Cheque): " Height="28" HorizontalAlignment="Right" Margin="0,0,12,158" Name="label1" VerticalAlignment="Bottom" Width="246" />
+        <TextBox Height="28" HorizontalAlignment="Right" Margin="0,0,138,124" Name="textBoxTimbrado" VerticalAlignment="Bottom" Width="120" PreviewKeyDown="textBoxTimbrado_PreviewKeyDown" />
+        <Button Content="Buscar" Height="28" HorizontalAlignment="Right" Margin="0,0,12,124" Name="buttonBuscarTimbrado" VerticalAlignment="Bottom" Width="120" Click="buttonBuscarTimbrado_Click" IsEnabled="False" />
+        <Button Content="Limpiar Busquedas" Height="28" HorizontalAlignment="Right" Margin="0,0,12,55" Name="buttonEliminarFiltros" VerticalAlignment="Bottom" Width="120" Click="buttonEliminarFiltros_Click" IsEnabled="False" />
+        <Separator Height="5" HorizontalAlignment="Stretch" Margin="12,0,12,44" Name="separator1" VerticalAlignment="Bottom" />
         <Button Content="Salir" Height="26" HorizontalAlignment="Right" Margin="0,0,12,12" Name="buttonSalir" VerticalAlignment="Bottom" Width="120" Click="buttonSalir_Click" />
         <Button Content="Guardar Cambios" Height="26" HorizontalAlignment="Right" Margin="0,0,138,12" Name="buttonGuardar" VerticalAlignment="Bottom" Width="120" Click="buttonGuardar_Click" IsEnabled="False" />
         <Button Content="Exportar..." Height="26" HorizontalAlignment="Right" Margin="0,0,264,12" Name="buttonExportar" VerticalAlignment="Bottom" Width="120" Click="buttonExportar_Click" />

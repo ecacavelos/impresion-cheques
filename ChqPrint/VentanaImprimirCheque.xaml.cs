@@ -180,7 +180,7 @@ namespace ChqPrint
                 Cheques tempCheque = new Cheques();
                 if (tempCheque.idCheque == 0)                               // Si el ID no existe.
                 {
-                    TimeSpan time = (DateTime.UtcNow - new DateTime(1970, 1, 1));
+                    TimeSpan time = ((DateTime)datePickerFecha.SelectedDate - new DateTime(1970, 1, 1));
                     int timestamp = (int)time.TotalSeconds;
                     tempCheque.idCheque = timestamp;                        // Nuevo ID = timestamp.
                 }

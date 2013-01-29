@@ -3,3 +3,8 @@ C:\Users\es\Desktop\CHEQUES\SetPermissions\bin\Debug\SetPermissions.pdb
 C:\Users\es\Desktop\CHEQUES\SetPermissions\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\es\Desktop\CHEQUES\SetPermissions\obj\Debug\SetPermissions.dll
 C:\Users\es\Desktop\CHEQUES\SetPermissions\obj\Debug\SetPermissions.pdb
+C:\Users\David\Documents\CBI\Application Projects\CHECKSOFT\SetPermissions\bin\Debug\SetPermissions.dll
+C:\Users\David\Documents\CBI\Application Projects\CHECKSOFT\SetPermissions\bin\Debug\SetPermissions.pdb
+C:\Users\David\Documents\CBI\Application Projects\CHECKSOFT\SetPermissions\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\David\Documents\CBI\Application Projects\CHECKSOFT\SetPermissions\obj\Debug\SetPermissions.dll
+C:\Users\David\Documents\CBI\Application Projects\CHECKSOFT\SetPermissions\obj\Debug\SetPermissions.pdb
