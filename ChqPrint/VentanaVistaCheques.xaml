@@ -61,7 +61,7 @@
         <DatePicker Height="28" HorizontalAlignment="Left" IsEnabled="False" Margin="140,0,0,158" Name="datePickerDesde" VerticalAlignment="Bottom" VerticalContentAlignment="Stretch" Width="200" SelectedDateChanged="datePickerDesde_SelectedDateChanged" />
         <my1:AutoCompleteTextBox Height="28" HorizontalAlignment="Left" Margin="140,0,0,90" x:Name="autoCompleteTextBoxOrdenDe" VerticalAlignment="Bottom" Width="200" PreviewKeyDown="autoCompleteTextBoxOrdenDe_PreviewKeyDown" />
         <Label Content="Buscar por Timbrado (Nro. Cheque): " Height="28" HorizontalAlignment="Right" Margin="0,0,12,158" Name="label1" VerticalAlignment="Bottom" Width="246" />
-        <TextBox Height="28" HorizontalAlignment="Right" Margin="0,0,138,124" Name="textBoxTimbrado" VerticalAlignment="Bottom" Width="120" PreviewKeyDown="textBoxTimbrado_PreviewKeyDown" />
+        <TextBox Height="28" HorizontalAlignment="Right" Margin="0,0,138,124" Name="textBoxTimbrado" VerticalAlignment="Bottom" Width="120" TextChanged="textBoxTimbrado_TextChanged" />
         <Button Content="Buscar" Height="28" HorizontalAlignment="Right" Margin="0,0,12,124" Name="buttonBuscarTimbrado" VerticalAlignment="Bottom" Width="120" Click="buttonBuscarTimbrado_Click" IsEnabled="False" />
         <Button Content="Limpiar Busquedas" Height="28" HorizontalAlignment="Right" Margin="0,0,12,55" Name="buttonEliminarFiltros" VerticalAlignment="Bottom" Width="120" Click="buttonEliminarFiltros_Click" IsEnabled="False" />
         <Separator Height="5" HorizontalAlignment="Stretch" Margin="12,0,12,44" Name="separator1" VerticalAlignment="Bottom" />

@@ -162,94 +162,6 @@ namespace ChqPrint
 
         #region "Funciones relativas al filtrado y la busqueda"
 
-        private void buttonBuscar_Click(object sender, RoutedEventArgs e)
-        {
-            aplicarFiltros();
-        }
-
-        private void aplicarFiltros()
-        {
-            string esql = "SELECT value c FROM Cheques as c";
-
-            if (autoCompleteTextBoxOrdenDe.IsEnabled == true)
-            {
-                esql += " WHERE ";
-                esql += String.Format("(c.PagueseOrdenDe LIKE '%{0}%')", autoCompleteTextBoxOrdenDe.Text);
-            }
-
-            if (datePickerDesde.IsEnabled == true)
-            {
-                if (datePickerDesde.SelectedDate != null)
-                {
-                    if (esql.Contains("WHERE"))
-                    {
-                        esql += " AND ";
-                    }
-                    else
-                    {
-                        esql += " WHERE ";
-                    }
-                    esql += String.Format("(c.idCheque >= {0})", timestampDesde);
-                }
-            }
-
-            if (datePickerHasta.IsEnabled == true)
-            {
-                if (datePickerHasta.SelectedDate != null)
-                {
-                    if (esql.Contains("WHERE"))
-                    {
-                        esql += " AND ";
-                    }
-                    else
-                    {
-                        esql += " WHERE ";
-                    }
-                    esql += String.Format("(c.idCheque <= {0})", timestampHasta);
-                }
-            }
-
-            System.Console.WriteLine(esql);
-
-            var chequesVar = database1Entities.CreateQuery<Cheques>(esql);
-            dataGridCheques.ItemsSource = chequesVar;
-            if (chequesVar.ToList().Count > 0)
-            {
-                labelStatusBar.Content = "Búsqueda Completa.";
-            }
-            else
-            {
-                labelStatusBar.Content = "La búsqueda no arrojó resultados.";
-            }
-
-            buttonEliminarFiltros.IsEnabled = true;
-
-        }
-
-        private void eliminarFiltros(bool firstTime)
-        {
-            string esql = "SELECT value c FROM Cheques as c";
-            var pagosVar = database1Entities.CreateQuery<Cheques>(esql);
-            dataGridCheques.ItemsSource = pagosVar;
-
-            buttonEliminarFiltros.IsEnabled = false;
-
-            if (firstTime)
-            {
-                string esql_clientes = "SELECT value c FROM Clientes as c";
-                var clientesVar = database1Entities.CreateQuery<Clientes>(esql_clientes);
-
-                //System.Console.WriteLine(clientesVar.ToList().Count.ToString() + " clientes.");
-
-                int i = 0;
-                foreach (ChqPrint.Clientes tempCliente in clientesVar.ToArray())
-                {
-                    autoCompleteTextBoxOrdenDe.AddItem(new WPFAutoCompleteTextbox.AutoCompleteEntry(tempCliente.Nombre, tempCliente.Nombre));
-                    i++;
-                }
-            }
-        }
-
         private void checkBoxDesde_Checked(object sender, RoutedEventArgs e)
         {
             datePickerDesde.IsEnabled = true;
@@ -350,7 +262,105 @@ namespace ChqPrint
             }
         }
 
-        #endregion
+        private void buttonBuscar_Click(object sender, RoutedEventArgs e)
+        {
+            aplicarFiltros();
+        }
+
+        private void aplicarFiltros()
+        {
+            string esql = "SELECT value c FROM Cheques as c";
+
+            if (autoCompleteTextBoxOrdenDe.IsEnabled == true)
+            {
+                esql += " WHERE ";
+                esql += String.Format("(c.PagueseOrdenDe LIKE '%{0}%')", autoCompleteTextBoxOrdenDe.Text);
+            }
+
+            if (datePickerDesde.IsEnabled == true)
+            {
+                if (datePickerDesde.SelectedDate != null)
+                {
+                    if (esql.Contains("WHERE"))
+                    {
+                        esql += " AND ";
+                    }
+                    else
+                    {
+                        esql += " WHERE ";
+                    }
+                    esql += String.Format("(c.idCheque >= {0})", timestampDesde);
+                }
+            }
+
+            if (datePickerHasta.IsEnabled == true)
+            {
+                if (datePickerHasta.SelectedDate != null)
+                {
+                    if (esql.Contains("WHERE"))
+                    {
+                        esql += " AND ";
+                    }
+                    else
+                    {
+                        esql += " WHERE ";
+                    }
+                    esql += String.Format("(c.idCheque <= {0})", timestampHasta);
+                }
+            }
+
+            System.Console.WriteLine(esql);
+
+            var chequesVar = database1Entities.CreateQuery<Cheques>(esql);
+            dataGridCheques.ItemsSource = chequesVar;
+            if (chequesVar.ToList().Count > 0)
+            {
+                labelStatusBar.Content = "Búsqueda Completa.";
+            }
+            else
+            {
+                labelStatusBar.Content = "La búsqueda no arrojó resultados.";
+            }
+
+            buttonEliminarFiltros.IsEnabled = true;
+
+        }
+
+        private void eliminarFiltros(bool firstTime)
+        {
+            string esql = "SELECT value c FROM Cheques as c";
+            var pagosVar = database1Entities.CreateQuery<Cheques>(esql);
+            dataGridCheques.ItemsSource = pagosVar;
+
+            buttonEliminarFiltros.IsEnabled = false;
+
+            if (firstTime)
+            {
+                string esql_clientes = "SELECT value c FROM Clientes as c";
+                var clientesVar = database1Entities.CreateQuery<Clientes>(esql_clientes);
+
+                //System.Console.WriteLine(clientesVar.ToList().Count.ToString() + " clientes.");
+
+                int i = 0;
+                foreach (ChqPrint.Clientes tempCliente in clientesVar.ToArray())
+                {
+                    autoCompleteTextBoxOrdenDe.AddItem(new WPFAutoCompleteTextbox.AutoCompleteEntry(tempCliente.Nombre, tempCliente.Nombre));
+                    i++;
+                }
+            }
+        }
+
+        private void textBoxTimbrado_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (textBoxTimbrado.Text.Length > 0)
+            {
+                buttonBuscarTimbrado.IsEnabled = true;
+            }
+            else
+            {
+                buttonBuscarTimbrado.IsEnabled = false;
+            }
+        }
 
         private void buttonBuscarTimbrado_Click(object sender, RoutedEventArgs e)
         {
@@ -376,19 +386,6 @@ namespace ChqPrint
 
         }
 
-        private void textBoxTimbrado_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (textBoxTimbrado.Text.Length > 0)
-            {
-                buttonBuscarTimbrado.IsEnabled = true;
-            }
-            if (e.Key.ToString() == "Return")
-            {
-                e.Handled = true;
-                buttonBuscarTimbrado_Click(null, null);
-            }
-        }
-
         private void buttonEliminarFiltros_Click(object sender, RoutedEventArgs e)
         {
             // Colocamos todos los controles de búsqueda en sus estados iniciales.
@@ -406,6 +403,8 @@ namespace ChqPrint
 
             eliminarFiltros(false);
         }
+
+        #endregion
 
     }
 
