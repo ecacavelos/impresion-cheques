@@ -151,10 +151,21 @@ namespace ChqPrint
             }
             else // No está abierta. Abrir una instancia de la Ventana.
             {
-                Type type = this.GetType();
-                Assembly assembly = type.Assembly;
-                this.ventanaConfig = (Window)assembly.CreateInstance("ChqPrint.VentanaConfiguracion");
-                this.ventanaConfig.Show();
+                // Se llama a la ventana para hacer login y comprobar que el usuario es admin.
+                VentanaLogin winLogin = new VentanaLogin();
+                Nullable<bool> result = winLogin.ShowDialog();
+                // Si el login es exitoso.
+                if (result == true)
+                {
+                    Type type = this.GetType();
+                    Assembly assembly = type.Assembly;
+                    this.ventanaConfig = (Window)assembly.CreateInstance("ChqPrint.VentanaConfiguracion");
+                    this.ventanaConfig.Show();
+                }
+                else
+                {
+
+                }
             }
         }
 
