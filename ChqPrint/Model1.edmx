@@ -27,7 +27,7 @@
           <Property Name="idCheque" Type="int" Nullable="false" />
           <Property Name="nroCheque" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="Fecha" Type="datetime" />
-          <Property Name="Monto" Type="int" />
+          <Property Name="Monto" Type="bigint" />
           <Property Name="PagueseOrdenDe" Type="nvarchar" MaxLength="100" />
           <Property Name="MontoEnLetras" Type="nvarchar" MaxLength="100" />
           <Property Name="Estado" Type="nvarchar" MaxLength="100" />
@@ -41,7 +41,7 @@
           </Key>
           <Property Name="idCliente" Type="int" Nullable="false" />
           <Property Name="Nombre" Type="nvarchar" MaxLength="100" />
-          <Property Name="Alias" Type="nvarchar" MaxLength="100" />
+          <Property Name="Alias" Type="nvarchar" MaxLength="12" />
         </EntityType>
         <EntityType Name="Conceptos">
           <Key>
@@ -76,7 +76,7 @@
           <Property Name="idCheque" Type="Int32" Nullable="false" />
           <Property Name="nroCheque" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Type="DateTime" Name="Fecha" />
-          <Property Type="Int32" Name="Monto" />
+          <Property Type="Int64" Name="Monto" />
           <Property Type="String" Name="PagueseOrdenDe" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="MontoEnLetras" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Estado" MaxLength="100" FixedLength="false" Unicode="true" />

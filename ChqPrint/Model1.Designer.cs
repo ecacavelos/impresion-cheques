@@ -405,7 +405,7 @@ namespace ChqPrint
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> Monto
+        public Nullable<global::System.Int64> Monto
         {
             get
             {
@@ -420,8 +420,8 @@ namespace ChqPrint
                 OnMontoChanged();
             }
         }
-        private Nullable<global::System.Int32> _Monto;
-        partial void OnMontoChanging(Nullable<global::System.Int32> value);
+        private Nullable<global::System.Int64> _Monto;
+        partial void OnMontoChanging(Nullable<global::System.Int64> value);
         partial void OnMontoChanged();
     
         /// <summary>

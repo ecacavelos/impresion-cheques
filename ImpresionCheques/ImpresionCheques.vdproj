@@ -45,14 +45,14 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_BBE8938031500C45D69A0DA81ECF5DC3"
-        "OwnerKey" = "8:_E2D50751465E45068026A028BE6C8C47"
+        "MsmKey" = "8:_C133992FD2D247A6B11C78B24E206194"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_C133992FD2D247A6B11C78B24E206194"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_D70922752805D49EC736D790D7DD2B81"
+        "OwnerKey" = "8:_E2D50751465E45068026A028BE6C8C47"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -70,13 +70,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_BBE8938031500C45D69A0DA81ECF5DC3"
+        "OwnerKey" = "8:_2BCA3E18772E4E1E88F171B24C1F17E2"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_2BCA3E18772E4E1E88F171B24C1F17E2"
+        "OwnerKey" = "8:_D70922752805D49EC736D790D7DD2B81"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -111,10 +111,30 @@
                     "Name" = "8:Microsoft .NET Framework 4 Client Profile (x86 and x64)"
                     "ProductCode" = "8:.NETFramework,Version=v4.0,Profile=Client"
                     }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Net.Framework.3.5.SP1"
+                    {
+                    "Name" = "8:.NET Framework 3.5 SP1"
+                    "ProductCode" = "8:Microsoft.Net.Framework.3.5.SP1"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.SQL.Server.Compact.3.5"
+                    {
+                    "Name" = "8:SQL Server Compact 3.5 SP2"
+                    "ProductCode" = "8:Microsoft.SQL.Server.Compact.3.5"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Sql.Server.Express.10.0"
+                    {
+                    "Name" = "8:SQL Server 2008 Express"
+                    "ProductCode" = "8:Microsoft.Sql.Server.Express.10.0"
+                    }
                     "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
                     {
                     "Name" = "8:Windows Installer 3.1"
                     "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.4.5"
+                    {
+                    "Name" = "8:Windows Installer 4.5"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.4.5"
                     }
                 }
             }
@@ -292,37 +312,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_BBE8938031500C45D69A0DA81ECF5DC3"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:System.Data.SqlServerCe, Version=3.5.1.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_BBE8938031500C45D69A0DA81ECF5DC3"
-                    {
-                    "Name" = "8:System.Data.SqlServerCe.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:System.Data.SqlServerCe.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_20EF090DFBBD4C418804C2C4DC7FEF9A"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C133992FD2D247A6B11C78B24E206194"
             {
             "SourcePath" = "8:..\\ChqPrint\\bin\\Debug\\standard.xml"
@@ -341,6 +330,32 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D70922752805D49EC736D790D7DD2B81"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.Data.SqlServerCe, Version=3.5.1.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                }
+            "SourcePath" = "8:System.Data.SqlServerCe.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_20EF090DFBBD4C418804C2C4DC7FEF9A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
         }
@@ -433,7 +448,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ImpresionCheques"
         "ProductCode" = "8:{030D621C-31F5-4778-8FED-E635F12028A9}"
-        "PackageCode" = "8:{83A150C1-0F49-48DE-8864-17C768D9E4FE}"
+        "PackageCode" = "8:{DAF9A108-9E31-4520-8ACB-C506A0691698}"
         "UpgradeCode" = "8:{155ED82C-5B2A-4865-8B8D-D7EC2D683172}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
