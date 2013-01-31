@@ -53,11 +53,18 @@ namespace ChqPrint
                 Int32.TryParse(chequesVar.ToList().ElementAt(chequesVar.ToList().Count - 1).nroCheque, out lastNroCheque);
                 // Incrementamos en 1 el último Cheque y desplegamos el valor correspondiente en el textBlock
                 lastNroCheque++;
-                textBlockNumeroCheque.Text = lastNroCheque.ToString("000000");
+                textBlockNumeroCheque.Text = lastNroCheque.ToString("00000000");
             }
             else
             {
-                textBlockNumeroCheque.Text = this.c0.PrimerCheque.ToString();
+                textBlockNumeroCheque.Text = this.c0.PrimerCheque.ToString("00000000");
+            }
+
+            // Verificamos que no se haya sobrepasado el ultimo cheque del talonario.
+            if (lastNroCheque > this.c0.UltimoCheque)
+            {
+                MessageBox.Show("Se han agotado todos los cheques de este talonario.\nPor favor agregue un nuevo talonario.");
+                this.Close();
             }
 
             textBoxMonto.Focus();
@@ -100,7 +107,7 @@ namespace ChqPrint
         private void buttonImprimir_Click(object sender, RoutedEventArgs e)
         {
 
-            int montoValidado = 0;
+            long montoValidado = 0;
 
             // Validamos el campo de "Monto"
             if (textBoxMonto.Text.Length > 0)
@@ -109,7 +116,8 @@ namespace ChqPrint
                 {
                     //System.Console.WriteLine(textBoxMonto.Text);
                     //System.Console.WriteLine(textBoxMonto.Text.Replace(".", ""));
-                    montoValidado = Convert.ToInt32(textBoxMonto.Text.Replace(".", ""));
+                    montoValidado = Convert.ToInt64(textBoxMonto.Text.Replace(".", ""));
+                    System.Console.WriteLine(montoValidado);
 
                 }
                 catch (Exception ex)
@@ -209,7 +217,7 @@ namespace ChqPrint
                 }
 
                 // Se intenta imprimir el Cheque.
-                if (Impresion.ImprimirCheque((DateTime)(tempCheque.Fecha), (int)tempCheque.Monto, tempCliente, tempCheque.concepto))
+                if (Impresion.ImprimirCheque((DateTime)(tempCheque.Fecha), (long)tempCheque.Monto, tempCliente, tempCheque.concepto))
                 {
                     System.Windows.MessageBox.Show("Se imprimió el Cheque.", "Impresión");
                     // Luego de imprimir el Cheque, agregamos un nuevo registro a la tabla 'Cheques'.                    
@@ -235,13 +243,14 @@ namespace ChqPrint
         // Esta funcion es la que pone los puntos en los miles, millones, etc.  
         private void textBoxMonto_TextChanged(object sender, TextChangedEventArgs e)
         {
-            int tempMonto = 0;
+            long tempMonto = 0;
 
-
-            bool result = Int32.TryParse(((string)textBoxMonto.Text), System.Globalization.NumberStyles.Number, new System.Globalization.CultureInfo("es-ES"), out tempMonto);
+            bool result = Int64.TryParse(((string)textBoxMonto.Text), System.Globalization.NumberStyles.Number, new System.Globalization.CultureInfo("es-ES"), out tempMonto);
             if (result)
             {
-                textBoxMonto.Text = tempMonto.ToString("#,##0");
+                //textBoxMonto.Text = ((Int64)tempMonto).ToString("#,##0");                                
+                System.Globalization.NumberFormatInfo nfi = new System.Globalization.CultureInfo("es-ES", false).NumberFormat;
+                textBoxMonto.Text = ((Int64)tempMonto).ToString("N0", nfi);
                 textBoxMonto.CaretIndex = textBoxMonto.Text.Length;
             }
         }

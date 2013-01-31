@@ -17,11 +17,17 @@ namespace ChqPrint
     public static class Impresion
     {
 
-        public static bool ImprimirCheque(DateTime fecha, int monto, ChqPrint.Clientes beneficiario, string tempConcepto)
+        public static bool ImprimirCheque(DateTime fecha, long monto, ChqPrint.Clientes beneficiario, string tempConcepto)
         {
             System.Console.WriteLine(VentanaPrincipal.layoutFilename);
             ConfigurationGeneral c0 = ConfigurationGeneral.Deserialize(VentanaPrincipal.layoutFilename);
             ConfigurationLayoutCheque c2 = ConfigurationLayoutCheque.Deserialize(c0.FormatoChequeTalonario);
+
+            bool montoBlanco = false;
+            if (monto == 0)
+            {
+                montoBlanco = true;
+            }
 
             System.Console.WriteLine(c2.ChequeID);
             // Creamos la clase pariente 'FixedDocument'.
@@ -55,11 +61,14 @@ namespace ChqPrint
             FixedPage.SetTop(chqFechaAño, c2.CoordenadasImpresion.yFecha);
 
             // --- Monto ---
-            TextBlock chqMonto = new TextBlock();
-            chqMonto.Text = monto.ToString("#,##0");
-            page1.Children.Add(chqMonto);
-            FixedPage.SetLeft(chqMonto, c2.CoordenadasImpresion.xMonto);
-            FixedPage.SetTop(chqMonto, c2.CoordenadasImpresion.yMonto);
+            if (montoBlanco == false)
+            {
+                TextBlock chqMonto = new TextBlock();
+                chqMonto.Text = monto.ToString("#,##0");
+                page1.Children.Add(chqMonto);
+                FixedPage.SetLeft(chqMonto, c2.CoordenadasImpresion.xMonto);
+                FixedPage.SetTop(chqMonto, c2.CoordenadasImpresion.yMonto);
+            }
 
             // --- Páguese a la Orden De ---
             TextBlock chqPagueseOrdenDe = new TextBlock();
@@ -69,20 +78,23 @@ namespace ChqPrint
             FixedPage.SetTop(chqPagueseOrdenDe, c2.CoordenadasImpresion.yPagueseOrdenDe);
 
             // --- Monto en Letras ---
-            TextBlock chqMontoEnLetras = new TextBlock();
-            string firstLineIndentation = "";
-            for (int i = 0; i < 36; i++)
+            if (montoBlanco == false)
             {
-                firstLineIndentation += " ";
-            }
-            chqMontoEnLetras.Text = firstLineIndentation + Numalet.ToCardinal((int)monto).ToUpper();
-            chqMontoEnLetras.Width = 580;
-            chqMontoEnLetras.TextWrapping = TextWrapping.Wrap;
-            chqMontoEnLetras.LineHeight = 30;
+                TextBlock chqMontoEnLetras = new TextBlock();
+                string firstLineIndentation = "";
+                for (int i = 0; i < 36; i++)
+                {
+                    firstLineIndentation += " ";
+                }
+                chqMontoEnLetras.Text = firstLineIndentation + Numalet.ToCardinal((long)monto).ToUpper();
+                chqMontoEnLetras.Width = 580;
+                chqMontoEnLetras.TextWrapping = TextWrapping.Wrap;
+                chqMontoEnLetras.LineHeight = 30;
 
-            page1.Children.Add(chqMontoEnLetras);
-            FixedPage.SetLeft(chqMontoEnLetras, c2.CoordenadasImpresion.xMontoEnLetras - 118);
-            FixedPage.SetTop(chqMontoEnLetras, c2.CoordenadasImpresion.yMontoEnLetras);
+                page1.Children.Add(chqMontoEnLetras);
+                FixedPage.SetLeft(chqMontoEnLetras, c2.CoordenadasImpresion.xMontoEnLetras - 118);
+                FixedPage.SetTop(chqMontoEnLetras, c2.CoordenadasImpresion.yMontoEnLetras);
+            }
 
             // --- Fecha Abreviada en el Talon ---
             TextBlock chqTalonFecha = new TextBlock();
@@ -108,11 +120,14 @@ namespace ChqPrint
             FixedPage.SetTop(chqTalonConcepto, c2.CoordenadasImpresion.yTalonConcepto);
 
             // --- Monto Abreviado en el Talon ---
-            TextBlock chqTalonMonto = new TextBlock();
-            chqTalonMonto.Text = monto.ToString("#,##0");
-            page1.Children.Add(chqTalonMonto);
-            FixedPage.SetLeft(chqTalonMonto, c2.CoordenadasImpresion.xTalonMonto);
-            FixedPage.SetTop(chqTalonMonto, c2.CoordenadasImpresion.yTalonMonto);
+            if (montoBlanco == false)
+            {
+                TextBlock chqTalonMonto = new TextBlock();
+                chqTalonMonto.Text = monto.ToString("#,##0");
+                page1.Children.Add(chqTalonMonto);
+                FixedPage.SetLeft(chqTalonMonto, c2.CoordenadasImpresion.xTalonMonto);
+                FixedPage.SetTop(chqTalonMonto, c2.CoordenadasImpresion.yTalonMonto);
+            }
 
             // Agregamos la Pagina al Documento.
             PageContent page1Content = new PageContent();

@@ -225,6 +225,12 @@ public sealed class Numalet
         return Convertir((Decimal)Numero, 0, null, null, true, LetraCapitalDefault, ConvertirDecimalesDefault, ApocoparUnoParteEnteraDefault, ApocoparUnoParteDecimalDefault);
     }
 
+    // Para numeros LONG.
+    public static String ToCardinal(Int64 Numero)
+    {
+        return Convertir((Decimal)Numero, 0, null, null, true, LetraCapitalDefault, ConvertirDecimalesDefault, ApocoparUnoParteEnteraDefault, ApocoparUnoParteDecimalDefault);
+    }
+
     public static String ToCardinal(Double Numero)
     {
         return ToCardinal((Decimal)Numero);
