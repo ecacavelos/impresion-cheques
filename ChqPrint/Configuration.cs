@@ -109,6 +109,7 @@ namespace ChqPrint
         int _PrimerCheque;
         int _UltimoCheque;
         bool _PermitirEscrituraManual;
+        bool _ComputadorAdmin;
 
         public ConfigurationGeneral()
         {
@@ -118,6 +119,7 @@ namespace ChqPrint
             _PrimerCheque = 1;
             _UltimoCheque = 99999;
             _PermitirEscrituraManual = true;
+            _ComputadorAdmin = false;
         }
 
         #region "Funciones Relativas a la Lectura y Escritura del Archivo de Configuración"
@@ -173,6 +175,11 @@ namespace ChqPrint
         {
             get { return _PermitirEscrituraManual; }
             set { _PermitirEscrituraManual = value; }
+        }
+        public bool ComputadorAdmin
+        {
+            get { return _ComputadorAdmin; }
+            set { _ComputadorAdmin = value; }
         }
 
     }

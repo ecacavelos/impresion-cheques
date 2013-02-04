@@ -90,6 +90,11 @@ namespace ChqPrint
             labelTipoChequeHomeScreen = labelStatusMain;
             labelStatusMain.Content = c2.ChequeID;
             layoutFilename = "standard.xml";
+
+            if (c0.ComputadorAdmin == true)
+            {
+                labelAdmin.Visibility = Visibility.Visible;
+            }
         }
 
         private void Window_Closed(object sender, EventArgs e)
