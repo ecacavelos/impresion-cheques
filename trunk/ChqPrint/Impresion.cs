@@ -115,6 +115,8 @@ namespace ChqPrint
             TextBlock chqTalonConcepto = new TextBlock();
             chqTalonConcepto.Text = tempConcepto;
             chqTalonConcepto.Width = 90;
+            chqTalonConcepto.TextWrapping = TextWrapping.Wrap;
+            chqTalonConcepto.LineHeight = 30;
             page1.Children.Add(chqTalonConcepto);
             FixedPage.SetLeft(chqTalonConcepto, c2.CoordenadasImpresion.xTalonConcepto);
             FixedPage.SetTop(chqTalonConcepto, c2.CoordenadasImpresion.yTalonConcepto);

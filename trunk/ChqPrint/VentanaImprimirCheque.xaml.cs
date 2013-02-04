@@ -83,7 +83,7 @@ namespace ChqPrint
                 textBoxAlias.IsEnabled = true;
             }
 
-            textBoxConcepto.SetTextBoxMaxLength(12);
+            textBoxConcepto.SetTextBoxMaxLength(60);
             // Agregamos la lista de sugerencias de Conceptos al AutoCompleteTextBox 'Concepto'.
             string esql_conceptos = "SELECT value c FROM Conceptos as c";
             var conceptosVar = database1Entities.CreateQuery<Conceptos>(esql_conceptos);
@@ -296,6 +296,10 @@ namespace ChqPrint
                 {
                     textBoxConcepto.FocusTextBox();
                 }
+            }
+            else if (e.Key.ToString() == "Escape")
+            {
+                textBoxConcepto.FocusTextBox();
             }
         }
 

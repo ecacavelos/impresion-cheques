@@ -21,7 +21,7 @@ namespace ChqPrint
     /// </summary>
     public partial class VentanaVistaCheques : Window
     {
-        //private Configuration c2;
+        private ConfigurationGeneral c0;
         public static bool IsOpen { get; private set; }
 
         ChqPrint.ChqDatabase1Entities database1Entities = new ChqPrint.ChqDatabase1Entities();
@@ -40,12 +40,21 @@ namespace ChqPrint
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             IsOpen = true;
+            this.c0 = ConfigurationGeneral.Deserialize("standard.xml");
+
             // Load data into Cheques. You can modify this code as needed.
             System.Windows.Data.CollectionViewSource chequesViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("chequesViewSource")));
             System.Data.Objects.ObjectQuery<ChqPrint.Cheques> chequesQuery = this.GetChequesQuery(database1Entities);
             chequesViewSource.Source = chequesQuery.Execute(System.Data.Objects.MergeOption.AppendOnly);
 
             eliminarFiltros(true);
+            autoCompleteTextBoxOrdenDe.IsEnabled = false;
+            comboBoxEstado.SelectedIndex = 0;
+
+            if (c0.ComputadorAdmin == true)
+            {
+                buttonExportar.IsEnabled = true;
+            }
         }
 
         private void Window_Unloaded(object sender, RoutedEventArgs e)
@@ -171,7 +180,7 @@ namespace ChqPrint
         private void checkBoxDesde_Unchecked(object sender, RoutedEventArgs e)
         {
             datePickerDesde.IsEnabled = false;
-            if (checkBoxHasta.IsChecked == false && checkBoxOrdenDe.IsChecked == false)
+            if (checkBoxHasta.IsChecked == false && checkBoxOrdenDe.IsChecked == false && checkBoxEstado.IsChecked == false)
             {
                 buttonBuscar.IsEnabled = false;
                 eliminarFiltros(false);
@@ -191,7 +200,7 @@ namespace ChqPrint
         private void checkBoxHasta_Unchecked(object sender, RoutedEventArgs e)
         {
             datePickerHasta.IsEnabled = false;
-            if (checkBoxDesde.IsChecked == false && checkBoxOrdenDe.IsChecked == false)
+            if (checkBoxDesde.IsChecked == false && checkBoxOrdenDe.IsChecked == false && checkBoxEstado.IsChecked == false)
             {
                 buttonBuscar.IsEnabled = false;
                 eliminarFiltros(false);
@@ -213,7 +222,27 @@ namespace ChqPrint
         {
             autoCompleteTextBoxOrdenDe.IsEnabled = false;
             autoCompleteTextBoxOrdenDe.Text = "";
-            if (checkBoxDesde.IsChecked == false && checkBoxHasta.IsChecked == false)
+            if (checkBoxDesde.IsChecked == false && checkBoxHasta.IsChecked == false && checkBoxEstado.IsChecked == false)
+            {
+                buttonBuscar.IsEnabled = false;
+                eliminarFiltros(false);
+            }
+            else
+            {
+                aplicarFiltros();
+            }
+        }
+
+        private void checkBoxEstado_Checked(object sender, RoutedEventArgs e)
+        {
+            comboBoxEstado.IsEnabled = true;
+            buttonBuscar.IsEnabled = true;
+        }
+
+        private void checkBoxEstado_Unchecked(object sender, RoutedEventArgs e)
+        {
+            comboBoxEstado.IsEnabled = false;
+            if (checkBoxDesde.IsChecked == false && checkBoxHasta.IsChecked == false && checkBoxOrdenDe.IsChecked == false)
             {
                 buttonBuscar.IsEnabled = false;
                 eliminarFiltros(false);
@@ -238,7 +267,7 @@ namespace ChqPrint
 
         private void autoCompleteTextBoxOrdenDe_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            //System.Console.WriteLine(e.Key.ToString());
+            System.Console.WriteLine(e.Key.ToString());
             if (e.Key.ToString() == "Down")
             {
                 e.Handled = true;
@@ -257,6 +286,10 @@ namespace ChqPrint
                 }
             }
             else if (e.Key.ToString() == "Return")
+            {
+                autoCompleteTextBoxOrdenDe.FocusTextBox();
+            }
+            else if (e.Key.ToString() == "Escape")
             {
                 autoCompleteTextBoxOrdenDe.FocusTextBox();
             }
@@ -306,6 +339,22 @@ namespace ChqPrint
                         esql += " WHERE ";
                     }
                     esql += String.Format("(c.idCheque <= {0})", timestampHasta);
+                }
+            }
+
+            if (comboBoxEstado.IsEnabled)
+            {
+                if (comboBoxEstado.SelectedValue != null)
+                {
+                    if (esql.Contains("WHERE"))
+                    {
+                        esql += " AND ";
+                    }
+                    else
+                    {
+                        esql += " WHERE ";
+                    }
+                    esql += String.Format("(c.Estado = '{0}')", comboBoxEstado.SelectedValue);
                 }
             }
 
