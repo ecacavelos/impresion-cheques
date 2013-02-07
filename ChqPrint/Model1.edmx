@@ -4,13 +4,13 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ChqDatabase1Model.Store" Alias="Self" Provider="System.Data.SqlServerCe.3.5" ProviderManifestToken="3.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
-        <EntityContainer Name="ChqDatabase1ModelStoreContainer">
-          <EntitySet Name="Admins" EntityType="ChqDatabase1Model.Store.Admins" store:Type="Tables" />
-          <EntitySet Name="Cheques" EntityType="ChqDatabase1Model.Store.Cheques" store:Type="Tables" />
-          <EntitySet Name="Clientes" EntityType="ChqDatabase1Model.Store.Clientes" store:Type="Tables" />
-          <EntitySet Name="Conceptos" EntityType="ChqDatabase1Model.Store.Conceptos" store:Type="Tables" />
-          <EntitySet Name="Formatos" EntityType="ChqDatabase1Model.Store.Formatos" store:Type="Tables" />
+      <Schema Namespace="ChqDatabase2Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="ChqDatabase2ModelStoreContainer">
+          <EntitySet Name="Admins" EntityType="ChqDatabase2Model.Store.Admins" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Cheques" EntityType="ChqDatabase2Model.Store.Cheques" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Clientes" EntityType="ChqDatabase2Model.Store.Clientes" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Conceptos" EntityType="ChqDatabase2Model.Store.Conceptos" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Formatos" EntityType="ChqDatabase2Model.Store.Formatos" store:Type="Tables" Schema="dbo" />
         </EntityContainer>
         <EntityType Name="Admins">
           <Key>
@@ -58,116 +58,101 @@
           <Property Name="Path" Type="nvarchar" MaxLength="100" />
           <Property Name="Descripcion" Type="nvarchar" MaxLength="100" />
         </EntityType>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="ChqDatabase1Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-        <EntityContainer Name="ChqDatabase1Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Cheques" EntityType="ChqDatabase1Model.Cheques" />
-          <EntitySet Name="Formatos" EntityType="ChqDatabase1Model.Formatos" />
-          <EntitySet Name="Clientes" EntityType="ChqDatabase1Model.Clientes" />
-          <EntitySet Name="Admins" EntityType="ChqDatabase1Model.Admins" />
-          <EntitySet Name="Conceptos" EntityType="ChqDatabase1Model.Conceptos" />
+      <Schema Namespace="ChqDatabase2Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="ChqDatabase2Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admins" EntityType="ChqDatabase2Model.Admins" />
+          <EntitySet Name="Cheques" EntityType="ChqDatabase2Model.Cheques" />
+          <EntitySet Name="Clientes" EntityType="ChqDatabase2Model.Clientes" />
+          <EntitySet Name="Conceptos" EntityType="ChqDatabase2Model.Conceptos" />
+          <EntitySet Name="Formatos" EntityType="ChqDatabase2Model.Formatos" />
         </EntityContainer>
+        <EntityType Name="Admins">
+          <Key>
+            <PropertyRef Name="idAdmin" />
+          </Key>
+          <Property Name="idAdmin" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Password" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+        </EntityType>
         <EntityType Name="Cheques">
           <Key>
             <PropertyRef Name="idCheque" />
           </Key>
           <Property Name="idCheque" Type="Int32" Nullable="false" />
           <Property Name="nroCheque" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
-          <Property Type="DateTime" Name="Fecha" />
-          <Property Type="Int64" Name="Monto" />
-          <Property Type="String" Name="PagueseOrdenDe" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="MontoEnLetras" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Estado" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Banco" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Talonario" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="concepto" MaxLength="100" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Formatos">
-          <Key>
-            <PropertyRef Name="idFormato" />
-          </Key>
-          <Property Type="Int32" Name="idFormato" Nullable="false" />
-          <Property Type="String" Name="Path" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Descripcion" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Fecha" Type="DateTime" />
+          <Property Name="Monto" Type="Int64" />
+          <Property Name="PagueseOrdenDe" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="MontoEnLetras" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Estado" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Banco" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Talonario" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="concepto" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
         </EntityType>
         <EntityType Name="Clientes">
           <Key>
             <PropertyRef Name="idCliente" />
           </Key>
-          <Property Type="Int32" Name="idCliente" Nullable="false" />
-          <Property Type="String" Name="Nombre" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Alias" MaxLength="100" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Admins">
-          <Key>
-            <PropertyRef Name="idAdmin" />
-          </Key>
-          <Property Type="Int32" Name="idAdmin" Nullable="false" />
-          <Property Type="String" Name="Nombre" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Password" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="idCliente" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Alias" Type="String" MaxLength="12" Unicode="true" FixedLength="false" />
         </EntityType>
         <EntityType Name="Conceptos">
           <Key>
             <PropertyRef Name="idConcepto" />
           </Key>
-          <Property Type="Int32" Name="idConcepto" Nullable="false" />
-          <Property Type="String" Name="Descripcion" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="idConcepto" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Formatos">
+          <Key>
+            <PropertyRef Name="idFormato" />
+          </Key>
+          <Property Name="idFormato" Type="Int32" Nullable="false" />
+          <Property Name="Path" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ChqDatabase1ModelStoreContainer" CdmEntityContainer="ChqDatabase1Entities">
-          <EntitySetMapping Name="Cheques"><EntityTypeMapping TypeName="ChqDatabase1Model.Cheques"><MappingFragment StoreEntitySet="Cheques">
-                <ScalarProperty Name="concepto" ColumnName="concepto" />
-                <ScalarProperty Name="Talonario" ColumnName="Talonario" />
-                <ScalarProperty Name="Banco" ColumnName="Banco" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="MontoEnLetras" ColumnName="MontoEnLetras" />
-                <ScalarProperty Name="PagueseOrdenDe" ColumnName="PagueseOrdenDe" />
-                <ScalarProperty Name="Monto" ColumnName="Monto" />
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-                <ScalarProperty Name="idCheque" ColumnName="idCheque" />
-            <ScalarProperty Name="nroCheque" ColumnName="nroCheque" />
+        <EntityContainerMapping StorageEntityContainer="ChqDatabase2ModelStoreContainer" CdmEntityContainer="ChqDatabase2Entities">
+          <EntitySetMapping Name="Admins"><EntityTypeMapping TypeName="ChqDatabase2Model.Admins"><MappingFragment StoreEntitySet="Admins">
+            <ScalarProperty Name="idAdmin" ColumnName="idAdmin" />
+            <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+            <ScalarProperty Name="Password" ColumnName="Password" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="Formatos">
-            <EntityTypeMapping TypeName="ChqDatabase1Model.Formatos">
-              <MappingFragment StoreEntitySet="Formatos">
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="Path" ColumnName="Path" />
-                <ScalarProperty Name="idFormato" ColumnName="idFormato" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Clientes">
-            <EntityTypeMapping TypeName="ChqDatabase1Model.Clientes">
-              <MappingFragment StoreEntitySet="Clientes">
-                <ScalarProperty Name="Alias" ColumnName="Alias" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Admins">
-            <EntityTypeMapping TypeName="ChqDatabase1Model.Admins">
-              <MappingFragment StoreEntitySet="Admins">
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="idAdmin" ColumnName="idAdmin" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Conceptos">
-            <EntityTypeMapping TypeName="ChqDatabase1Model.Conceptos">
-              <MappingFragment StoreEntitySet="Conceptos">
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="idConcepto" ColumnName="idConcepto" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+          <EntitySetMapping Name="Cheques"><EntityTypeMapping TypeName="ChqDatabase2Model.Cheques"><MappingFragment StoreEntitySet="Cheques">
+            <ScalarProperty Name="idCheque" ColumnName="idCheque" />
+            <ScalarProperty Name="nroCheque" ColumnName="nroCheque" />
+            <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+            <ScalarProperty Name="Monto" ColumnName="Monto" />
+            <ScalarProperty Name="PagueseOrdenDe" ColumnName="PagueseOrdenDe" />
+            <ScalarProperty Name="MontoEnLetras" ColumnName="MontoEnLetras" />
+            <ScalarProperty Name="Estado" ColumnName="Estado" />
+            <ScalarProperty Name="Banco" ColumnName="Banco" />
+            <ScalarProperty Name="Talonario" ColumnName="Talonario" />
+            <ScalarProperty Name="concepto" ColumnName="concepto" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Clientes"><EntityTypeMapping TypeName="ChqDatabase2Model.Clientes"><MappingFragment StoreEntitySet="Clientes">
+            <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+            <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+            <ScalarProperty Name="Alias" ColumnName="Alias" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Conceptos"><EntityTypeMapping TypeName="ChqDatabase2Model.Conceptos"><MappingFragment StoreEntitySet="Conceptos">
+            <ScalarProperty Name="idConcepto" ColumnName="idConcepto" />
+            <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Formatos"><EntityTypeMapping TypeName="ChqDatabase2Model.Formatos"><MappingFragment StoreEntitySet="Formatos">
+            <ScalarProperty Name="idFormato" ColumnName="idFormato" />
+            <ScalarProperty Name="Path" ColumnName="Path" />
+            <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -189,11 +174,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="Model1">
-        <EntityTypeShape EntityType="ChqDatabase1Model.Cheques" Width="1.5" PointX="0.5" PointY="0.5" Height="2.3648893229166665" IsExpanded="true" />
-        <EntityTypeShape EntityType="ChqDatabase1Model.Formatos" Width="1.5" PointX="2.25" PointY="0.5" Height="1.59568359375" />
-        <EntityTypeShape EntityType="ChqDatabase1Model.Clientes" Width="1.5" PointX="4" PointY="0.5" Height="1.4033821614583322" />
-        <EntityTypeShape EntityType="ChqDatabase1Model.Admins" Width="1.5" PointX="5.75" PointY="0.5" Height="1.5956835937499996" />
-        <EntityTypeShape EntityType="ChqDatabase1Model.Conceptos" Width="1.5" PointX="7.5" PointY="0.5" Height="1.4033821614583317" />
+        <EntityTypeShape EntityType="ChqDatabase2Model.Admins" Width="1.5" PointX="0.5" PointY="0.5" Height="1.59568359375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ChqDatabase2Model.Cheques" Width="1.5" PointX="2.25" PointY="0.5" Height="2.9417936197916656" IsExpanded="true" />
+        <EntityTypeShape EntityType="ChqDatabase2Model.Clientes" Width="1.5" PointX="4" PointY="0.5" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="ChqDatabase2Model.Conceptos" Width="1.5" PointX="5.75" PointY="0.5" Height="1.4033821614583335" IsExpanded="true" />
+        <EntityTypeShape EntityType="ChqDatabase2Model.Formatos" Width="1.5" PointX="7.5" PointY="0.5" Height="1.5956835937499996" IsExpanded="true" />
       </Diagram>
     </Diagrams>
   </Designer>

@@ -22,7 +22,7 @@ namespace ChqPrint
         private ConfigurationLayoutCheque c2;
         public static bool IsOpen { get; private set; }
 
-        ChqPrint.ChqDatabase1Entities database1Entities = new ChqPrint.ChqDatabase1Entities();
+        ChqPrint.ChqDatabase2Entities database1Entities = new ChqPrint.ChqDatabase2Entities();
 
         //private bool AutoCompleteHasFocus = false;
 
@@ -104,6 +104,7 @@ namespace ChqPrint
 
         #endregion
 
+        // Función de Impresión.
         private void buttonImprimir_Click(object sender, RoutedEventArgs e)
         {
 
@@ -114,11 +115,8 @@ namespace ChqPrint
             {
                 try
                 {
-                    //System.Console.WriteLine(textBoxMonto.Text);
-                    //System.Console.WriteLine(textBoxMonto.Text.Replace(".", ""));
                     montoValidado = Convert.ToInt64(textBoxMonto.Text.Replace(".", ""));
-                    System.Console.WriteLine(montoValidado);
-
+                    //System.Console.WriteLine(montoValidado);
                 }
                 catch (Exception ex)
                 {
@@ -131,17 +129,21 @@ namespace ChqPrint
             string esql_clientes = String.Format("SELECT value c FROM Clientes as c WHERE c.Nombre == '{0}'", textBoxPaguese.Text);
             var clientesVar = database1Entities.CreateQuery<Clientes>(esql_clientes);
 
+            // Si el Cliente NO existe.
             if (clientesVar.ToList().Count == 0)
             {
+                // Si no está habilitado el ingreso manual de nuevos clientes.
                 if (c0.PermitirEscrituraManual == false)
                 {
                     MessageBox.Show("Debe elegir un cliente ya existente en la Base de Datos.");
                     return;
                 }
+                // Agregamos el nuevo Cliente a la Base de Datos.
                 else
                 {
                     Clientes newCliente = new Clientes();
-                    if (newCliente.idCliente == 0)                               // Si el ID no existe.
+                    // Si el ID no existe.
+                    if (newCliente.idCliente == 0)
                     {
                         var allClientesVar = database1Entities.CreateQuery<Clientes>("SELECT value c FROM Clientes as c");
                         int newID = allClientesVar.ToList().Count + 1;
@@ -153,6 +155,7 @@ namespace ChqPrint
                 }
             }
 
+            /*
             // Verificamos si el Concepto ingresado ya existe en la Base de Datos.
             string esql_conceptos = String.Format("SELECT value c FROM Conceptos as c WHERE c.Descripcion == '{0}'", textBoxConcepto.Text);
             var conceptosVar = database1Entities.CreateQuery<Conceptos>(esql_conceptos);
@@ -169,6 +172,7 @@ namespace ChqPrint
                 newConcepto.Descripcion = textBoxConcepto.Text;
                 database1Entities.Conceptos.AddObject(newConcepto);
             }
+            */
 
             // Grabamos el nuevo Cliente y el nuevo Concepto si hiciese falta.
             database1Entities.SaveChanges();
@@ -178,15 +182,24 @@ namespace ChqPrint
             var chequesVar = database1Entities.CreateQuery<Cheques>(esql);
 
             // Si ya no existe un Cheque con ese Talonario y Número de Cheque.
-            if (chequesVar.ToList().Count == 0 && clientesVar.ToList().Count == 1)
+            if (chequesVar.ToList().Count == 0)
+            {
+
+            }
+            else
+            {
+                MessageBox.Show("Este número de Cheque ya existe.");
+                return;
+            }
+
+            // Si el receptor del cheque existe y fue individualizado.
+            if (clientesVar.ToList().Count == 1)
             {
                 Clientes tempCliente = clientesVar.ToArray()[0];
 
-                //int tempMonto = 0;
-                //Int32.TryParse(textBoxMonto.Text, out tempMonto);
-
+                // Creamos la estructura para el nuevo cheque.
                 Cheques tempCheque = new Cheques();
-                if (tempCheque.idCheque == 0)                               // Si el ID no existe.
+                if (tempCheque.idCheque == 0)
                 {
                     TimeSpan time = ((DateTime)datePickerFecha.SelectedDate - new DateTime(1970, 1, 1));
                     int timestamp = (int)time.TotalSeconds;
@@ -233,7 +246,7 @@ namespace ChqPrint
             }
             else
             {
-                MessageBox.Show("Este número de Cheque ya existe.");
+                MessageBox.Show("No se pudo determinar el receptor del Cheque.");
             }
 
         }
@@ -252,6 +265,14 @@ namespace ChqPrint
                 System.Globalization.NumberFormatInfo nfi = new System.Globalization.CultureInfo("es-ES", false).NumberFormat;
                 textBoxMonto.Text = ((Int64)tempMonto).ToString("N0", nfi);
                 textBoxMonto.CaretIndex = textBoxMonto.Text.Length;
+            }
+        }
+
+        private void textBoxMonto_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key.ToString() == "Return")
+            {
+                textBoxPaguese.FocusTextBox();
             }
         }
 
@@ -303,6 +324,14 @@ namespace ChqPrint
             }
         }
 
+        private void textBoxAlias_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key.ToString() == "Return")
+            {
+                textBoxConcepto.FocusTextBox();
+            }
+        }
+
         private void textBoxConcepto_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             //System.Console.WriteLine(e.Key.ToString());
@@ -332,22 +361,6 @@ namespace ChqPrint
         }
 
         #endregion
-
-        private void textBoxAlias_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key.ToString() == "Return")
-            {
-                textBoxConcepto.FocusTextBox();
-            }
-        }
-
-        private void textBoxMonto_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key.ToString() == "Return")
-            {
-                textBoxPaguese.FocusTextBox();
-            }
-        }
 
     }
 }

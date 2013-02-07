@@ -14,6 +14,10 @@ using System.Windows.Shapes;
 using System.Reflection;
 using System.Globalization;
 
+using System.Data.SqlClient;
+using System.Xml;
+using System.Configuration;
+
 namespace ChqPrint
 {
     /// <summary>
@@ -91,6 +95,15 @@ namespace ChqPrint
             labelStatusMain.Content = c2.ChequeID;
             layoutFilename = "standard.xml";
 
+            //Console.WriteLine("Testing Connection String...");
+            //BuildConnectionString("david-pc\\sqlexpress", "", "");
+
+            /*System.Console.WriteLine("Testing: ");
+            string myConnString = ConfigurationManager.ConnectionStrings["ChqDatabase1Entities"].ConnectionString.Replace("C:\\Users\\David\\Desktop\\Cheques\\", "C:/Users/David/Desktop/Cheques/NewBD/");
+            System.Console.WriteLine(myConnString);*/
+
+            /*ChqPrint.ChqDatabase1Entities chqDatabase1Entities = new ChqPrint.ChqDatabase1Entities(myConnString);*/
+
             if (c0.ComputadorAdmin == true)
             {
                 labelAdmin.Visibility = Visibility.Visible;
@@ -100,6 +113,11 @@ namespace ChqPrint
         private void Window_Closed(object sender, EventArgs e)
         {
             Application.Current.Shutdown(); // Cerrar la Aplicación Entera.
+        }
+
+        public void ActualizarLabelTipoCheque(string newTipoCheque)
+        {
+            labelStatusMain.Content = newTipoCheque;
         }
 
         #endregion
@@ -278,10 +296,46 @@ namespace ChqPrint
 
         #endregion
 
-        public void ActualizarLabelTipoCheque(string newTipoCheque)
+        #region "Funciones relativas al manejo de la ubicación de la Base de Datos"
+
+        private static SqlConnectionStringBuilder BuildConnectionString(string dataSource, string userName, string userPassword)
         {
-            labelStatusMain.Content = newTipoCheque;
+            // Retrieve the partial connection string named databaseConnection
+            // from the application's app.config or web.config file.
+            ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings["ChqDatabase1Entities"];
+
+            if (null != settings)
+            {
+                // Retrieve the partial connection string.
+                string connectString = settings.ConnectionString;
+                Console.WriteLine("Original: {0}", connectString);
+
+                System.Console.WriteLine(string.Format("Datasource: {0}", dataSource));
+
+                // Create a new SqlConnectionStringBuilder based on the
+                // partial connection string retrieved from the config file.
+                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+
+                // Supply the additional values.                
+                builder.DataSource = dataSource;
+                //builder.AttachDBFilename = "C:\\Users\\David\\Desktop\\Cheques\\ChqDatabase1.mdf";
+                builder.IntegratedSecurity = true;
+                builder.InitialCatalog = "ChqDatabase2";
+                builder.ConnectTimeout = 30;
+                //builder.UserInstance = true;
+                builder.MultipleActiveResultSets = true;
+                //builder.UserID = userName;
+                //builder.Password = userPassword;
+                Console.WriteLine();
+                Console.WriteLine("Modified: {0}", builder.ConnectionString);
+
+                return builder;
+            }
+
+            return null;
         }
+
+        #endregion
 
     }
 }
