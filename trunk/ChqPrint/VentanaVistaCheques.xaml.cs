@@ -24,7 +24,7 @@ namespace ChqPrint
         private ConfigurationGeneral c0;
         public static bool IsOpen { get; private set; }
 
-        ChqPrint.ChqDatabase1Entities database1Entities = new ChqPrint.ChqDatabase1Entities();
+        ChqPrint.ChqDatabase2Entities database1Entities = new ChqPrint.ChqDatabase2Entities();
 
         int timestampDesde;
         int timestampHasta;
@@ -95,7 +95,7 @@ namespace ChqPrint
 
         #endregion
 
-        private System.Data.Objects.ObjectQuery<Cheques> GetChequesQuery(ChqDatabase1Entities chqDatabase1Entities)
+        private System.Data.Objects.ObjectQuery<Cheques> GetChequesQuery(ChqDatabase2Entities chqDatabase1Entities)
         {
             // Auto generated code
             System.Data.Objects.ObjectQuery<ChqPrint.Cheques> chequesQuery = chqDatabase1Entities.Cheques;

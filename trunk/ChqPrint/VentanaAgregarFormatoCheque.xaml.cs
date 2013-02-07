@@ -20,7 +20,16 @@ namespace ChqPrint
     {
         public static bool IsOpen { get; private set; }
 
-        ChqPrint.ChqDatabase1Entities chqDatabase1Entities = new ChqPrint.ChqDatabase1Entities();
+        ChqPrint.ChqDatabase2Entities chqDatabase1Entities = new ChqPrint.ChqDatabase2Entities();
+
+        private System.Data.Objects.ObjectQuery<Formatos> GetFormatosQuery(ChqDatabase2Entities chqDatabase1Entities)
+        {
+            // Auto generated code
+
+            System.Data.Objects.ObjectQuery<ChqPrint.Formatos> formatosQuery = chqDatabase1Entities.Formatos;
+            // Returns an ObjectQuery.
+            return formatosQuery;
+        }
 
         #region "Funciones relativas a la Inicializacion, Carga y Descarga de la Ventana"
 
@@ -57,15 +66,6 @@ namespace ChqPrint
         }
 
         #endregion
-
-        private System.Data.Objects.ObjectQuery<Formatos> GetFormatosQuery(ChqDatabase1Entities chqDatabase1Entities)
-        {
-            // Auto generated code
-
-            System.Data.Objects.ObjectQuery<ChqPrint.Formatos> formatosQuery = chqDatabase1Entities.Formatos;
-            // Returns an ObjectQuery.
-            return formatosQuery;
-        }
 
         #region "Funciones relativas a los Botones Externos"
 

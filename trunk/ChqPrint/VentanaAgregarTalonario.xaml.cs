@@ -21,7 +21,7 @@ namespace ChqPrint
         private ConfigurationGeneral c2;
         public static bool IsOpen { get; private set; }
 
-        ChqPrint.ChqDatabase1Entities database1Entities = new ChqPrint.ChqDatabase1Entities();
+        ChqPrint.ChqDatabase2Entities database1Entities = new ChqPrint.ChqDatabase2Entities();
 
         #region "Funciones relativas a la Inicializacion, Carga y Descarga de la Ventana"
 
@@ -29,8 +29,6 @@ namespace ChqPrint
         {
             InitializeComponent();
         }
-
-        #endregion
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -69,6 +67,8 @@ namespace ChqPrint
         {
             IsOpen = false;
         }
+
+        #endregion
 
         #region "Funciones relativas a los Botones Externos"
 

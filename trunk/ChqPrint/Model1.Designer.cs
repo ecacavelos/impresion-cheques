@@ -24,32 +24,32 @@ namespace ChqPrint
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    public partial class ChqDatabase1Entities : ObjectContext
+    public partial class ChqDatabase2Entities : ObjectContext
     {
         #region Constructors
     
         /// <summary>
-        /// Initializes a new ChqDatabase1Entities object using the connection string found in the 'ChqDatabase1Entities' section of the application configuration file.
+        /// Initializes a new ChqDatabase2Entities object using the connection string found in the 'ChqDatabase2Entities' section of the application configuration file.
         /// </summary>
-        public ChqDatabase1Entities() : base("name=ChqDatabase1Entities", "ChqDatabase1Entities")
+        public ChqDatabase2Entities() : base("name=ChqDatabase2Entities", "ChqDatabase2Entities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
     
         /// <summary>
-        /// Initialize a new ChqDatabase1Entities object.
+        /// Initialize a new ChqDatabase2Entities object.
         /// </summary>
-        public ChqDatabase1Entities(string connectionString) : base(connectionString, "ChqDatabase1Entities")
+        public ChqDatabase2Entities(string connectionString) : base(connectionString, "ChqDatabase2Entities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
     
         /// <summary>
-        /// Initialize a new ChqDatabase1Entities object.
+        /// Initialize a new ChqDatabase2Entities object.
         /// </summary>
-        public ChqDatabase1Entities(EntityConnection connection) : base(connection, "ChqDatabase1Entities")
+        public ChqDatabase2Entities(EntityConnection connection) : base(connection, "ChqDatabase2Entities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
@@ -64,54 +64,6 @@ namespace ChqPrint
         #endregion
     
         #region ObjectSet Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Cheques> Cheques
-        {
-            get
-            {
-                if ((_Cheques == null))
-                {
-                    _Cheques = base.CreateObjectSet<Cheques>("Cheques");
-                }
-                return _Cheques;
-            }
-        }
-        private ObjectSet<Cheques> _Cheques;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Formatos> Formatos
-        {
-            get
-            {
-                if ((_Formatos == null))
-                {
-                    _Formatos = base.CreateObjectSet<Formatos>("Formatos");
-                }
-                return _Formatos;
-            }
-        }
-        private ObjectSet<Formatos> _Formatos;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Clientes> Clientes
-        {
-            get
-            {
-                if ((_Clientes == null))
-                {
-                    _Clientes = base.CreateObjectSet<Clientes>("Clientes");
-                }
-                return _Clientes;
-            }
-        }
-        private ObjectSet<Clientes> _Clientes;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -132,6 +84,38 @@ namespace ChqPrint
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<Cheques> Cheques
+        {
+            get
+            {
+                if ((_Cheques == null))
+                {
+                    _Cheques = base.CreateObjectSet<Cheques>("Cheques");
+                }
+                return _Cheques;
+            }
+        }
+        private ObjectSet<Cheques> _Cheques;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Clientes> Clientes
+        {
+            get
+            {
+                if ((_Clientes == null))
+                {
+                    _Clientes = base.CreateObjectSet<Clientes>("Clientes");
+                }
+                return _Clientes;
+            }
+        }
+        private ObjectSet<Clientes> _Clientes;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<Conceptos> Conceptos
         {
             get
@@ -144,9 +128,33 @@ namespace ChqPrint
             }
         }
         private ObjectSet<Conceptos> _Conceptos;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Formatos> Formatos
+        {
+            get
+            {
+                if ((_Formatos == null))
+                {
+                    _Formatos = base.CreateObjectSet<Formatos>("Formatos");
+                }
+                return _Formatos;
+            }
+        }
+        private ObjectSet<Formatos> _Formatos;
 
         #endregion
         #region AddTo Methods
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Admins EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToAdmins(Admins admins)
+        {
+            base.AddObject("Admins", admins);
+        }
     
         /// <summary>
         /// Deprecated Method for adding a new object to the Cheques EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
@@ -154,14 +162,6 @@ namespace ChqPrint
         public void AddToCheques(Cheques cheques)
         {
             base.AddObject("Cheques", cheques);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Formatos EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToFormatos(Formatos formatos)
-        {
-            base.AddObject("Formatos", formatos);
         }
     
         /// <summary>
@@ -173,19 +173,19 @@ namespace ChqPrint
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the Admins EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToAdmins(Admins admins)
-        {
-            base.AddObject("Admins", admins);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the Conceptos EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToConceptos(Conceptos conceptos)
         {
             base.AddObject("Conceptos", conceptos);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Formatos EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToFormatos(Formatos formatos)
+        {
+            base.AddObject("Formatos", formatos);
         }
 
         #endregion
@@ -199,7 +199,7 @@ namespace ChqPrint
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="ChqDatabase1Model", Name="Admins")]
+    [EdmEntityTypeAttribute(NamespaceName="ChqDatabase2Model", Name="Admins")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Admins : EntityObject
@@ -302,7 +302,7 @@ namespace ChqPrint
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="ChqDatabase1Model", Name="Cheques")]
+    [EdmEntityTypeAttribute(NamespaceName="ChqDatabase2Model", Name="Cheques")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Cheques : EntityObject
@@ -575,7 +575,7 @@ namespace ChqPrint
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="ChqDatabase1Model", Name="Clientes")]
+    [EdmEntityTypeAttribute(NamespaceName="ChqDatabase2Model", Name="Clientes")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Clientes : EntityObject
@@ -678,7 +678,7 @@ namespace ChqPrint
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="ChqDatabase1Model", Name="Conceptos")]
+    [EdmEntityTypeAttribute(NamespaceName="ChqDatabase2Model", Name="Conceptos")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Conceptos : EntityObject
@@ -757,7 +757,7 @@ namespace ChqPrint
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="ChqDatabase1Model", Name="Formatos")]
+    [EdmEntityTypeAttribute(NamespaceName="ChqDatabase2Model", Name="Formatos")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Formatos : EntityObject

@@ -22,16 +22,5 @@ namespace ChqPrint.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=|DataDirectory|\\chequesDB.sdf;Password=CHEQUESdb;Persist Security Inf" +
-            "o=True")]
-        public string chequesDBConnectionString {
-            get {
-                return ((string)(this["chequesDBConnectionString"]));
-            }
-        }
     }
 }

@@ -20,7 +20,9 @@ namespace ChqPrint
     {
 
         public static bool IsOpen { get; private set; }
-        ChqPrint.ChqDatabase1Entities database1Entities = new ChqPrint.ChqDatabase1Entities();
+        ChqPrint.ChqDatabase2Entities database1Entities = new ChqPrint.ChqDatabase2Entities();
+
+        #region "Funciones relativas a la Inicializacion, Carga y Descarga de la Ventana"
 
         public VentanaLogin()
         {
@@ -48,6 +50,10 @@ namespace ChqPrint
             IsOpen = false;
         }
 
+        #endregion
+
+        #region "Funciones relativas a los Botones Externos"
+
         private void buttonOK_Click(object sender, RoutedEventArgs e)
         {
             string esql = "SELECT value a FROM Admins as a WHERE (a.Nombre = '" + textBoxUsuario.Text + "') AND (a.Password = '" + passwordBoxContraseña.Password + "')";
@@ -69,6 +75,8 @@ namespace ChqPrint
         {
             this.DialogResult = false;
         }
+
+        #endregion
 
         private void textBoxUsuario_PreviewKeyDown(object sender, KeyEventArgs e)
         {

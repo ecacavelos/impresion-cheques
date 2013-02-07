@@ -20,7 +20,9 @@ namespace ChqPrint
     {
         public static bool IsOpen { get; private set; }
 
-        ChqPrint.ChqDatabase1Entities chqDatabase1Entities = new ChqPrint.ChqDatabase1Entities();
+        ChqPrint.ChqDatabase2Entities chqDatabase1Entities = new ChqPrint.ChqDatabase2Entities();
+
+        #region "Funciones relativas a la Inicializacion, Carga y Descarga de la Ventana"
 
         public VentanaAdministrarAdmins()
         {
@@ -37,6 +39,10 @@ namespace ChqPrint
         {
             IsOpen = false;
         }
+
+        #endregion
+
+        #region "Funciones relativas a los Botones"
 
         private void buttonCambiar_Click(object sender, RoutedEventArgs e)
         {
@@ -121,7 +127,9 @@ namespace ChqPrint
             this.Close();
         }
 
-        #region "Funciones relativas al Keypad USB"
+        #endregion
+
+        #region "Funciones relativas a los Cuadros de Texto"
 
         private void textBoxUsuarioActual_PreviewKeyDown(object sender, KeyEventArgs e)
         {

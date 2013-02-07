@@ -1,0 +1,35 @@
+Admins
+-
+idAdmin			int			4	No	Yes	Yes
+Nombre			nvarchar	100	Yes	No	No
+Password		nvarchar	100	Yes	No	No
+
+Cheques
+-
+idCheque		int			4	No	Yes	Yes
+nroCheque		nvarchar	100	No	No	No
+Fecha			datetime	8	Yes	No	No
+Monto			bigint		8	Yes	No	No
+PagueseOrdenDe	nvarchar	100	Yes	No	No
+MontoEnLetras	nvarchar	100	Yes	No	No
+Estado			nvarchar	100	Yes	No	No
+Banco			nvarchar	100	Yes	No	No
+Talonario		nvarchar	100	Yes	No	No
+concepto		nvarchar	100	Yes	No	No
+
+Clientes
+-
+idCliente		int			4	No	Yes	Yes
+Nombre			nvarchar	100	Yes	No	No
+Alias			nvarchar	12	Yes	No	No
+
+Conceptos
+-
+idConcepto		int			4	No	Yes	Yes
+Descripcion		nvarchar	100	Yes	No	No
+
+Formatos
+-
+idFormato		int			4	No	Yes	Yes
+Path			nvarchar	100	Yes	No	No
+Descripcion		nvarchar	100	Yes	No	No

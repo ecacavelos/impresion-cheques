@@ -33,12 +33,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_2C55CF2A0EC1457CA9BF453F087B0873"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_905BB330F71A4A23AC1248E872D31466"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -70,13 +64,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_2BCA3E18772E4E1E88F171B24C1F17E2"
+        "OwnerKey" = "8:_D70922752805D49EC736D790D7DD2B81"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_D70922752805D49EC736D790D7DD2B81"
+        "OwnerKey" = "8:_2BCA3E18772E4E1E88F171B24C1F17E2"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -222,7 +216,7 @@
             {
                 "{A06ECF26-33A3-4562-8140-9B0E340D4F24}:_134D47B1C03B4F96B176B33AD2DE9FC6"
                 {
-                "Name" = "8:.NET Framework"
+                "Name" = "8:.NET Framework 4 Client Profile"
                 "Message" = "8:[VSDNETMSG]"
                 "FrameworkVersion" = "8:.NETFramework,Version=v4.0,Profile=Client"
                 "AllowLaterVersions" = "11:FALSE"
@@ -256,26 +250,6 @@
             {
             "SourcePath" = "8:..\\ChqPrint\\check_icon.ico"
             "TargetName" = "8:check_icon.ico"
-            "Tag" = "8:"
-            "Folder" = "8:_20EF090DFBBD4C418804C2C4DC7FEF9A"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2C55CF2A0EC1457CA9BF453F087B0873"
-            {
-            "SourcePath" = "8:..\\ChqPrint\\bin\\Debug\\ChqDatabase1.sdf"
-            "TargetName" = "8:ChqDatabase1.sdf"
             "Tag" = "8:"
             "Folder" = "8:_20EF090DFBBD4C418804C2C4DC7FEF9A"
             "Condition" = "8:"
@@ -339,6 +313,11 @@
             "AssemblyAsmDisplayName" = "8:System.Data.SqlServerCe, Version=3.5.1.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_D70922752805D49EC736D790D7DD2B81"
+                    {
+                    "Name" = "8:System.Data.SqlServerCe.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:System.Data.SqlServerCe.dll"
             "TargetName" = "8:"
@@ -448,7 +427,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ImpresionCheques"
         "ProductCode" = "8:{030D621C-31F5-4778-8FED-E635F12028A9}"
-        "PackageCode" = "8:{DAF9A108-9E31-4520-8ACB-C506A0691698}"
+        "PackageCode" = "8:{79E9A8B0-569A-417F-B17A-F9E24EC1F9C7}"
         "UpgradeCode" = "8:{155ED82C-5B2A-4865-8B8D-D7EC2D683172}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
