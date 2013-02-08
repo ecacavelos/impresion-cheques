@@ -23,6 +23,7 @@ namespace ChqPrint
             ConfigurationGeneral c0 = ConfigurationGeneral.Deserialize(VentanaPrincipal.layoutFilename);
             ConfigurationLayoutCheque c2 = ConfigurationLayoutCheque.Deserialize(c0.FormatoChequeTalonario);
 
+            // Variable de control para impresión o no del monto del Cheque.
             bool montoBlanco = false;
             if (monto == 0)
             {
@@ -43,18 +44,21 @@ namespace ChqPrint
 
             // --- Fecha ---
             TextBlock chqFechaDia = new TextBlock();
+            chqFechaDia.FontSize = c2.TamañoFuente;
             chqFechaDia.Text = fecha.Day.ToString();
             page1.Children.Add(chqFechaDia);
             FixedPage.SetLeft(chqFechaDia, c2.CoordenadasImpresion.xFechaDia);
             FixedPage.SetTop(chqFechaDia, c2.CoordenadasImpresion.yFecha);
 
             TextBlock chqFechaMes = new TextBlock();
+            chqFechaMes.FontSize = c2.TamañoFuente;
             chqFechaMes.Text = IntToMes(fecha.Month);
             page1.Children.Add(chqFechaMes);
             FixedPage.SetLeft(chqFechaMes, c2.CoordenadasImpresion.xFechaMes);
             FixedPage.SetTop(chqFechaMes, c2.CoordenadasImpresion.yFecha);
 
             TextBlock chqFechaAño = new TextBlock();
+            chqFechaAño.FontSize = c2.TamañoFuente;
             chqFechaAño.Text = fecha.Year.ToString();
             page1.Children.Add(chqFechaAño);
             FixedPage.SetLeft(chqFechaAño, c2.CoordenadasImpresion.xFechaAño);
@@ -64,6 +68,7 @@ namespace ChqPrint
             if (montoBlanco == false)
             {
                 TextBlock chqMonto = new TextBlock();
+                chqMonto.FontSize = c2.TamañoFuente;
                 chqMonto.Text = monto.ToString("#,##0");
                 page1.Children.Add(chqMonto);
                 FixedPage.SetLeft(chqMonto, c2.CoordenadasImpresion.xMonto);
@@ -72,6 +77,7 @@ namespace ChqPrint
 
             // --- Páguese a la Orden De ---
             TextBlock chqPagueseOrdenDe = new TextBlock();
+            chqPagueseOrdenDe.FontSize = c2.TamañoFuente;
             chqPagueseOrdenDe.Text = beneficiario.Nombre;
             page1.Children.Add(chqPagueseOrdenDe);
             FixedPage.SetLeft(chqPagueseOrdenDe, c2.CoordenadasImpresion.xPagueseOrdenDe);
@@ -81,6 +87,7 @@ namespace ChqPrint
             if (montoBlanco == false)
             {
                 TextBlock chqMontoEnLetras = new TextBlock();
+                chqMontoEnLetras.FontSize = c2.TamañoFuente;
                 string firstLineIndentation = "";
                 for (int i = 0; i < 36; i++)
                 {
@@ -98,6 +105,7 @@ namespace ChqPrint
 
             // --- Fecha Abreviada en el Talon ---
             TextBlock chqTalonFecha = new TextBlock();
+            chqTalonFecha.FontSize = c2.TamañoFuente;
             chqTalonFecha.Text = string.Format("{0}/{1}/{2}", fecha.Day.ToString(), fecha.Month.ToString(), fecha.Year.ToString());
             page1.Children.Add(chqTalonFecha);
             FixedPage.SetLeft(chqTalonFecha, c2.CoordenadasImpresion.xTalonFecha);
@@ -105,6 +113,7 @@ namespace ChqPrint
 
             // --- Orden Abreviada en el Talon ---
             TextBlock chqTalonAlias = new TextBlock();
+            chqTalonAlias.FontSize = c2.TamañoFuente;
             chqTalonAlias.Text = beneficiario.Alias;
             chqTalonAlias.Width = 90;
             page1.Children.Add(chqTalonAlias);
@@ -113,6 +122,7 @@ namespace ChqPrint
 
             // --- Concepto Abreviado en el Talon ---
             TextBlock chqTalonConcepto = new TextBlock();
+            chqTalonConcepto.FontSize = c2.TamañoFuente;
             chqTalonConcepto.Text = tempConcepto;
             chqTalonConcepto.Width = 90;
             chqTalonConcepto.TextWrapping = TextWrapping.Wrap;
@@ -125,6 +135,7 @@ namespace ChqPrint
             if (montoBlanco == false)
             {
                 TextBlock chqTalonMonto = new TextBlock();
+                chqTalonMonto.FontSize = c2.TamañoFuente;
                 chqTalonMonto.Text = monto.ToString("#,##0");
                 page1.Children.Add(chqTalonMonto);
                 FixedPage.SetLeft(chqTalonMonto, c2.CoordenadasImpresion.xTalonMonto);

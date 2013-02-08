@@ -23,11 +23,13 @@ namespace ChqPrint
         }
 
         string _ChequeID;
+        double _TamañoFuente;
         ImpresionCoords _ImpresionCoords;
 
         public ConfigurationLayoutCheque()
         {
             _ChequeID = "Cheque Estándar";
+            _TamañoFuente = 12;
             InicializarCoordenadas();
         }
 
@@ -59,6 +61,11 @@ namespace ChqPrint
         {
             get { return _ChequeID; }
             set { _ChequeID = value; }
+        }
+        public double TamañoFuente
+        {
+            get { return _TamañoFuente; }
+            set { _TamañoFuente = value; }
         }
         // Interfaz para la Estructura con las Coordenadas de Impresión.
         public ImpresionCoords CoordenadasImpresion

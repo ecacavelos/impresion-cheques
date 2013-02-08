@@ -411,6 +411,14 @@ namespace ChqPrint
             }
         }
 
+        private void textBoxTimbrado_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key.ToString() == "Return")
+            {
+                buttonBuscarTimbrado_Click(this, null);
+            }
+        }
+
         private void buttonBuscarTimbrado_Click(object sender, RoutedEventArgs e)
         {
             string esql = "SELECT value c FROM Cheques as c";
