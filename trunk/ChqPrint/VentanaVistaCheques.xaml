@@ -64,7 +64,7 @@
         <ComboBox Height="28" HorizontalAlignment="Left" Margin="140,0,0,95" Name="comboBoxEstado" VerticalAlignment="Bottom" Width="200" IsReadOnly="True" ItemsSource="{Binding Source={StaticResource comboBoxEnum}}" IsEnabled="False" />
         <Button Content="Buscar" Height="28" HorizontalAlignment="Left" Margin="12,0,0,55" Name="buttonBuscar" VerticalAlignment="Bottom" Width="328" Click="buttonBuscar_Click" IsEnabled="False" />
         <Label Content="Buscar por Timbrado (Nro. Cheque): " Height="28" HorizontalAlignment="Right" Margin="0,0,12,197" Name="label1" VerticalAlignment="Bottom" Width="246" />
-        <TextBox Height="28" HorizontalAlignment="Right" Margin="0,0,138,163" Name="textBoxTimbrado" VerticalAlignment="Bottom" Width="120" TextChanged="textBoxTimbrado_TextChanged" />
+        <TextBox Height="28" HorizontalAlignment="Right" Margin="0,0,138,163" Name="textBoxTimbrado" VerticalAlignment="Bottom" Width="120" TextChanged="textBoxTimbrado_TextChanged" PreviewKeyDown="textBoxTimbrado_PreviewKeyDown" />
         <Button Content="Buscar" Height="28" HorizontalAlignment="Right" Margin="0,0,12,163" Name="buttonBuscarTimbrado" VerticalAlignment="Bottom" Width="120" Click="buttonBuscarTimbrado_Click" IsEnabled="False" />
         <Button Content="Limpiar Busquedas" Height="28" HorizontalAlignment="Right" Margin="0,0,12,55" Name="buttonEliminarFiltros" VerticalAlignment="Bottom" Width="120" Click="buttonEliminarFiltros_Click" IsEnabled="False" />
         <Separator Height="5" HorizontalAlignment="Stretch" Margin="12,0,12,44" Name="separator1" VerticalAlignment="Bottom" />

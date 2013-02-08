@@ -40,32 +40,8 @@ namespace ChqPrint
             this.c2 = ConfigurationLayoutCheque.Deserialize(this.c0.FormatoChequeTalonario);
 
             datePickerFecha.SelectedDate = DateTime.Now;    // La fecha del cheque.
-            // Hacemos un query a la base de datos para obtener todas los cheques.
-            string esql = String.Format("SELECT value c FROM Cheques as c WHERE c.Talonario = '{0}'", this.c0.Talonario);
-            var chequesVar = database1Entities.CreateQuery<Cheques>(esql);
 
-            textBlockTalonario.Text = this.c0.Talonario;
-            // Si existe al menos un cheque.
-            int lastNroCheque = 0;
-            if (chequesVar.ToList().Count > 0)
-            {
-                // Pasamos el string "nroCheque" obtenido de la ultima entrada de la tabla Cheques a int
-                Int32.TryParse(chequesVar.ToList().ElementAt(chequesVar.ToList().Count - 1).nroCheque, out lastNroCheque);
-                // Incrementamos en 1 el último Cheque y desplegamos el valor correspondiente en el textBlock
-                lastNroCheque++;
-                textBlockNumeroCheque.Text = lastNroCheque.ToString("00000000");
-            }
-            else
-            {
-                textBlockNumeroCheque.Text = this.c0.PrimerCheque.ToString("00000000");
-            }
-
-            // Verificamos que no se haya sobrepasado el ultimo cheque del talonario.
-            if (lastNroCheque > this.c0.UltimoCheque)
-            {
-                MessageBox.Show("Se han agotado todos los cheques de este talonario.\nPor favor agregue un nuevo talonario.");
-                this.Close();
-            }
+            inicializarNroCheque();
 
             textBoxMonto.Focus();
 
@@ -103,6 +79,36 @@ namespace ChqPrint
         }
 
         #endregion
+
+        private void inicializarNroCheque()
+        {
+            // Hacemos un query a la base de datos para obtener todas los cheques.
+            string esql = String.Format("SELECT value c FROM Cheques as c WHERE c.Talonario = '{0}'", this.c0.Talonario);
+            var chequesVar = database1Entities.CreateQuery<Cheques>(esql);
+
+            textBlockTalonario.Text = this.c0.Talonario;
+            // Si existe al menos un cheque.
+            int lastNroCheque = 0;
+            if (chequesVar.ToList().Count > 0)
+            {
+                // Pasamos el string "nroCheque" obtenido de la ultima entrada de la tabla Cheques a int
+                Int32.TryParse(chequesVar.ToList().ElementAt(chequesVar.ToList().Count - 1).nroCheque, out lastNroCheque);
+                // Incrementamos en 1 el último Cheque y desplegamos el valor correspondiente en el textBlock
+                lastNroCheque++;
+                textBlockNumeroCheque.Text = lastNroCheque.ToString("00000000");
+            }
+            else
+            {
+                textBlockNumeroCheque.Text = this.c0.PrimerCheque.ToString("00000000");
+            }
+
+            // Verificamos que no se haya sobrepasado el ultimo cheque del talonario.
+            if (lastNroCheque > this.c0.UltimoCheque)
+            {
+                MessageBox.Show(String.Format("Se han agotado todos los cheques de este talonario ({0}).\nPor favor agregue un nuevo talonario.", this.c0.Talonario));
+                this.Close();
+            }
+        }
 
         // Función de Impresión.
         private void buttonImprimir_Click(object sender, RoutedEventArgs e)
@@ -188,7 +194,8 @@ namespace ChqPrint
             }
             else
             {
-                MessageBox.Show("Este número de Cheque ya existe.");
+                MessageBox.Show("Este número de Cheque ya existe.\nSe pasará al siguiente cheque en el Talonario.\nPuede volver a presionar el botón 'Imprimir'.");
+                inicializarNroCheque();
                 return;
             }
 
@@ -201,7 +208,7 @@ namespace ChqPrint
                 Cheques tempCheque = new Cheques();
                 if (tempCheque.idCheque == 0)
                 {
-                    TimeSpan time = ((DateTime)datePickerFecha.SelectedDate - new DateTime(1970, 1, 1));
+                    TimeSpan time = (/*(DateTime)datePickerFecha.SelectedDate*/DateTime.Now - new DateTime(1970, 1, 1));
                     int timestamp = (int)time.TotalSeconds;
                     tempCheque.idCheque = timestamp;                        // Nuevo ID = timestamp.
                 }
