@@ -272,10 +272,18 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="folder-yellow-explorer-icon.png" />
-    <Resource Include="check_icon.png" />
+    <Resource Include="Media\folder-yellow-explorer-icon.png" />
+    <Resource Include="Media\check_icon.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="check_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Media\project-plan-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Media\Configuration-Settings-icon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

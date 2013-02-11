@@ -294,6 +294,11 @@ namespace ChqPrint
             }
         }
 
+        private void menuItem_About(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Check Print\nC.B. Solutions SRL\nwww.cbi.com.py");
+        }
+
         #endregion
 
         #region "Funciones relativas al manejo de la ubicación de la Base de Datos"
