@@ -144,6 +144,22 @@ namespace ChqPrint
             }
         }
         private ObjectSet<Formatos> _Formatos;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Talonarios> Talonarios
+        {
+            get
+            {
+                if ((_Talonarios == null))
+                {
+                    _Talonarios = base.CreateObjectSet<Talonarios>("Talonarios");
+                }
+                return _Talonarios;
+            }
+        }
+        private ObjectSet<Talonarios> _Talonarios;
 
         #endregion
         #region AddTo Methods
@@ -186,6 +202,14 @@ namespace ChqPrint
         public void AddToFormatos(Formatos formatos)
         {
             base.AddObject("Formatos", formatos);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Talonarios EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToTalonarios(Talonarios talonarios)
+        {
+            base.AddObject("Talonarios", talonarios);
         }
 
         #endregion
@@ -852,6 +876,157 @@ namespace ChqPrint
         private global::System.String _Descripcion;
         partial void OnDescripcionChanging(global::System.String value);
         partial void OnDescripcionChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="ChqDatabase2Model", Name="Talonarios")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Talonarios : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Talonarios object.
+        /// </summary>
+        /// <param name="idTalonario">Initial value of the idTalonario property.</param>
+        public static Talonarios CreateTalonarios(global::System.Int32 idTalonario)
+        {
+            Talonarios talonarios = new Talonarios();
+            talonarios.idTalonario = idTalonario;
+            return talonarios;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 idTalonario
+        {
+            get
+            {
+                return _idTalonario;
+            }
+            set
+            {
+                if (_idTalonario != value)
+                {
+                    OnidTalonarioChanging(value);
+                    ReportPropertyChanging("idTalonario");
+                    _idTalonario = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("idTalonario");
+                    OnidTalonarioChanged();
+                }
+            }
+        }
+        private global::System.Int32 _idTalonario;
+        partial void OnidTalonarioChanging(global::System.Int32 value);
+        partial void OnidTalonarioChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Nombre
+        {
+            get
+            {
+                return _Nombre;
+            }
+            set
+            {
+                OnNombreChanging(value);
+                ReportPropertyChanging("Nombre");
+                _Nombre = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Nombre");
+                OnNombreChanged();
+            }
+        }
+        private global::System.String _Nombre;
+        partial void OnNombreChanging(global::System.String value);
+        partial void OnNombreChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PrimerCheque
+        {
+            get
+            {
+                return _PrimerCheque;
+            }
+            set
+            {
+                OnPrimerChequeChanging(value);
+                ReportPropertyChanging("PrimerCheque");
+                _PrimerCheque = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PrimerCheque");
+                OnPrimerChequeChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PrimerCheque;
+        partial void OnPrimerChequeChanging(Nullable<global::System.Int64> value);
+        partial void OnPrimerChequeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> UltimoCheque
+        {
+            get
+            {
+                return _UltimoCheque;
+            }
+            set
+            {
+                OnUltimoChequeChanging(value);
+                ReportPropertyChanging("UltimoCheque");
+                _UltimoCheque = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UltimoCheque");
+                OnUltimoChequeChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _UltimoCheque;
+        partial void OnUltimoChequeChanging(Nullable<global::System.Int64> value);
+        partial void OnUltimoChequeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String FormatoChequeTalonario
+        {
+            get
+            {
+                return _FormatoChequeTalonario;
+            }
+            set
+            {
+                OnFormatoChequeTalonarioChanging(value);
+                ReportPropertyChanging("FormatoChequeTalonario");
+                _FormatoChequeTalonario = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("FormatoChequeTalonario");
+                OnFormatoChequeTalonarioChanged();
+            }
+        }
+        private global::System.String _FormatoChequeTalonario;
+        partial void OnFormatoChequeTalonarioChanging(global::System.String value);
+        partial void OnFormatoChequeTalonarioChanged();
 
         #endregion
     

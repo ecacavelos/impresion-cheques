@@ -19,9 +19,11 @@ namespace ChqPrint
 
         public static bool ImprimirCheque(DateTime fecha, long monto, ChqPrint.Clientes beneficiario, string tempConcepto)
         {
+            ChqPrint.ChqDatabase2Entities database1Entities = new ChqPrint.ChqDatabase2Entities();
+
             System.Console.WriteLine(VentanaPrincipal.layoutFilename);
             ConfigurationGeneral c0 = ConfigurationGeneral.Deserialize(VentanaPrincipal.layoutFilename);
-            ConfigurationLayoutCheque c2 = ConfigurationLayoutCheque.Deserialize(c0.FormatoChequeTalonario);
+            ConfigurationLayoutCheque c2 = ConfigurationLayoutCheque.Deserialize(database1Entities.Talonarios.ToArray()[0].FormatoChequeTalonario);
 
             // Variable de control para impresión o no del monto del Cheque.
             bool montoBlanco = false;

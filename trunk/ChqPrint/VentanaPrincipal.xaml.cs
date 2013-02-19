@@ -68,16 +68,17 @@ namespace ChqPrint
                 System.Windows.MessageBox.Show("Existe un error con el archivo de configuración GENERAL.\nPor favor ingrese a la ventana de Configuración para recuperar las opciones.", "Archivo de Configuración");
             }
             // Archivo de configuracion para la disposicion de lo distintos formatos de Cheques.
+            ChqPrint.ChqDatabase2Entities database1Entities = new ChqPrint.ChqDatabase2Entities();
             try
             {
-                this.c2 = ConfigurationLayoutCheque.Deserialize(this.c0.FormatoChequeTalonario);
+                this.c2 = ConfigurationLayoutCheque.Deserialize(database1Entities.Talonarios.ToArray()[0].FormatoChequeTalonario);
             }
             catch (System.IO.FileNotFoundException ex)
             {
                 System.Console.WriteLine(ex.Message);
                 System.Windows.MessageBox.Show("No se encontró el archivo de configuración de FORMATO.\n Se creó un nuevo archivo 'continental.xml'.\nPuede usar el programa normalmente.", "Archivo de Configuración");
                 this.c2 = new ChqPrint.ConfigurationLayoutCheque();
-                ConfigurationLayoutCheque.Serialize(this.c0.FormatoChequeTalonario, this.c2);
+                ConfigurationLayoutCheque.Serialize(database1Entities.Talonarios.ToArray()[0].FormatoChequeTalonario, this.c2);
             }
             catch (System.InvalidOperationException ex)
             {
