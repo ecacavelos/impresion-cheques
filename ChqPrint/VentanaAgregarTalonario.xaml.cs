@@ -18,7 +18,7 @@ namespace ChqPrint
     /// </summary>
     public partial class VentanaAgregarTalonario : Window
     {
-        private ConfigurationGeneral c2;
+        //private ConfigurationGeneral c2;
         public static bool IsOpen { get; private set; }
 
         ChqPrint.ChqDatabase2Entities database1Entities = new ChqPrint.ChqDatabase2Entities();
@@ -34,8 +34,8 @@ namespace ChqPrint
         {
             IsOpen = true;
             // Leemos los datos del formulario actual.
-            this.c2 = ConfigurationGeneral.Deserialize(VentanaPrincipal.layoutFilename);
-            labelTalonarioActual.Content += c2.Talonario;
+            //this.c2 = ConfigurationGeneral.Deserialize(VentanaPrincipal.layoutFilename);
+            labelTalonarioActual.Content += database1Entities.Talonarios.ToArray()[0].Nombre;
 
             // Cargamos los Cheques en el comboBox            
             int defaultIndex = 0;
@@ -74,15 +74,15 @@ namespace ChqPrint
 
         private void buttonGuardar_Click(object sender, RoutedEventArgs e)
         {
-            this.c2.Talonario = textBoxNuevoTalonario.Text;
+            database1Entities.Talonarios.ToArray()[0].Nombre = textBoxNuevoTalonario.Text;
 
             int tempIntToString;
             Int32.TryParse(textBoxPrimerCheque.Text, out tempIntToString);
-            this.c2.PrimerCheque = tempIntToString;
+            database1Entities.Talonarios.ToArray()[0].PrimerCheque = tempIntToString;
             Int32.TryParse(textBoxUltimoCheque.Text, out tempIntToString);
-            if (tempIntToString > c2.PrimerCheque)
+            if (tempIntToString > database1Entities.Talonarios.ToArray()[0].PrimerCheque)
             {
-                this.c2.UltimoCheque = tempIntToString;
+                database1Entities.Talonarios.ToArray()[0].UltimoCheque = tempIntToString;
             }
             else
             {
@@ -100,10 +100,11 @@ namespace ChqPrint
             {
                 //VentanaPrincipal.layoutFilename = formatosVar.First().Path; // Esta asignacion me parece que no es correcta. no se tiene que tocar esta variable aca. Esteban cacavelos
                 VentanaPrincipal.labelTipoChequeHomeScreen.Content = ((ComboBoxItem)comboBoxFormatoCheque.SelectedItem).Content.ToString();
-                this.c2.FormatoChequeTalonario = formatosVar.ToArray()[0].Path;
+                database1Entities.Talonarios.ToArray()[0].FormatoChequeTalonario = formatosVar.ToArray()[0].Path;
             }
 
-            ConfigurationGeneral.Serialize("standard.xml", this.c2);
+            //ConfigurationGeneral.Serialize("standard.xml", this.c2);
+            database1Entities.SaveChanges();
 
             this.Close();
         }

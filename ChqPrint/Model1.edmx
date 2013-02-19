@@ -4,13 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ChqDatabase2Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="ChqDatabase2Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="ChqDatabase2ModelStoreContainer">
           <EntitySet Name="Admins" EntityType="ChqDatabase2Model.Store.Admins" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Cheques" EntityType="ChqDatabase2Model.Store.Cheques" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Clientes" EntityType="ChqDatabase2Model.Store.Clientes" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Conceptos" EntityType="ChqDatabase2Model.Store.Conceptos" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Formatos" EntityType="ChqDatabase2Model.Store.Formatos" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Talonarios" EntityType="ChqDatabase2Model.Store.Talonarios" store:Type="Tables" Schema="dbo" />
         </EntityContainer>
         <EntityType Name="Admins">
           <Key>
@@ -58,8 +59,17 @@
           <Property Name="Path" Type="nvarchar" MaxLength="100" />
           <Property Name="Descripcion" Type="nvarchar" MaxLength="100" />
         </EntityType>
-      </Schema>
-    </edmx:StorageModels>
+        <EntityType Name="Talonarios">
+          <Key>
+            <PropertyRef Name="idTalonario" />
+          </Key>
+          <Property Name="idTalonario" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="100" />
+          <Property Name="PrimerCheque" Type="bigint" />
+          <Property Name="UltimoCheque" Type="bigint" />
+          <Property Name="FormatoChequeTalonario" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ChqDatabase2Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -69,6 +79,7 @@
           <EntitySet Name="Clientes" EntityType="ChqDatabase2Model.Clientes" />
           <EntitySet Name="Conceptos" EntityType="ChqDatabase2Model.Conceptos" />
           <EntitySet Name="Formatos" EntityType="ChqDatabase2Model.Formatos" />
+          <EntitySet Name="Talonarios" EntityType="ChqDatabase2Model.Talonarios" />
         </EntityContainer>
         <EntityType Name="Admins">
           <Key>
@@ -116,6 +127,16 @@
           <Property Name="Path" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="Descripcion" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
         </EntityType>
+        <EntityType Name="Talonarios">
+          <Key>
+            <PropertyRef Name="idTalonario" />
+          </Key>
+          <Property Type="Int32" Name="idTalonario" Nullable="false" />
+          <Property Type="String" Name="Nombre" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int64" Name="PrimerCheque" />
+          <Property Type="Int64" Name="UltimoCheque" />
+          <Property Type="String" Name="FormatoChequeTalonario" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -153,6 +174,17 @@
             <ScalarProperty Name="Path" ColumnName="Path" />
             <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Talonarios">
+            <EntityTypeMapping TypeName="ChqDatabase2Model.Talonarios">
+              <MappingFragment StoreEntitySet="Talonarios">
+                <ScalarProperty Name="FormatoChequeTalonario" ColumnName="FormatoChequeTalonario" />
+                <ScalarProperty Name="UltimoCheque" ColumnName="UltimoCheque" />
+                <ScalarProperty Name="PrimerCheque" ColumnName="PrimerCheque" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="idTalonario" ColumnName="idTalonario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -179,6 +211,7 @@
         <EntityTypeShape EntityType="ChqDatabase2Model.Clientes" Width="1.5" PointX="4" PointY="0.5" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="ChqDatabase2Model.Conceptos" Width="1.5" PointX="5.75" PointY="0.5" Height="1.4033821614583335" IsExpanded="true" />
         <EntityTypeShape EntityType="ChqDatabase2Model.Formatos" Width="1.5" PointX="7.5" PointY="0.5" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="ChqDatabase2Model.Talonarios" Width="1.5" PointX="2.25" PointY="3.625" Height="1.7879850260416674" />
       </Diagram>
     </Diagrams>
   </Designer>

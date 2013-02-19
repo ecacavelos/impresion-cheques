@@ -111,20 +111,12 @@ namespace ChqPrint
     public class ConfigurationGeneral
     {
         int _Version;
-        string _Talonario;
-        string _FormatoChequeTalonario;
-        int _PrimerCheque;
-        int _UltimoCheque;
         bool _PermitirEscrituraManual;
         bool _ComputadorAdmin;
 
         public ConfigurationGeneral()
         {
             _Version = 1;
-            _Talonario = "T01";
-            _FormatoChequeTalonario = "continental.xml";
-            _PrimerCheque = 1;
-            _UltimoCheque = 99999;
             _PermitirEscrituraManual = true;
             _ComputadorAdmin = false;
         }
@@ -157,26 +149,6 @@ namespace ChqPrint
         {
             get { return _Version; }
             set { _Version = value; }
-        }
-        public string Talonario
-        {
-            get { return _Talonario; }
-            set { _Talonario = value; }
-        }
-        public string FormatoChequeTalonario
-        {
-            get { return _FormatoChequeTalonario; }
-            set { _FormatoChequeTalonario = value; }
-        }
-        public int PrimerCheque
-        {
-            get { return _PrimerCheque; }
-            set { _PrimerCheque = value; }
-        }
-        public int UltimoCheque
-        {
-            get { return _UltimoCheque; }
-            set { _UltimoCheque = value; }
         }
         public bool PermitirEscrituraManual
         {

@@ -37,7 +37,7 @@ namespace ChqPrint
         {
             IsOpen = true;
             this.c0 = ConfigurationGeneral.Deserialize("standard.xml");
-            this.c2 = ConfigurationLayoutCheque.Deserialize(this.c0.FormatoChequeTalonario);
+            this.c2 = ConfigurationLayoutCheque.Deserialize(database1Entities.Talonarios.ToArray()[0].FormatoChequeTalonario);
 
             datePickerFecha.SelectedDate = DateTime.Now;    // La fecha del cheque.
 
@@ -83,10 +83,10 @@ namespace ChqPrint
         private void inicializarNroCheque()
         {
             // Hacemos un query a la base de datos para obtener todas los cheques.
-            string esql = String.Format("SELECT value c FROM Cheques as c WHERE c.Talonario = '{0}'", this.c0.Talonario);
+            string esql = String.Format("SELECT value c FROM Cheques as c WHERE c.Talonario = '{0}'", database1Entities.Talonarios.ToArray()[0].Nombre);
             var chequesVar = database1Entities.CreateQuery<Cheques>(esql);
 
-            textBlockTalonario.Text = this.c0.Talonario;
+            textBlockTalonario.Text = database1Entities.Talonarios.ToArray()[0].Nombre;
             // Si existe al menos un cheque.
             int lastNroCheque = 0;
             if (chequesVar.ToList().Count > 0)
@@ -99,13 +99,13 @@ namespace ChqPrint
             }
             else
             {
-                textBlockNumeroCheque.Text = this.c0.PrimerCheque.ToString("00000000");
+                textBlockNumeroCheque.Text = ((long)database1Entities.Talonarios.ToArray()[0].PrimerCheque).ToString("00000000");
             }
 
             // Verificamos que no se haya sobrepasado el ultimo cheque del talonario.
-            if (lastNroCheque > this.c0.UltimoCheque)
+            if (lastNroCheque > database1Entities.Talonarios.ToArray()[0].UltimoCheque)
             {
-                MessageBox.Show(String.Format("Se han agotado todos los cheques de este talonario ({0}).\nPor favor agregue un nuevo talonario.", this.c0.Talonario));
+                MessageBox.Show(String.Format("Se han agotado todos los cheques de este talonario ({0}).\nPor favor agregue un nuevo talonario.", database1Entities.Talonarios.ToArray()[0].Nombre));
                 this.Close();
             }
         }

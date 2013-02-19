@@ -45,7 +45,22 @@ namespace ChqPrint
             // Load data into Cheques. You can modify this code as needed.
             System.Windows.Data.CollectionViewSource chequesViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("chequesViewSource")));
             System.Data.Objects.ObjectQuery<ChqPrint.Cheques> chequesQuery = this.GetChequesQuery(database1Entities);
-            chequesViewSource.Source = chequesQuery.Execute(System.Data.Objects.MergeOption.AppendOnly);
+
+            try
+            {
+                chequesViewSource.Source = chequesQuery.Execute(System.Data.Objects.MergeOption.AppendOnly);
+            }
+            catch (Exception ex)
+            {
+                string exWarning = "No se puede conectar con el servidor de base de datos.\nCompruebe que esté encendido y sea accesible a través de la red.\n\nMensaje del Error: ";
+                exWarning += ex.Message;
+
+                MessageBox.Show(exWarning);
+
+                IsOpen = false;
+                this.Close();
+                return;
+            }
 
             eliminarFiltros(true);
             autoCompleteTextBoxOrdenDe.IsEnabled = false;
