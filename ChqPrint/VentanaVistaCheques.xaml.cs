@@ -337,7 +337,7 @@ namespace ChqPrint
                     {
                         esql += " WHERE ";
                     }
-                    esql += String.Format("(c.idCheque >= {0})", timestampDesde);
+                    esql += String.Format("(c.Fecha >= DATETIME'{0}')", ((DateTime)datePickerDesde.SelectedDate).ToString("u").Substring(0, 16));
                 }
             }
 
@@ -353,7 +353,7 @@ namespace ChqPrint
                     {
                         esql += " WHERE ";
                     }
-                    esql += String.Format("(c.idCheque <= {0})", timestampHasta);
+                    esql += String.Format("(c.Fecha <= DATETIME'{0}')", ((DateTime)datePickerHasta.SelectedDate).ToString("u").Substring(0, 16));
                 }
             }
 

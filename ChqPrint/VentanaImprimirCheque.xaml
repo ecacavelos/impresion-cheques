@@ -19,7 +19,7 @@
         <TextBox Height="28" HorizontalAlignment="Right" Margin="0,114,12,0" Name="textBoxMonto" VerticalAlignment="Top" Width="118" TextAlignment="Right" FontSize="14" MaxLength="15" TextChanged="textBoxMonto_TextChanged" PreviewKeyDown="textBoxMonto_PreviewKeyDown" />
         <!--<TextBox Height="28" HorizontalAlignment="Stretch" Margin="12,182,12,0" Name="textBoxPaguese" VerticalAlignment="Top" />                -->
         <my:AutoCompleteTextBox Height="28" HorizontalAlignment="Stretch" Margin="12,182,12,0" x:Name="textBoxPaguese" VerticalAlignment="Top" Threshold="2" PreviewKeyDown="textBoxPaguese_PreviewKeyDown" />
-        <TextBox Height="28" HorizontalAlignment="Stretch" Margin="12,250,12,0" Name="textBoxAlias" VerticalAlignment="Top" IsEnabled="False" MaxLength="12" PreviewKeyDown="textBoxAlias_PreviewKeyDown" />
+        <TextBox Height="28" HorizontalAlignment="Stretch" Margin="12,250,12,0" Name="textBoxAlias" VerticalAlignment="Top" IsEnabled="False" MaxLength="15" PreviewKeyDown="textBoxAlias_PreviewKeyDown" />
         <!--<ComboBox Height="28" HorizontalAlignment="Stretch" Margin="12,250,12,0" Name="comboBoxTipoCheque" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Foreground="Blue" />-->
         <my:AutoCompleteTextBox Height="28" HorizontalAlignment="Stretch" Margin="12,305,12,0" x:Name="textBoxConcepto" Threshold="2" VerticalAlignment="Top" PreviewKeyDown="textBoxConcepto_PreviewKeyDown" />
         <TextBlock Height="27" HorizontalAlignment="Stretch" Margin="12,368,12,0" Name="textBlockFormatoCheque" Text="Formato" VerticalAlignment="Top" Background="White" FontSize="14" TextAlignment="Center" Foreground="Blue" Padding="2" />
