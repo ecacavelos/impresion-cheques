@@ -141,5 +141,11 @@ namespace ChqPrint
             buttonGuardar.IsEnabled = true;
         }
 
+        private void dataGridClientes_UnloadingRow(object sender, DataGridRowEventArgs e)
+        {
+            // System.Console.WriteLine("Borramos.");            
+            buttonGuardar.IsEnabled = true;
+        }
+
     }
 }

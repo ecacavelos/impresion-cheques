@@ -59,7 +59,7 @@ namespace ChqPrint
                 textBoxAlias.IsEnabled = true;
             }
 
-            textBoxConcepto.SetTextBoxMaxLength(60);
+            textBoxConcepto.SetTextBoxMaxLength(55);
             // Agregamos la lista de sugerencias de Conceptos al AutoCompleteTextBox 'Concepto'.
             string esql_conceptos = "SELECT value c FROM Conceptos as c";
             var conceptosVar = database1Entities.CreateQuery<Conceptos>(esql_conceptos);
@@ -131,6 +131,8 @@ namespace ChqPrint
                 }
             }
 
+
+
             // Verificamos si el Cliente ingresado ya existe en la Base de Datos.
             string esql_clientes = String.Format("SELECT value c FROM Clientes as c WHERE c.Nombre == '{0}'", textBoxPaguese.Text);
             var clientesVar = database1Entities.CreateQuery<Clientes>(esql_clientes);
@@ -158,6 +160,26 @@ namespace ChqPrint
                     newCliente.Nombre = textBoxPaguese.Text;
                     newCliente.Alias = textBoxAlias.Text;
                     database1Entities.Clientes.AddObject(newCliente);
+                }
+            }
+            else
+            {
+                if (textBoxPaguese.Text.Length == 0)
+                {
+                    if (textBoxAlias.Text.Length > 0)
+                    {
+                        Clientes newCliente = new Clientes();
+                        // Si el ID no existe.
+                        if (newCliente.idCliente == 0)
+                        {
+                            var allClientesVar = database1Entities.CreateQuery<Clientes>("SELECT value c FROM Clientes as c");
+                            int newID = allClientesVar.ToList().Count + 1;
+                            newCliente.idCliente = newID;
+                        }
+                        newCliente.Nombre = textBoxPaguese.Text;
+                        newCliente.Alias = textBoxAlias.Text;
+                        database1Entities.Clientes.AddObject(newCliente);
+                    }
                 }
             }
 
@@ -199,6 +221,7 @@ namespace ChqPrint
                 return;
             }
 
+            System.Console.WriteLine(clientesVar.ToList().Count);
             // Si el receptor del cheque existe y fue individualizado.
             if (clientesVar.ToList().Count == 1)
             {
@@ -239,10 +262,19 @@ namespace ChqPrint
                 // Se intenta imprimir el Cheque.
                 if (Impresion.ImprimirCheque((DateTime)(tempCheque.Fecha), (long)tempCheque.Monto, tempCliente, tempCheque.concepto))
                 {
+                    // Se imprime el Cheque, agregamos un nuevo registro a la tabla 'Cheques'.
+
+                    try
+                    {
+                        database1Entities.Cheques.AddObject(tempCheque);
+                        database1Entities.SaveChanges();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Hubo un problema ingresando el Cheque. Por favor cierre la ventana e intente nuevamente.\nExcepción: " + ex.Message);
+                    }
+
                     System.Windows.MessageBox.Show("Se imprimió el Cheque.", "Impresión");
-                    // Luego de imprimir el Cheque, agregamos un nuevo registro a la tabla 'Cheques'.                    
-                    database1Entities.Cheques.AddObject(tempCheque);
-                    database1Entities.SaveChanges();
                     // Cerramos la ventana.
                     this.Close();
                 }

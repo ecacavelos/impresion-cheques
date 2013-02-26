@@ -8,7 +8,7 @@
     <Grid DataContext="{StaticResource clientesViewSource}">
         <Button Content="Cancelar" Height="26" HorizontalAlignment="Right" Margin="0,0,12,12" Name="buttonSalir" VerticalAlignment="Bottom" Width="120" Click="buttonSalir_Click" />
         <Label Content="Reporte de Clientes." Height="26" HorizontalAlignment="Stretch" Margin="12,0,264,12" Name="labelStatusBar" VerticalAlignment="Bottom" />
-        <DataGrid AutoGenerateColumns="False" Height="225" HorizontalAlignment="Stretch" Margin="12,12,12,0" Name="dataGridClientes" VerticalAlignment="Top" ItemsSource="{Binding}" IsReadOnly="False" HorizontalGridLinesBrush="DarkGray" VerticalGridLinesBrush="DarkGray" CanUserAddRows="True" CanUserDeleteRows="True" RowEditEnding="dataGridClientes_RowEditEnding">
+        <DataGrid AutoGenerateColumns="False" Height="225" HorizontalAlignment="Stretch" Margin="12,12,12,0" Name="dataGridClientes" VerticalAlignment="Top" ItemsSource="{Binding}" IsReadOnly="False" HorizontalGridLinesBrush="DarkGray" VerticalGridLinesBrush="DarkGray" CanUserAddRows="True" CanUserDeleteRows="True" RowEditEnding="dataGridClientes_RowEditEnding" UnloadingRow="dataGridClientes_UnloadingRow">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="nombreColumn" Binding="{Binding Path=Nombre}" Header="Nombre" MinWidth="110" />
                 <DataGridTextColumn x:Name="aliasColumn" Binding="{Binding Path=Alias}" Header="Alias" MinWidth="110" />

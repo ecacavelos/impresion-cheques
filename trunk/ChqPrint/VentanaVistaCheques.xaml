@@ -37,7 +37,7 @@
             <DataGrid.Columns>
                 <!--<DataGridTextColumn x:Name="idColumn" Binding="{Binding Path=idCheque}" Header="ID" />-->
                 <DataGridTextColumn x:Name="talonarioColumn" Binding="{Binding Path=Talonario}" Header="Talonario" MinWidth="110" IsReadOnly="True" />
-                <DataGridTextColumn x:Name="nroColumn" Binding="{Binding Path=nroCheque}" Header="Timbrado" MinWidth="110" IsReadOnly="True" />
+                <DataGridTextColumn x:Name="nroColumn" Binding="{Binding Path=nroCheque}" Header="Timbrado" MinWidth="110" />
                 <DataGridTextColumn x:Name="bancoColumn" Binding="{Binding Path=Banco}" Header="Banco" IsReadOnly="True" MinWidth="128" />
                 <DataGridTextColumn x:Name="fechaColumn" Binding="{Binding Path=Fecha, StringFormat=\{0:dd/MM/yyyy\}}" Header="Fecha" MinWidth="110" IsReadOnly="True" />
                 <DataGridTextColumn x:Name="montoColumn" Binding="{Binding Path=Monto}" Header="Monto" MinWidth="110" />
@@ -71,6 +71,6 @@
         <Button Content="Salir" Height="26" HorizontalAlignment="Right" Margin="0,0,12,12" Name="buttonSalir" VerticalAlignment="Bottom" Width="120" Click="buttonSalir_Click" />
         <Button Content="Guardar Cambios" Height="26" HorizontalAlignment="Right" Margin="0,0,138,12" Name="buttonGuardar" VerticalAlignment="Bottom" Width="120" Click="buttonGuardar_Click" IsEnabled="False" />
         <Button Content="Exportar..." Height="26" HorizontalAlignment="Right" Margin="0,0,264,12" Name="buttonExportar" VerticalAlignment="Bottom" Width="120" Click="buttonExportar_Click" IsEnabled="False" />
-        <Label Content="Reporte de Cheques." Height="26" HorizontalAlignment="Stretch" Margin="12,0,390,12" Name="labelStatusBar" VerticalAlignment="Bottom" />        
+        <Label Content="Reporte de Cheques." Height="26" HorizontalAlignment="Stretch" Margin="12,0,390,12" Name="labelStatusBar" VerticalAlignment="Bottom" />
     </Grid>
 </Window>

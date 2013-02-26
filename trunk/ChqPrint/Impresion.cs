@@ -12,6 +12,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using System.Printing;
+
 namespace ChqPrint
 {
     public static class Impresion
@@ -38,9 +40,10 @@ namespace ChqPrint
 
             // Creamos la pagina.
             FixedPage page1 = new FixedPage();
-            page1.Width = fixedDoc.DocumentPaginator.PageSize.Width;
-            page1.Height = fixedDoc.DocumentPaginator.PageSize.Height;
-            //page1.Height = 300;
+            //page1.Width = fixedDoc.DocumentPaginator.PageSize.Width;
+            //page1.Height = fixedDoc.DocumentPaginator.PageSize.Height;            
+            page1.Width = 96 * 8.66;
+            page1.Height = 96 * 2.99;
 
             // Agregamos los elementos del Cheque.
 
@@ -128,7 +131,7 @@ namespace ChqPrint
             chqTalonConcepto.Text = tempConcepto;
             chqTalonConcepto.Width = 90;
             chqTalonConcepto.TextWrapping = TextWrapping.Wrap;
-            chqTalonConcepto.LineHeight = 30;
+            //chqTalonConcepto.LineHeight = 30;
             page1.Children.Add(chqTalonConcepto);
             FixedPage.SetLeft(chqTalonConcepto, c2.CoordenadasImpresion.xTalonConcepto);
             FixedPage.SetTop(chqTalonConcepto, c2.CoordenadasImpresion.yTalonConcepto);
@@ -151,6 +154,16 @@ namespace ChqPrint
 
             DocumentPaginator aDocPage = ((IDocumentPaginatorSource)fixedDoc).DocumentPaginator;
             PrintDialog pDialog = new PrintDialog();
+
+            /*pDialog.PrintQueue = LocalPrintServer.GetDefaultPrintQueue();
+            pDialog.PrintTicket = pDialog.PrintQueue.DefaultPrintTicket;
+            pDialog.PrintTicket.PageMediaSize = new PageMediaSize(96 * 8.66, 96 * 2.99);
+
+            PrintCapabilities pCap = pDialog.PrintQueue.GetPrintCapabilities(pDialog.PrintTicket);
+            System.Console.WriteLine(pCap.PageImageableArea.ExtentWidth / 96);
+            System.Console.WriteLine();
+            System.Console.WriteLine(pCap.PageImageableArea.ExtentHeight / 96);
+            System.Console.WriteLine();*/
 
             // Display the dialog. This returns true if the user presses the Print button.
             Nullable<Boolean> print = pDialog.ShowDialog();
