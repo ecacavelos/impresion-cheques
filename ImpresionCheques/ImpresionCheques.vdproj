@@ -15,12 +15,6 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_18C8FCAD5F0D4D32AA9551E1D2C66DFE"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_1E2CDCB8753040C7B0AC4E00CE18769A"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -220,26 +214,6 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_18C8FCAD5F0D4D32AA9551E1D2C66DFE"
-            {
-            "SourcePath" = "8:..\\ChqPrint\\bin\\Debug\\itau.xml"
-            "TargetName" = "8:itau.xml"
-            "Tag" = "8:"
-            "Folder" = "8:_20EF090DFBBD4C418804C2C4DC7FEF9A"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1E2CDCB8753040C7B0AC4E00CE18769A"
             {
             "SourcePath" = "8:..\\ChqPrint\\check_icon.ico"
