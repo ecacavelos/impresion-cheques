@@ -83,7 +83,7 @@ namespace ChqPrint
         private void inicializarNroCheque()
         {
             // Hacemos un query a la base de datos para obtener todas los cheques.
-            string esql = String.Format("SELECT value c FROM Cheques as c WHERE c.Talonario = '{0}'", database1Entities.Talonarios.ToArray()[0].Nombre);
+            string esql = String.Format("SELECT value c FROM Cheques as c WHERE c.Talonario = '{0}' ORDER BY c.nroCheque", database1Entities.Talonarios.ToArray()[0].Nombre);
             var chequesVar = database1Entities.CreateQuery<Cheques>(esql);
 
             textBlockTalonario.Text = database1Entities.Talonarios.ToArray()[0].Nombre;
@@ -113,10 +113,9 @@ namespace ChqPrint
         // Función de Impresión.
         private void buttonImprimir_Click(object sender, RoutedEventArgs e)
         {
-
             long montoValidado = 0;
 
-            // Validamos el campo de "Monto"
+            // Validamos el campo de "Monto".
             if (textBoxMonto.Text.Length > 0)
             {
                 try
@@ -131,11 +130,11 @@ namespace ChqPrint
                 }
             }
 
-
-
             // Verificamos si el Cliente ingresado ya existe en la Base de Datos.
-            string esql_clientes = String.Format("SELECT value c FROM Clientes as c WHERE c.Nombre == '{0}'", textBoxPaguese.Text);
+            string esql_clientes = String.Format("SELECT value c FROM Clientes as c WHERE (c.Nombre == '{0}' AND c.Alias == '{1}')", textBoxPaguese.Text, textBoxAlias.Text);
+            System.Console.WriteLine(esql_clientes);
             var clientesVar = database1Entities.CreateQuery<Clientes>(esql_clientes);
+            System.Console.WriteLine(String.Format("Buscando clientes... {0} resultado(s).", clientesVar.ToList().Count));
 
             // Si el Cliente NO existe.
             if (clientesVar.ToList().Count == 0)
@@ -149,6 +148,7 @@ namespace ChqPrint
                 // Agregamos el nuevo Cliente a la Base de Datos.
                 else
                 {
+                    System.Console.WriteLine("Registrando el nuevo cliente...");
                     Clientes newCliente = new Clientes();
                     // Si el ID no existe.
                     if (newCliente.idCliente == 0)
@@ -162,45 +162,6 @@ namespace ChqPrint
                     database1Entities.Clientes.AddObject(newCliente);
                 }
             }
-            else
-            {
-                if (textBoxPaguese.Text.Length == 0)
-                {
-                    if (textBoxAlias.Text.Length > 0)
-                    {
-                        Clientes newCliente = new Clientes();
-                        // Si el ID no existe.
-                        if (newCliente.idCliente == 0)
-                        {
-                            var allClientesVar = database1Entities.CreateQuery<Clientes>("SELECT value c FROM Clientes as c");
-                            int newID = allClientesVar.ToList().Count + 1;
-                            newCliente.idCliente = newID;
-                        }
-                        newCliente.Nombre = textBoxPaguese.Text;
-                        newCliente.Alias = textBoxAlias.Text;
-                        database1Entities.Clientes.AddObject(newCliente);
-                    }
-                }
-            }
-
-            /*
-            // Verificamos si el Concepto ingresado ya existe en la Base de Datos.
-            string esql_conceptos = String.Format("SELECT value c FROM Conceptos as c WHERE c.Descripcion == '{0}'", textBoxConcepto.Text);
-            var conceptosVar = database1Entities.CreateQuery<Conceptos>(esql_conceptos);
-
-            if (conceptosVar.ToList().Count == 0)
-            {
-                Conceptos newConcepto = new Conceptos();
-                if (newConcepto.idConcepto == 0)
-                {
-                    var allConceptosVar = database1Entities.CreateQuery<Conceptos>("SELECT value c FROM Conceptos as c");
-                    int newID = allConceptosVar.ToList().Count + 1;
-                    newConcepto.idConcepto = newID;
-                }
-                newConcepto.Descripcion = textBoxConcepto.Text;
-                database1Entities.Conceptos.AddObject(newConcepto);
-            }
-            */
 
             // Grabamos el nuevo Cliente y el nuevo Concepto si hiciese falta.
             database1Entities.SaveChanges();
@@ -221,7 +182,9 @@ namespace ChqPrint
                 return;
             }
 
-            System.Console.WriteLine(clientesVar.ToList().Count);
+            clientesVar = database1Entities.CreateQuery<Clientes>(esql_clientes);
+            System.Console.WriteLine(String.Format("Individualizando cliente... {0} resultado(s).", clientesVar.ToList().Count));
+
             // Si el receptor del cheque existe y fue individualizado.
             if (clientesVar.ToList().Count == 1)
             {
@@ -259,33 +222,61 @@ namespace ChqPrint
                     tempCheque.Estado = "Emitido";
                 }
 
-                // Se intenta imprimir el Cheque.
-                if (Impresion.ImprimirCheque((DateTime)(tempCheque.Fecha), (long)tempCheque.Monto, tempCliente, tempCheque.concepto))
+                if (checkBoxImprimir.IsChecked == true)
                 {
-                    // Se imprime el Cheque, agregamos un nuevo registro a la tabla 'Cheques'.
+                    // Se intenta imprimir el Cheque.
+                    if (Impresion.ImprimirCheque((DateTime)(tempCheque.Fecha), (long)tempCheque.Monto, tempCliente, tempCheque.concepto))
+                    {
+                        // Se imprime el Cheque, agregamos un nuevo registro a la tabla 'Cheques'.
 
+                        try
+                        {
+                            database1Entities.Cheques.AddObject(tempCheque);
+                            database1Entities.SaveChanges();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Hubo un problema ingresando el Cheque a la Base de Datos. Por favor cierre la ventana e intente nuevamente.\nExcepción: " + ex.Message);
+                        }
+
+                        System.Windows.MessageBox.Show("Se imprimió el Cheque.", "Impresión");
+                        // Cerramos la ventana.
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se imprimió el Cheque.");
+                    }
+                }
+                else
+                {
+                    // Esperamos confirmación de que no se desea imprimir el cheque, sólo guardarlo.
+                    MessageBoxResult result = MessageBox.Show("Está seguro de que no desea imprimir el Cheque?", "Sólo Guardar", MessageBoxButton.YesNo);
+                    if (result == MessageBoxResult.No)
+                    {
+                        return;
+                    }
+                    // Intentamos guardar el cheque en la Base de Datos.
                     try
                     {
                         database1Entities.Cheques.AddObject(tempCheque);
                         database1Entities.SaveChanges();
+
+                        System.Windows.MessageBox.Show("Se guardó el Cheque.", "Impresión");
+                        // Cerramos la ventana.
+                        this.Close();
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Hubo un problema ingresando el Cheque. Por favor cierre la ventana e intente nuevamente.\nExcepción: " + ex.Message);
+                        MessageBox.Show("Hubo un problema ingresando el Cheque a la Base de Datos. Por favor cierre la ventana e intente nuevamente.\nExcepción: " + ex.Message);
                     }
 
-                    System.Windows.MessageBox.Show("Se imprimió el Cheque.", "Impresión");
-                    // Cerramos la ventana.
-                    this.Close();
                 }
-                else
-                {
-                    MessageBox.Show("No se imprimió el Cheque.");
-                }
+
             }
             else
             {
-                MessageBox.Show("No se pudo determinar el receptor del Cheque.");
+                MessageBox.Show(String.Format("No se pudo determinar el receptor del Cheque.\n{0} posible(s) receptore(s).", clientesVar.ToList().Count));
             }
 
         }
@@ -342,14 +333,30 @@ namespace ChqPrint
 
                 if (textBoxAlias.IsEnabled == true)
                 {
+                    System.Console.WriteLine(String.Format("{0} resultado(s) posible(s).", clientesVar.ToList().Count));
+                    // Si no hay clientes con ese nombre.
                     if (clientesVar.ToList().Count == 0)
                     {
                         textBoxAlias.Focus();
                     }
+                    // Si existe un cliente con dicho nombre.
                     if (clientesVar.ToList().Count == 1)
                     {
-                        textBoxAlias.Text = clientesVar.ToArray()[0].Alias;
-                        textBoxConcepto.FocusTextBox();
+                        // Si el Alias no está en blanco.
+                        if (clientesVar.ToArray()[0].Alias.Length > 0)
+                        {
+                            textBoxAlias.Text = clientesVar.ToArray()[0].Alias;
+                            textBoxConcepto.FocusTextBox();
+                        }
+                        // Si el Alias está en blanco hacemos focus en el textbox correspondiente.
+                        else
+                        {
+                            textBoxAlias.Focus();
+                        }
+                    }
+                    if (clientesVar.ToList().Count > 1)
+                    {
+                        textBoxAlias.Focus();
                     }
                 }
                 else
@@ -400,6 +407,16 @@ namespace ChqPrint
         }
 
         #endregion
+
+        private void checkBoxImprimir_Checked(object sender, RoutedEventArgs e)
+        {
+            buttonImprimir.Content = "Imprimir";
+        }
+
+        private void checkBoxImprimir_Unchecked(object sender, RoutedEventArgs e)
+        {
+            buttonImprimir.Content = "Guardar";
+        }
 
     }
 }

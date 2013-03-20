@@ -373,6 +373,7 @@ namespace ChqPrint
                 }
             }
 
+            esql += String.Format(" ORDER BY c.nroCheque");
             System.Console.WriteLine(esql);
 
             var chequesVar = database1Entities.CreateQuery<Cheques>(esql);
@@ -392,7 +393,9 @@ namespace ChqPrint
 
         private void eliminarFiltros(bool firstTime)
         {
-            string esql = "SELECT value c FROM Cheques as c";
+            string esql = "SELECT value c FROM Cheques as c ORDER BY c.nroCheque";
+            System.Console.WriteLine(esql);
+
             var pagosVar = database1Entities.CreateQuery<Cheques>(esql);
             dataGridCheques.ItemsSource = pagosVar;
 
@@ -440,6 +443,7 @@ namespace ChqPrint
             esql += " WHERE ";
             esql += String.Format("(c.nroCheque = '{0}')", textBoxTimbrado.Text);
 
+            esql += String.Format(" ORDER BY c.nroCheque");
             System.Console.WriteLine(esql);
 
             var chequesVar = database1Entities.CreateQuery<Cheques>(esql);
