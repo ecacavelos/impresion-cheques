@@ -227,21 +227,29 @@ namespace ChqPrint
                     // Se intenta imprimir el Cheque.
                     if (Impresion.ImprimirCheque((DateTime)(tempCheque.Fecha), (long)tempCheque.Monto, tempCliente, tempCheque.concepto))
                     {
-                        // Se imprime el Cheque, agregamos un nuevo registro a la tabla 'Cheques'.
 
-                        try
+                        MessageBoxResult result = MessageBox.Show("Se imprimió correctamente el Cheque?", "Impresión", MessageBoxButton.YesNo);
+                        if (result == MessageBoxResult.Yes)
                         {
-                            database1Entities.Cheques.AddObject(tempCheque);
-                            database1Entities.SaveChanges();
+                            // Se imprime el Cheque, agregamos un nuevo registro a la tabla 'Cheques'.
+                            try
+                            {
+                                database1Entities.Cheques.AddObject(tempCheque);
+                                database1Entities.SaveChanges();
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Hubo un problema ingresando el Cheque a la Base de Datos. Por favor cierre la ventana e intente nuevamente.\nExcepción: " + ex.Message);
+                            }
+
+                            // Cerramos la ventana.
+                            this.Close();
                         }
-                        catch (Exception ex)
+                        else
                         {
-                            MessageBox.Show("Hubo un problema ingresando el Cheque a la Base de Datos. Por favor cierre la ventana e intente nuevamente.\nExcepción: " + ex.Message);
+                            MessageBox.Show("El usuario indicó que el Cheque no se imprimió correctamente.");
                         }
 
-                        System.Windows.MessageBox.Show("Se imprimió el Cheque.", "Impresión");
-                        // Cerramos la ventana.
-                        this.Close();
                     }
                     else
                     {
