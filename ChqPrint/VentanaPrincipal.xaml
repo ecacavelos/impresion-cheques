@@ -35,7 +35,7 @@
             <Button Content="Imprimir" Name="buttonPrint" FontStretch="Normal" FontWeight="Bold" FontSize="16" HorizontalAlignment="Stretch" Width="134" Click="buttonPrint_Click" />
         </ToolBar>
         <Label Content="---" Height="28" HorizontalAlignment="Right" Margin="0,0,12,46" Name="labelStatusMain" VerticalAlignment="Bottom" HorizontalContentAlignment="Right" Grid.Row="1" FontSize="14" FontWeight="Bold" Foreground="Black" />
-        <Label Content="Versión 0.1.2 (r12042013)" Grid.Row="1" Height="28" HorizontalAlignment="Right" Margin="0,0,12,12" Name="labelStatusSecondary" VerticalAlignment="Bottom" />
+        <Label Content="Versión 0.1.3 (r31072013)" Grid.Row="1" Height="28" HorizontalAlignment="Right" Margin="0,0,12,12" Name="labelStatusSecondary" VerticalAlignment="Bottom" />
         <Label Content="Exportar Habilitado" Height="28" HorizontalAlignment="Left" Margin="12,0,0,12" Name="labelAdmin" VerticalAlignment="Bottom" Grid.Row="1" Visibility="Collapsed" />
     </Grid>
 </Window>
