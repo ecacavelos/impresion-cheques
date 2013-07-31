@@ -282,7 +282,7 @@ namespace ChqPrint
 
         private void autoCompleteTextBoxOrdenDe_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            System.Console.WriteLine(e.Key.ToString());
+            // System.Console.WriteLine(e.Key.ToString());
             if (e.Key.ToString() == "Down")
             {
                 e.Handled = true;

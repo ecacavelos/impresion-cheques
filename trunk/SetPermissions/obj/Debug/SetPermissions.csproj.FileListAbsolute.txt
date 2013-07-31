@@ -13,3 +13,7 @@ C:\Users\David\Desktop\chqPrintJFC\SetPermissions\bin\Debug\SetPermissions.pdb
 C:\Users\David\Desktop\chqPrintJFC\SetPermissions\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\David\Desktop\chqPrintJFC\SetPermissions\obj\Debug\SetPermissions.dll
 C:\Users\David\Desktop\chqPrintJFC\SetPermissions\obj\Debug\SetPermissions.pdb
+C:\Users\David\Documents\Varios\chqPrintJFC\SetPermissions\bin\Debug\SetPermissions.dll
+C:\Users\David\Documents\Varios\chqPrintJFC\SetPermissions\bin\Debug\SetPermissions.pdb
+C:\Users\David\Documents\Varios\chqPrintJFC\SetPermissions\obj\Debug\SetPermissions.dll
+C:\Users\David\Documents\Varios\chqPrintJFC\SetPermissions\obj\Debug\SetPermissions.pdb

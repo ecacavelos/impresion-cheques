@@ -18,6 +18,8 @@ using System.Data.SqlClient;
 using System.Xml;
 using System.Configuration;
 
+using System.IO;
+
 namespace ChqPrint
 {
     /// <summary>
@@ -44,10 +46,37 @@ namespace ChqPrint
         private Window ventanaVistaCheques = new Window();
         private Window ventanaImprimirCheques = new Window();
 
+        FileStream ostrm;
+        StreamWriter writer;
+
         #region "Funciones relativas a la Inicializacion, Carga y Descarga de la Ventana"
 
         public VentanaPrincipal()
         {
+            /* Se configura la consola para escribir a un archivo de texto. */
+
+            TextWriter oldOut = Console.Out;
+            try
+            {
+                ostrm = new FileStream("./ConsoleLog.txt", FileMode.Append, FileAccess.Write);
+                writer = new StreamWriter(ostrm);
+                writer.AutoFlush = true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Cannot open ConsoleLog.txt for writing");
+                Console.WriteLine(e.Message);
+                return;
+            }
+            Console.SetOut(writer);
+            Console.WriteLine();
+            Console.WriteLine("Started ChqPrint Text Log - " + DateTime.Now.ToString());
+
+            /* Console.SetOut(oldOut);
+            writer.Close();
+            ostrm.Close();
+            Console.WriteLine("Text Console Done."); */
+
             /* Se intenta leer el archivo de Configuración, antes de mostrar las ventanas.
              * Si el archivo 'config.xml' no existe o no posee la sintaxis correcta, 
              * se arrojan y manejan las excepciones correspondientes. */
@@ -113,6 +142,8 @@ namespace ChqPrint
 
         private void Window_Closed(object sender, EventArgs e)
         {
+            writer.Close();
+            ostrm.Close();
             Application.Current.Shutdown(); // Cerrar la Aplicación Entera.
         }
 
